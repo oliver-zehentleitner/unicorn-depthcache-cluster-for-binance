@@ -4,18 +4,18 @@
 # File: dev/sphinx/create_docs.sh
 #
 # Part of ‘UNICORN Binance Local Depth Cache’
-# Project website: https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html
-# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance
-# Documentation: https://unicorn-binance-depth-cache-cluster.docs.lucit.tech
+# Project website: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
+# Github: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
+# Documentation: https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance
 # PyPI: https://pypi.org/project/unicorn-binance-depth-cache-cluster
-# LUCIT Online Shop: https://shop.lucit.services/software
+# LUCIT Online Shop: https://github.com/oliver-zehentleitner
 #
-# License: LSOSL - LUCIT Synergetic Open Source License
-# https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
+# License: MIT
+# https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
 #
-# Author: LUCIT Systems and Development
+# Author: Oliver Zehentleitner
 #
-# Copyright (c) 2022-2023, LUCIT Systems and Development (https://www.lucit.tech)
+# Copyright (c) 2022-2023, Oliver Zehentleitner (https://about.me/oliver-zehentleitner)
 # All rights reserved.
 
 rm dev/sphinx/source/changelog.md
@@ -39,4 +39,4 @@ rm build/html
 ln -s ../../../docs build/html
 make html -d
 echo "Creating CNAME file for GitHub."
-echo "unicorn-depthcache-cluster-for-binance.docs.lucit.tech" >> build/html/CNAME
+echo "oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance" >> build/html/CNAME

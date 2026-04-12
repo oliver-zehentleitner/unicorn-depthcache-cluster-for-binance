@@ -1,0 +1,59 @@
+name: Build and Publish PyPi (ubdcc-dcn)
+
+on:
+  workflow_dispatch:
+    branches:
+      - master
+
+jobs:
+  build_wheels:
+    name: Build Linux wheels for Python 3.12
+    runs-on: ubuntu-20.04
+    env:
+      CIBW_BUILD: "cp312-*"
+      CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-* pp36-* pp37-* pp38-* pp39-* pp310-* pp311-*"
+    steps:
+      - name: Checkout specific directory
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
+          path: ubdcc-dcn
+          sparse-checkout: 'packages/ubdcc-dcn/'
+
+      - name: Move directory contents
+        run: |
+          mv ubdcc-dcn/packages/ubdcc-dcn/* ./
+          rm -rf ubdcc-dcn
+      - name: ls -l
+        run: ls -l
+
+      - name: Build wheels for Linux (Python 3.12)
+        uses: pypa/cibuildwheel@v2.16.5
+        env:
+          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-* pp36-* pp37-* pp38-* pp39-* pp310-* pp311-*"
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./wheelhouse/*.whl
+
+  Release:
+    needs: [build_wheels]
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: write
+      discussions: write
+      id-token: write
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: artifact
+          path: dist
+
+      - name: Create PyPi Release
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true
+          print-hash: true

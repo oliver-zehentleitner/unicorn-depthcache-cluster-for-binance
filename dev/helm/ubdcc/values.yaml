@@ -1,0 +1,11 @@
+
+name:
+  dcn: ubdcc-dcn
+  mgmt: ubdcc-mgmt
+  restapi: ubdcc-restapi
+
+replicaCount:
+  restapi: 3
+
+publicPort:
+  restapi: 80

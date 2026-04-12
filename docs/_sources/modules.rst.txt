@@ -5,7 +5,7 @@ Unicorn Depth Cache Cluster Modules
    :maxdepth: 2
    :caption: Available Modules
 
-   lucit_ubdcc_mgmt
-   lucit_ubdcc_restapi
-   lucit_ubdcc_dcn
-   lucit_ubdcc_shared_modules
+   ubdcc_mgmt
+   ubdcc_restapi
+   ubdcc_dcn
+   ubdcc_shared_modules

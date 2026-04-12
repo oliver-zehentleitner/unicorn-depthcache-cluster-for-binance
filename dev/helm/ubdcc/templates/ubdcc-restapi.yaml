@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+
+metadata:
+  name: {{ .Values.name.restapi }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    author: oliver-zehentleitner
+spec:
+  serviceName: {{ .Values.name.restapi }}
+  replicas: {{ .Values.replicaCount.restapi }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name.restapi }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name.restapi }}
+      annotations:
+        author: oliver-zehentleitner
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: {{ .Values.name.restapi }}
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: {{ .Values.name.restapi }}
+          image: "i018oau9.c1.de1.container-registry.ovh.net/library/ubdcc-restapi:{{ .Chart.AppVersion }}"
+          ports:
+            - name: rest-private
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /test
+              port: rest-private
+            initialDelaySeconds: 40
+          livenessProbe:
+            httpGet:
+              path: /test
+              port: rest-private
+            initialDelaySeconds: 40

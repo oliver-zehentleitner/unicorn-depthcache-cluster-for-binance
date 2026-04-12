@@ -1,22 +1,22 @@
 .idea
 config/main.ini
 
-container/generic_loader/lucit_ubdcc_dcn
-container/generic_loader/lucit_ubdcc_mgmt
-container/generic_loader/lucit_ubdcc_restapi
-container/generic_loader/lucit_ubdcc_shared_modules
+container/generic_loader/ubdcc_dcn
+container/generic_loader/ubdcc_mgmt
+container/generic_loader/ubdcc_restapi
+container/generic_loader/ubdcc_shared_modules
 
 dev/helm/*.tgz
 dev/helm/*.yaml
 
-packages/lucit-ubdcc-dcn/lucit_ubdcc_shared_modules
-packages/lucit-ubdcc-dcn/lucit_ubdcc_dcn/lucit_ubdcc_shared_modules
+packages/ubdcc-dcn/ubdcc_shared_modules
+packages/ubdcc-dcn/ubdcc_dcn/ubdcc_shared_modules
 
-packages/lucit-ubdcc-mgmt/lucit_ubdcc_shared_modules
-packages/lucit-ubdcc-mgmt/lucit_ubdcc_mgmt/lucit_ubdcc_shared_modules
+packages/ubdcc-mgmt/ubdcc_shared_modules
+packages/ubdcc-mgmt/ubdcc_mgmt/ubdcc_shared_modules
 
-packages/lucit-ubdcc-restapi/lucit_ubdcc_shared_modules
-packages/lucit-ubdcc-restapi/lucit_ubdcc_restapi/lucit_ubdcc_shared_modules
+packages/ubdcc-restapi/ubdcc_shared_modules
+packages/ubdcc-restapi/ubdcc_restapi/ubdcc_shared_modules
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -19,7 +19,7 @@ jobs:
         tag_name: 0.1.4
         name: Release 0.1.4
         body: |
-          Please read the [CHANGELOG](https://unicorn-depthcache-cluster-for-binance.docs.lucit.tech/changelog.html) for further information.
+          Please read the [CHANGELOG](https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance/changelog.html) for further information.
         draft: false
         prerelease: false
         token: ${{ secrets.GITHUB_TOKEN }}

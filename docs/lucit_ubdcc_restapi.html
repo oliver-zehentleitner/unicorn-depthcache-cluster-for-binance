@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>lucit_ubdcc_restapi package &#8212; unicorn-depthcache-cluster-for-binance 0.1.4 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ubdcc_restapi package &#8212; unicorn-depthcache-cluster-for-binance 0.1.4 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?v=fdf8e9ae" />
@@ -16,8 +16,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="lucit_ubdcc_dcn package" href="lucit_ubdcc_dcn.html" />
-    <link rel="prev" title="lucit_ubdcc_mgmt package" href="lucit_ubdcc_mgmt.html" /><link rel="shortcut icon" type="image/png" href="_static/lucit.png" />
+    <link rel="next" title="ubdcc_dcn package" href="ubdcc_dcn.html" />
+    <link rel="prev" title="ubdcc_mgmt package" href="ubdcc_mgmt.html" /><link rel="shortcut icon" type="image/png" href="_static/lucit.png" />
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     
     <script
@@ -49,8 +49,8 @@
         <nav class="menu" role="navigation" aria-label="main navigation">
             <p class="logo">
                 <div style="text-align: center;">
-                    <a href="https://www.lucit.tech"><img src="https://www.lucit.tech/files/images/logos/LUCIT-LOGO.png"></a><br>
-                    <a href="https://shop.lucit.services/software/unicorn-binance-suite" style="font-size: 0.85em;font-weight: 900">Get a UNICORN Binance Suite License!</a><br>
+                    <a href="https://about.me/oliver-zehentleitner"><img src="https://about.me/oliver-zehentleitner/files/images/logos/LUCIT-LOGO.png"></a><br>
+                    <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite" style="font-size: 0.85em;font-weight: 900">Get a UNICORN Binance Suite License!</a><br>
                     <br>
                     <a href="https://github.com/LUCIT-Systems-and-Development" target="_blank" style="text-decoration:none;"><img src="_static/icons8-github-20.png"></a>
                     <a href="https://fb.me/lucit.systems.and.development" target="_blank" style="text-decoration:none;"><img src="_static/icons8-facebook-20.png"></a>
@@ -64,32 +64,32 @@
   <div>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">lucit_ubdcc_restapi package</a><ul>
+<li><a class="reference internal" href="#">ubdcc_restapi package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-lucit_ubdcc_restapi.RestApi">lucit_ubdcc_restapi.RestApi module</a><ul>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestApi.RestApi"><code class="docutils literal notranslate"><span class="pre">RestApi</span></code></a><ul>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestApi.RestApi.main"><code class="docutils literal notranslate"><span class="pre">RestApi.main()</span></code></a></li>
+<li><a class="reference internal" href="#module-ubdcc_restapi.RestApi">ubdcc_restapi.RestApi module</a><ul>
+<li><a class="reference internal" href="#ubdcc_restapi.RestApi.RestApi"><code class="docutils literal notranslate"><span class="pre">RestApi</span></code></a><ul>
+<li><a class="reference internal" href="#ubdcc_restapi.RestApi.RestApi.main"><code class="docutils literal notranslate"><span class="pre">RestApi.main()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-lucit_ubdcc_restapi.RestEndpoints">lucit_ubdcc_restapi.RestEndpoints module</a><ul>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints"><code class="docutils literal notranslate"><span class="pre">RestEndpoints</span></code></a><ul>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcache"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.create_depthcache()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcaches"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.create_depthcaches()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_asks"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_asks()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_bids"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_bids()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_cluster_info"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_cluster_info()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_info"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_depthcache_info()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_list"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_depthcache_list()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.register"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.register()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.stop_depthcache"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.stop_depthcache()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.submit_license"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.submit_license()</span></code></a></li>
+<li><a class="reference internal" href="#module-ubdcc_restapi.RestEndpoints">ubdcc_restapi.RestEndpoints module</a><ul>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints"><code class="docutils literal notranslate"><span class="pre">RestEndpoints</span></code></a><ul>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcache"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.create_depthcache()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcaches"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.create_depthcaches()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_asks"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_asks()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_bids"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_bids()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_cluster_info"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_cluster_info()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_info"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_depthcache_info()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_list"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_depthcache_list()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.register"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.register()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.stop_depthcache"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.stop_depthcache()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.submit_license"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.submit_license()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-lucit_ubdcc_restapi">Module contents</a></li>
+<li><a class="reference internal" href="#module-ubdcc_restapi">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -97,18 +97,18 @@
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="lucit_ubdcc_mgmt.html"
-                          title="previous chapter">lucit_ubdcc_mgmt package</a></p>
+    <p class="topless"><a href="ubdcc_mgmt.html"
+                          title="previous chapter">ubdcc_mgmt package</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="lucit_ubdcc_dcn.html"
-                          title="next chapter">lucit_ubdcc_dcn package</a></p>
+    <p class="topless"><a href="ubdcc_dcn.html"
+                          title="next chapter">ubdcc_dcn package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/lucit_ubdcc_restapi.rst.txt"
+      <li><a href="_sources/ubdcc_restapi.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -125,24 +125,24 @@
 <div role="note" aria-label="source code">
     <h3>GitHub</h3>
     <ul class="this-page-menu">
-      <li><a href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance">Show Source</a></li>
+      <li><a href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance">Show Source</a></li>
       
 <li>
-<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance"
+<a class="github-button" href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance"
    data-icon="octicon-star" data-show-count="true"
-   aria-label="Star LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Star</a>
+   aria-label="Star oliver-zehentleitner/unicorn-depthcache-cluster-for-binance on GitHub">Star</a>
 <br />
-<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/subscription"
+<a class="github-button" href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/subscription"
    data-icon="octicon-eye" data-show-count="true"
-   aria-label="Watch LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Watch</a>
+   aria-label="Watch oliver-zehentleitner/unicorn-depthcache-cluster-for-binance on GitHub">Watch</a>
 <br />
-<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/fork"
+<a class="github-button" href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/fork"
    data-icon="octicon-repo-forked" data-show-count="true"
-   aria-label="Fork LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Fork</a>
+   aria-label="Fork oliver-zehentleitner/unicorn-depthcache-cluster-for-binance on GitHub">Fork</a>
 <br />
-<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues"
+<a class="github-button" href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/issues"
    data-icon="octicon-issue-opened"
-   data-show-count="true" aria-label="Issue LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Issue</a>
+   data-show-count="true" aria-label="Issue oliver-zehentleitner/unicorn-depthcache-cluster-for-binance on GitHub">Issue</a>
     
 </li>
 
@@ -162,10 +162,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="lucit_ubdcc_dcn.html" title="lucit_ubdcc_dcn package"
+          <a href="ubdcc_dcn.html" title="ubdcc_dcn package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="lucit_ubdcc_mgmt.html" title="lucit_ubdcc_mgmt package"
+          <a href="ubdcc_mgmt.html" title="ubdcc_mgmt package"
              accesskey="P">previous</a> |</li>
               
                   
@@ -173,14 +173,14 @@
               <li><img src="_static/lucit.png" alt="LUCIT Logo"
                        style="vertical-align: middle; margin-top: -1px"/></li>
               <li><a href="https://docs.lucit.tech">Docs Index</a> | </li>
-              <li><a href="https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html">unicorn-depthcache-cluster-for-binance</a> &#187;</li>
+              <li><a href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance">unicorn-depthcache-cluster-for-binance</a> &#187;</li>
                   
               
               
               <a href="index.html">Docs</a> &#187;
               
           <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">Unicorn Depth Cache Cluster Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">lucit_ubdcc_restapi package</a></li>
+        <li class="nav-item nav-item-this"><a href="">ubdcc_restapi package</a></li>
                 <li class="right">
                     
 
@@ -203,86 +203,86 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="lucit-ubdcc-restapi-package">
-<h1>lucit_ubdcc_restapi package<a class="headerlink" href="#lucit-ubdcc-restapi-package" title="Link to this heading">¶</a></h1>
+  <section id="ubdcc-restapi-package">
+<h1>ubdcc_restapi package<a class="headerlink" href="#ubdcc-restapi-package" title="Link to this heading">¶</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="module-lucit_ubdcc_restapi.RestApi">
-<span id="lucit-ubdcc-restapi-restapi-module"></span><h2>lucit_ubdcc_restapi.RestApi module<a class="headerlink" href="#module-lucit_ubdcc_restapi.RestApi" title="Link to this heading">¶</a></h2>
+<section id="module-ubdcc_restapi.RestApi">
+<span id="ubdcc-restapi-restapi-module"></span><h2>ubdcc_restapi.RestApi module<a class="headerlink" href="#module-ubdcc_restapi.RestApi" title="Link to this heading">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestApi.RestApi">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lucit_ubdcc_restapi.RestApi.</span></span><span class="sig-name descname"><span class="pre">RestApi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestApi.html#RestApi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestApi.RestApi" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.ServiceBase.ServiceBase" title="lucit_ubdcc_shared_modules.ServiceBase.ServiceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServiceBase</span></code></a></p>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestApi.RestApi">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ubdcc_restapi.RestApi.</span></span><span class="sig-name descname"><span class="pre">RestApi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cwd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestApi.html#RestApi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestApi.RestApi" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ubdcc_shared_modules.html#ubdcc_shared_modules.ServiceBase.ServiceBase" title="ubdcc_shared_modules.ServiceBase.ServiceBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServiceBase</span></code></a></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestApi.RestApi.main">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestApi.html#RestApi.main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestApi.RestApi.main" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestApi.RestApi.main">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestApi.html#RestApi.main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestApi.RestApi.main" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </section>
-<section id="module-lucit_ubdcc_restapi.RestEndpoints">
-<span id="lucit-ubdcc-restapi-restendpoints-module"></span><h2>lucit_ubdcc_restapi.RestEndpoints module<a class="headerlink" href="#module-lucit_ubdcc_restapi.RestEndpoints" title="Link to this heading">¶</a></h2>
+<section id="module-ubdcc_restapi.RestEndpoints">
+<span id="ubdcc-restapi-restendpoints-module"></span><h2>ubdcc_restapi.RestEndpoints module<a class="headerlink" href="#module-ubdcc_restapi.RestEndpoints" title="Link to this heading">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestEndpoints.RestEndpoints">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lucit_ubdcc_restapi.RestEndpoints.</span></span><span class="sig-name descname"><span class="pre">RestEndpoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestEndpoints.html#RestEndpoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.RestEndpointsBase.RestEndpointsBase" title="lucit_ubdcc_shared_modules.RestEndpointsBase.RestEndpointsBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">RestEndpointsBase</span></code></a></p>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ubdcc_restapi.RestEndpoints.</span></span><span class="sig-name descname"><span class="pre">RestEndpoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ubdcc_shared_modules.html#ubdcc_shared_modules.RestEndpointsBase.RestEndpointsBase" title="ubdcc_shared_modules.RestEndpointsBase.RestEndpointsBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">RestEndpointsBase</span></code></a></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcache">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_depthcache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestEndpoints.html#RestEndpoints.create_depthcache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcache" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcache">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_depthcache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.create_depthcache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcache" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcaches">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_depthcaches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestEndpoints.html#RestEndpoints.create_depthcaches"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcaches" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcaches">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_depthcaches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.create_depthcaches"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcaches" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_asks">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_asks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestEndpoints.html#RestEndpoints.get_asks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_asks" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.get_asks">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_asks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.get_asks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_asks" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_bids">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_bids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestEndpoints.html#RestEndpoints.get_bids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_bids" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.get_bids">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_bids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.get_bids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_bids" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_cluster_info">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_cluster_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestEndpoints.html#RestEndpoints.get_cluster_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_cluster_info" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.get_cluster_info">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_cluster_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.get_cluster_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_cluster_info" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_info">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_depthcache_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestEndpoints.html#RestEndpoints.get_depthcache_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_info" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_info">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_depthcache_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.get_depthcache_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_info" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_list">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_depthcache_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestEndpoints.html#RestEndpoints.get_depthcache_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_list" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_list">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_depthcache_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.get_depthcache_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_list" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.register">
-<span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestEndpoints.html#RestEndpoints.register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.register" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.register">
+<span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.register" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.stop_depthcache">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stop_depthcache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestEndpoints.html#RestEndpoints.stop_depthcache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.stop_depthcache" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.stop_depthcache">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stop_depthcache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.stop_depthcache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.stop_depthcache" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.submit_license">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">submit_license</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lucit_ubdcc_restapi/RestEndpoints.html#RestEndpoints.submit_license"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.submit_license" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.submit_license">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">submit_license</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.submit_license"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.submit_license" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </section>
-<section id="module-lucit_ubdcc_restapi">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lucit_ubdcc_restapi" title="Link to this heading">¶</a></h2>
+<section id="module-ubdcc_restapi">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ubdcc_restapi" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -295,8 +295,8 @@
         <div class="sphinxsidebarwrapper">
             <p class="logo">
                 <div style="text-align: center;">
-                    <a href="https://www.lucit.tech"><img src="https://www.lucit.tech/files/images/logos/LUCIT-LOGO.png"></a><br>
-                    <a href="https://shop.lucit.services/software/unicorn-binance-suite" style="font-size: 0.85em;font-weight: 900">Get a UNICORN Binance Suite License!</a><br>
+                    <a href="https://about.me/oliver-zehentleitner"><img src="https://about.me/oliver-zehentleitner/files/images/logos/LUCIT-LOGO.png"></a><br>
+                    <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite" style="font-size: 0.85em;font-weight: 900">Get a UNICORN Binance Suite License!</a><br>
                     <br>
                     <a href="https://github.com/LUCIT-Systems-and-Development" target="_blank" style="text-decoration:none;"><img src="_static/icons8-github-20.png"></a>
                     <a href="https://fb.me/lucit.systems.and.development" target="_blank" style="text-decoration:none;"><img src="_static/icons8-facebook-20.png"></a>
@@ -310,32 +310,32 @@
   <div>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
-<li><a class="reference internal" href="#">lucit_ubdcc_restapi package</a><ul>
+<li><a class="reference internal" href="#">ubdcc_restapi package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-lucit_ubdcc_restapi.RestApi">lucit_ubdcc_restapi.RestApi module</a><ul>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestApi.RestApi"><code class="docutils literal notranslate"><span class="pre">RestApi</span></code></a><ul>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestApi.RestApi.main"><code class="docutils literal notranslate"><span class="pre">RestApi.main()</span></code></a></li>
+<li><a class="reference internal" href="#module-ubdcc_restapi.RestApi">ubdcc_restapi.RestApi module</a><ul>
+<li><a class="reference internal" href="#ubdcc_restapi.RestApi.RestApi"><code class="docutils literal notranslate"><span class="pre">RestApi</span></code></a><ul>
+<li><a class="reference internal" href="#ubdcc_restapi.RestApi.RestApi.main"><code class="docutils literal notranslate"><span class="pre">RestApi.main()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-lucit_ubdcc_restapi.RestEndpoints">lucit_ubdcc_restapi.RestEndpoints module</a><ul>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints"><code class="docutils literal notranslate"><span class="pre">RestEndpoints</span></code></a><ul>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcache"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.create_depthcache()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcaches"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.create_depthcaches()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_asks"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_asks()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_bids"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_bids()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_cluster_info"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_cluster_info()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_info"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_depthcache_info()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_list"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_depthcache_list()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.register"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.register()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.stop_depthcache"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.stop_depthcache()</span></code></a></li>
-<li><a class="reference internal" href="#lucit_ubdcc_restapi.RestEndpoints.RestEndpoints.submit_license"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.submit_license()</span></code></a></li>
+<li><a class="reference internal" href="#module-ubdcc_restapi.RestEndpoints">ubdcc_restapi.RestEndpoints module</a><ul>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints"><code class="docutils literal notranslate"><span class="pre">RestEndpoints</span></code></a><ul>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcache"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.create_depthcache()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcaches"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.create_depthcaches()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_asks"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_asks()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_bids"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_bids()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_cluster_info"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_cluster_info()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_info"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_depthcache_info()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_list"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_depthcache_list()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.register"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.register()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.stop_depthcache"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.stop_depthcache()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.submit_license"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.submit_license()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-lucit_ubdcc_restapi">Module contents</a></li>
+<li><a class="reference internal" href="#module-ubdcc_restapi">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -343,18 +343,18 @@
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="lucit_ubdcc_mgmt.html"
-                          title="previous chapter">lucit_ubdcc_mgmt package</a></p>
+    <p class="topless"><a href="ubdcc_mgmt.html"
+                          title="previous chapter">ubdcc_mgmt package</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="lucit_ubdcc_dcn.html"
-                          title="next chapter">lucit_ubdcc_dcn package</a></p>
+    <p class="topless"><a href="ubdcc_dcn.html"
+                          title="next chapter">ubdcc_dcn package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/lucit_ubdcc_restapi.rst.txt"
+      <li><a href="_sources/ubdcc_restapi.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -371,24 +371,24 @@
 <div role="note" aria-label="source code">
     <h3>GitHub</h3>
     <ul class="this-page-menu">
-      <li><a href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance">Show Source</a></li>
+      <li><a href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance">Show Source</a></li>
       
 <li>
-<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance"
+<a class="github-button" href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance"
    data-icon="octicon-star" data-show-count="true"
-   aria-label="Star LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Star</a>
+   aria-label="Star oliver-zehentleitner/unicorn-depthcache-cluster-for-binance on GitHub">Star</a>
 <br />
-<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/subscription"
+<a class="github-button" href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/subscription"
    data-icon="octicon-eye" data-show-count="true"
-   aria-label="Watch LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Watch</a>
+   aria-label="Watch oliver-zehentleitner/unicorn-depthcache-cluster-for-binance on GitHub">Watch</a>
 <br />
-<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/fork"
+<a class="github-button" href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/fork"
    data-icon="octicon-repo-forked" data-show-count="true"
-   aria-label="Fork LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Fork</a>
+   aria-label="Fork oliver-zehentleitner/unicorn-depthcache-cluster-for-binance on GitHub">Fork</a>
 <br />
-<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues"
+<a class="github-button" href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/issues"
    data-icon="octicon-issue-opened"
-   data-show-count="true" aria-label="Issue LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Issue</a>
+   data-show-count="true" aria-label="Issue oliver-zehentleitner/unicorn-depthcache-cluster-for-binance on GitHub">Issue</a>
     
 </li>
 
@@ -408,10 +408,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="lucit_ubdcc_dcn.html" title="lucit_ubdcc_dcn package"
+          <a href="ubdcc_dcn.html" title="ubdcc_dcn package"
              >next</a> |</li>
         <li class="right" >
-          <a href="lucit_ubdcc_mgmt.html" title="lucit_ubdcc_mgmt package"
+          <a href="ubdcc_mgmt.html" title="ubdcc_mgmt package"
              >previous</a> |</li>
               
                   
@@ -419,14 +419,14 @@
               <li><img src="_static/lucit.png" alt="LUCIT Logo"
                        style="vertical-align: middle; margin-top: -1px"/></li>
               <li><a href="https://docs.lucit.tech">Docs Index</a> | </li>
-              <li><a href="https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html">unicorn-depthcache-cluster-for-binance</a> &#187;</li>
+              <li><a href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance">unicorn-depthcache-cluster-for-binance</a> &#187;</li>
                   
               
               
               <a href="index.html">Docs</a> &#187;
               
           <li class="nav-item nav-item-1"><a href="modules.html" >Unicorn Depth Cache Cluster Modules</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">lucit_ubdcc_restapi package</a></li>
+        <li class="nav-item nav-item-this"><a href="">ubdcc_restapi package</a></li>
                 <li class="right">
                     
 
@@ -445,14 +445,14 @@
     </div>  
     <div class="footer">
     <a href="https://docs.lucit.tech">Index of all LUCIT Software Documentation</a><br />
-    &copy; <a href="/license.html">Copyright</a> 2022-2023, LUCIT Systems and Development. All Rights Reserved..
+    &copy; <a href="/license.html">Copyright</a> 2022-2023, Oliver Zehentleitner. All Rights Reserved..
     See <a href="/license.html">License</a> for more information.<br />
     Last updated on Oct 28 2024 at 15:30 (CET).
-    <a href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues/new/choose">Found a bug</a>?
+    <a href="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/issues/new/choose">Found a bug</a>?
     <br />
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
         with <a href="https://github.com/LUCIT-Systems-and-Development/python-docs-theme-lucit">python-docs-theme-lucit</a>
-        by <a href="https://www.lucit.tech">LUCIT Systems and Development</a>.
+        by <a href="https://about.me/oliver-zehentleitner">Oliver Zehentleitner</a>.
     </div>
     
     <img referrerpolicy="no-referrer-when-downgrade" src="https://webmon.lucit.services/matomo.php?idsite=12&amp;rec=1" style="border:0" alt="" />

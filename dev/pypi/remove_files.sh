@@ -4,18 +4,18 @@
 # File: pypi/remove_files.sh
 #
 # Part of ‘UNICORN Binance WebSocket API’
-# Project website: https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html
-# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance
-# Documentation: https://unicorn-depthcache-cluster-for-binance.docs.lucit.tech
+# Project website: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
+# Github: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
+# Documentation: https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance
 # PyPI: https://pypi.org/project/unicorn-depthcache-cluster-for-binance
-# LUCIT Online Shop: https://shop.lucit.services/software
+# LUCIT Online Shop: https://github.com/oliver-zehentleitner
 #
-# License: LSOSL - LUCIT Synergetic Open Source License
-# https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
+# License: MIT
+# https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
 #
-# Author: LUCIT Systems and Development
+# Author: Oliver Zehentleitner
 #
-# Copyright (c) 2019-2024, LUCIT Systems and Development (https://www.lucit.tech)
+# Copyright (c) 2019-2024, Oliver Zehentleitner (https://about.me/oliver-zehentleitner)
 # All rights reserved.
 
 set -xuo
@@ -25,7 +25,7 @@ rm ./dist -r
 rm ./wheelhouse -r
 rm ./*.egg-info -r
 
-rm lucit_ubdcc_mgmt/*.so
-rm lucit_ubdcc_mgmt/*.c
-rm lucit_ubdcc_shared_modules/*.so
-rm lucit_ubdcc_shared_modules/*.c
+rm ubdcc_mgmt/*.so
+rm ubdcc_mgmt/*.c
+rm ubdcc_shared_modules/*.so
+rm ubdcc_shared_modules/*.c

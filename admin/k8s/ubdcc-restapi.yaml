@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+
+metadata:
+  name: ubdcc-restapi
+  namespace: ubdcc
+  annotations:
+    author: oliver-zehentleitner
+spec:
+  serviceName: ubdcc-restapi
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ubdcc-restapi
+  template:
+    metadata:
+      labels:
+        app: ubdcc-restapi
+      annotations:
+        author: oliver-zehentleitner
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: ubdcc-restapi
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: ubdcc-restapi
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/ubdcc-restapi@sha256:16f2b8172ceb916bfea223cb863344500b5bc44495ab074ac18645dd7fa53729
+          ports:
+            - name: rest-private
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /test
+              port: rest-private
+            initialDelaySeconds: 40
+          livenessProbe:
+            httpGet:
+              path: /test
+              port: rest-private
+            initialDelaySeconds: 40

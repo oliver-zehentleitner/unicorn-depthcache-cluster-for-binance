@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ubdcc-dcn
+  namespace: ubdcc
+spec:
+  selector:
+    matchLabels:
+      app: ubdcc-dcn
+  template:
+    metadata:
+      labels:
+        app: ubdcc-dcn
+    spec:
+      containers:
+        - name: ubdcc-dcn
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/ubdcc-dcn@sha256:f7e2e1a961c9250431ee9fcb23ff4a28eaa640f1edc7ebd2f7a871e39699c2b9

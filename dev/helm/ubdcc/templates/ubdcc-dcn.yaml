@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ .Values.name.dcn }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.name.dcn }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name.dcn }}
+    spec:
+      containers:
+        - name: {{ .Values.name.dcn }}
+          image: "i018oau9.c1.de1.container-registry.ovh.net/library/ubdcc-dcn:{{ .Chart.AppVersion }}"

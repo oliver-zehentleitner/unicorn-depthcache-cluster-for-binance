@@ -1,4 +1,4 @@
-LSOSL - LUCIT Synergetic Open Source License
+MIT
 ============================================
 
 Version 1.0, November 2023
@@ -19,33 +19,33 @@ Version 1.0, November 2023
 1. INTRODUCTION
 
 The "LUCIT Synergetic Open Source License" oversees the utilization and distribution of the UNICORN Binance
-DepthCache Cluster and all its modules (lucit-ubdcc-dcn, lucit-ubdcc-mgmt, lucit-ubdcc-restapi,
-lucit-ubdcc-shared-modules) and Docker images (lucit-ubdcc-generic_loader) by LUCIT IT-Management GmbH.
+DepthCache Cluster and all its modules (ubdcc-dcn, ubdcc-mgmt, ubdcc-restapi,
+ubdcc-shared-modules) and Docker images (ubdcc-generic_loader) by LUCIT IT-Management GmbH.
 
 
 2. PROJECT INFORMATION
 
 - Project name: UNICORN Binance DepthCache Cluster
-- Project page: https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html
-- GitHub repository: https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance
+- Project page: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
+- GitHub repository: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
 - PyPI repository:
-    - https://pypi.org/project/lucit-ubdcc-dcn
-    - https://pypi.org/project/lucit-ubdcc-mgmt
-    - https://pypi.org/project/lucit-ubdcc-restapi
-    - https://pypi.org/project/lucit-ubdcc-shared-modules
+    - https://pypi.org/project/ubdcc-dcn
+    - https://pypi.org/project/ubdcc-mgmt
+    - https://pypi.org/project/ubdcc-restapi
+    - https://pypi.org/project/ubdcc-shared-modules
 
-- Get a license: https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance
+- Get a license: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
 
 
 3. LICENSE CONDITIONS AND VERIFICATION
 
 The use of UNICORN Binance DepthCache Cluster requires a license key and an API secret.
 
-Licenses are available at: https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance
+Licenses are available at: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
 
 Verification is done via a client-side module that forwards the license details to our backend for validation.
 The software may be used and distributed without restriction, the only condition is that the execution requires a valid
-license from LUCIT (https://shop.lucit.services/software) and must be operated with such a license.
+license from LUCIT (https://github.com/oliver-zehentleitner) and must be operated with such a license.
 
 For transparency, our licensing client module is available on GitHub:
 https://github.com/LUCIT-Systems-and-Development/lucit-licensing-python
@@ -55,7 +55,7 @@ https://github.com/LUCIT-Systems-and-Development/lucit-licensing-python
 
 Usage of the our software necessitates obtaining a license from the LUCIT Online Shop.
 
-More details can be found at: https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance
+More details can be found at: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
 
 
 5. CONTRIBUTING CODE
@@ -66,9 +66,9 @@ automatically becomes LUCIT IT-Management GmbH's property and copyright.
 
 6. USAGE AND DISTRIBUTION
 
-The LSOSL licensed projects of LUCIT IT-Management GmbH can be used and integrated into any application without
+The MIT licensed projects of LUCIT IT-Management GmbH can be used and integrated into any application without
 restriction and distributed as desired. The only condition is that the execution of our software requires a valid
-license from LUCIT (https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance) and must be operated
+license from LUCIT (https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance) and must be operated
 with such a license.
 
 For information on library versions that do not contain a license requirement, please contact: sales@lucit.tech
@@ -112,4 +112,4 @@ its sole discretion. Users are encouraged to review the license terms regularly 
 Thank you for selecting the UNICORN Binance DepthCache Cluster and products from LUCIT IT-Management GmbH. We deeply value
 your trust in our technologies.
 
-LUCIT IT-Management GmbH - Am Berg 391, 3970 Weitra, AUSTRIA - https://www.lucit.tech
+LUCIT IT-Management GmbH - Am Berg 391, 3970 Weitra, AUSTRIA - https://about.me/oliver-zehentleitner
