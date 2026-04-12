@@ -1,4 +1,4 @@
-# ubdcc-mgmt - LUCIT UBDCC Mgmt
+# ubdcc-mgmt Change Log
 
 ## 0.1.0
 ```

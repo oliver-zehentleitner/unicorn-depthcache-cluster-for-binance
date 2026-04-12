@@ -1,4 +1,4 @@
-# ubdcc-shared-modules - LUCIT UBDCC Shared Modules
+# ubdcc-shared-modules Change Log
 
 ## 0.1.0
 ```

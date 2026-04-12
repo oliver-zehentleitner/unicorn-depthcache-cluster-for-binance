@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "ubdcc-dcn"
 version = "0.1.4"
-description = "LUCIT UBDCC DepthCacheNode"
+description = "UBDCC Depth Cache Node — manages local Binance order books in a cluster pod"
 authors = ["Oliver Zehentleitner <>"]
 license = "MIT"
 readme = "README.md"
@@ -20,7 +20,6 @@ repository = "https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster
 'Telegram' = 'https://t.me/unicorndevs'
 'Chat' = 'https://app.gitter.im/#/room/#unicorn-depthcache-cluster-for-binance:gitter.im'
 'Get Support' = 'https://about.me/oliver-zehentleitner/get-support.html'
-'LUCIT Online Shop' = 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance'
 
 [tool.poetry.dependencies]
 python = ">=3.12.0"

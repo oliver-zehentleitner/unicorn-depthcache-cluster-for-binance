@@ -29,11 +29,6 @@ Open development tasks, ideas, and decisions.
 ### [ ] Audit and fix all silent except/pass blocks
 - Suite-wide initiative — same task tracked in all unicorn-* repos
 
-### [ ] Fix deprecated UBLDC method call in DepthCacheNode.py
-- Line 93 calls `create_depth_cache()` (deprecated) — rename to `create_depthcache()`
-
-### [ ] Pin UBLDC dependency to current stable version
-- `ubdcc-dcn` setup.py: update `unicorn-binance-local-depth-cache` version pin
 
 ---
 
@@ -45,6 +40,12 @@ Open development tasks, ideas, and decisions.
 - Removed `submit_license` endpoints from mgmt and restapi
 - Removed license params from UBLDC instantiation in DCN
 - Removed `lucit-licensing-python` from all setup.py and pyproject.toml
+
+### [x] Fix deprecated UBLDC method call in DepthCacheNode.py
+- `create_depth_cache()` → `create_depthcache()` in DCN
+
+### [x] Pin UBLDC dependency to current stable version
+- `ubdcc-dcn` setup.py: `unicorn_binance_local_depth_cache==2.6.0` → `unicorn-binance-local-depth-cache>=2.8.1`
 
 ### [x] Rebrand LUCIT → Oliver Zehentleitner / MIT
 - Renamed packages: `lucit-ubdcc-*` → `ubdcc-*`, namespaces: `lucit_ubdcc_*` → `ubdcc_*`

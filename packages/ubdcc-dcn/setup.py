@@ -8,7 +8,6 @@
 # Github: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
 # Documentation: https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance
 # PyPI: https://pypi.org/project/ubdcc-dcn
-# LUCIT Online Shop: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
 #
 # License: MIT
 # https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
@@ -40,7 +39,7 @@ setup(
     long_description_content_type="text/markdown",
     license='MIT',
     install_requires=['ubdcc-shared-modules==0.1.4',
-                      'unicorn_binance_local_depth_cache==2.6.0'],
+                      'unicorn-binance-local-depth-cache>=2.8.1'],
     keywords='',
     project_urls={
         'Howto': 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance#howto',

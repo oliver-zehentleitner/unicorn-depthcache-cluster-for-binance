@@ -1,4 +1,4 @@
-# ubdcc-restapi - LUCIT UBDCC REST API
+# ubdcc-restapi Change Log
 
 ## 0.1.0
 ```

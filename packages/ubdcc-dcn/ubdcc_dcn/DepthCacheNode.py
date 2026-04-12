@@ -8,7 +8,6 @@
 # Github: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
 # Documentation: https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance
 # PyPI: https://pypi.org/project/ubdcc-dcn
-# LUCIT Online Shop: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
 #
 # License: MIT
 # https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
@@ -61,7 +60,7 @@ class DepthCacheNode(ServiceBase):
                                     depth_cache_update_interval=dc['update_interval']
                                 )
                     else:
-                        self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']].create_depth_cache(
+                        self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']].create_depthcache(
                             markets=dc['market'],
                             refresh_interval=dc['refresh_interval']
                         )

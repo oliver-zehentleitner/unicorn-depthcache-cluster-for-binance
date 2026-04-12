@@ -8,7 +8,6 @@
 # Github: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
 # Documentation: https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance
 # PyPI: https://pypi.org/project/ubdcc-restapi
-# LUCIT Online Shop: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
 #
 # License: MIT
 # https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
