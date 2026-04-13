@@ -25,9 +25,8 @@ Part of '[UNICORN Binance Suite](https://github.com/oliver-zehentleitner/unicorn
 
 ## What is UBDCC?
 
-The main idea is to deploy the UBDCC on a Kubernetes cluster with, for example, 4 rented servers. After transferring a 
-valid license, you can create and manage DepthCaches within the cluster environment instead of on local servers and 
-access them from multiple clients.
+The main idea is to deploy the UBDCC on a Kubernetes cluster with, for example, 4 rented servers. You can create and 
+manage DepthCaches within the cluster environment instead of on local servers and access them from multiple clients.
 
 For example, when you configure the system to create 200 DepthCaches with a `desired_quantity` of `2`, UBDCC will deploy
 2 DepthCaches for each symbol/market. These DepthCaches are evenly distributed across the nodes of the cluster and can 
@@ -50,7 +49,7 @@ a specific amount of top Asks/Bids or by setting a threshold.
 provided by 
 [UBLDC](https://oliver-zehentleitner.github.io/unicorn-binance-local-depth-cache/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster).
 - **Top Performance**: The entire code base is deployed in the Kubernetes cluster as a compiled C-Extension!
-- **Supported Architectures**: CPython 3.12 on 64-bit (x86_64) and 32-bit (i686): musllinux (based on musl libc 1.1+),
+- **Supported Architectures**: Kubernetes on 64-bit (x86_64) and 32-bit (i686): musllinux (based on musl libc 1.1+),
   manylinux (based on glibc 2.5+ and 2.17+) compatible with manylinux1 and manylinux2014
 - **Manages Binance Weight Costs**: If the weight costs become too high, the cluster throttles the initialization.
 - **Supported Exchanges**:
@@ -98,7 +97,7 @@ helm install ubdcc ubdcc/ubdcc
 kubectl describe services ubdcc-restapi
 ```
 
-#### Choose an explizit version
+#### Choose an explicit version
 - Find a version to choose
 
 ``` 
@@ -174,7 +173,7 @@ kubectl delete -f ./ubdcc-restapi_service.yaml
 
 ## Accessing the DepthCaches
 
-The UNICORN DepthCache Cluster for Binance is accessed with the Python module [UNICORN Binance Local Depth Cache](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache?tab=readme-ov-file#connect-to-a-unicorn-binance-depth-cache-cluster).
+The UNICORN Binance DepthCache Cluster is accessed with the Python module [UNICORN Binance Local Depth Cache](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache?tab=readme-ov-file#connect-to-a-unicorn-binance-depth-cache-cluster).
 
 Just try this [examples](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache/tree/master/examples/unicorn_binance_depth_cache_cluster)!
 
