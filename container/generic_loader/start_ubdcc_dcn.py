@@ -2,23 +2,23 @@
 # -*- coding: utf-8 -*-
 # ¯\_(ツ)_/¯
 #
-# File: packages/lucit-ubdcc-dcn/start_ubdcc_dcn.py
+# File: packages/ubdcc-dcn/start_ubdcc_dcn.py
 #
-# Project website: https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html
-# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance
-# Documentation: https://unicorn-depthcache-cluster-for-binance.docs.lucit.tech
+# Project website: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
+# Github: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
+# Documentation: https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance
 # PyPI: https://pypi.org/project/unicorn-depthcache-cluster-for-binance
-# LUCIT Online Shop: https://shop.lucit.services/software
+# LUCIT Online Shop: https://github.com/oliver-zehentleitner
 #
-# License: LSOSL - LUCIT Synergetic Open Source License
-# https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
+# License: MIT
+# https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
 #
-# Author: LUCIT Systems and Development
+# Author: Oliver Zehentleitner
 #
-# Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
+# Copyright (c) 2024-2026, Oliver Zehentleitner (https://about.me/oliver-zehentleitner)
 # All rights reserved.
 
 import os
-from lucit_ubdcc_dcn import DepthCacheNode
+from ubdcc_dcn import DepthCacheNode
 
 DepthCacheNode.DepthCacheNode(cwd=os.path.dirname(os.path.abspath(__file__)))

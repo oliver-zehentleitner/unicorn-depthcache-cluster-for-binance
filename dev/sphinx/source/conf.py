@@ -16,17 +16,17 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../../../packages/lucit-ubdcc-dcn/'))
-sys.path.insert(0, os.path.abspath('../../../packages/lucit-ubdcc-mgmt/'))
-sys.path.insert(0, os.path.abspath('../../../packages/lucit-ubdcc-restapi/'))
-sys.path.insert(0, os.path.abspath('../../../packages/lucit-ubdcc-shared-modules/'))
+sys.path.insert(0, os.path.abspath('../../../packages/ubdcc-dcn/'))
+sys.path.insert(0, os.path.abspath('../../../packages/ubdcc-mgmt/'))
+sys.path.insert(0, os.path.abspath('../../../packages/ubdcc-restapi/'))
+sys.path.insert(0, os.path.abspath('../../../packages/ubdcc-shared-modules/'))
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'unicorn-depthcache-cluster-for-binance'
-copyright = '2022-2023, LUCIT Systems and Development. All Rights Reserved.'
-author = 'LUCIT Systems and Development'
+copyright = '2024-2026, Oliver Zehentleitner'
+author = 'Oliver Zehentleitner'
 
 # The short X.Y version
 version = ''
@@ -87,13 +87,10 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-html_theme = 'python_docs_theme_lucit'
-html_context = {'github_user_name': 'LUCIT-Systems-and-Development',
+html_theme = 'alabaster'
+html_context = {'github_user_name': 'oliver-zehentleitner',
                 'github_repo_name': 'unicorn-depthcache-cluster-for-binance',
-                'matomo_url': "https://webmon.lucit.services/matomo.php?idsite=12&amp;rec=1",
-                'freshchat_src': "//eu.fw-cdn.com/10659511/361973.js",
                 'project_name': project,
-                'lucit': True}
 
 myst_heading_anchors = 3
 
@@ -150,7 +147,7 @@ latex_elements = {
 latex_documents = [
     (master_doc, 'unicorn-depthcache-cluster-for-binance.tex',
      'unicorn-depthcache-cluster-for-binance Documentation',
-     'LUCIT Systems and Development', 'manual'),
+     'Oliver Zehentleitner', 'manual'),
 ]
 
 

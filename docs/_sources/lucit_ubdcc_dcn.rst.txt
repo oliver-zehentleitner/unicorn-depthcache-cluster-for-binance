@@ -7,7 +7,7 @@ Submodules
 lucit\_ubdcc\_dcn.DepthCacheNode module
 ---------------------------------------
 
-.. automodule:: lucit_ubdcc_dcn.DepthCacheNode
+.. automodule:: ubdcc_dcn.DepthCacheNode
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ lucit\_ubdcc\_dcn.DepthCacheNode module
 lucit\_ubdcc\_dcn.RestEndpoints module
 --------------------------------------
 
-.. automodule:: lucit_ubdcc_dcn.RestEndpoints
+.. automodule:: ubdcc_dcn.RestEndpoints
    :members:
    :undoc-members:
    :show-inheritance:
@@ -23,7 +23,7 @@ lucit\_ubdcc\_dcn.RestEndpoints module
 Module contents
 ---------------
 
-.. automodule:: lucit_ubdcc_dcn
+.. automodule:: ubdcc_dcn
    :members:
    :undoc-members:
    :show-inheritance:

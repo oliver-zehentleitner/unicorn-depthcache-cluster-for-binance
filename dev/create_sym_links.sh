@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 
 cd container/generic_loader/
-ln -s ../../packages/lucit-ubdcc-dcn/lucit_ubdcc_dcn .
-ln -s ../../packages/lucit-ubdcc-mgmt/lucit_ubdcc_mgmt .
-ln -s ../../packages/lucit-ubdcc-restapi/lucit_ubdcc_restapi .
-ln -s ../../packages/lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules .
+ln -s ../../packages/ubdcc-dcn/ubdcc_dcn .
+ln -s ../../packages/ubdcc-mgmt/ubdcc_mgmt .
+ln -s ../../packages/ubdcc-restapi/ubdcc_restapi .
+ln -s ../../packages/ubdcc-shared-modules/ubdcc_shared_modules .
 
-cd ../../packages/lucit-ubdcc-dcn/
-ln -s ../lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules .
-cd lucit_ubdcc_dcn
-ln -s ../lucit_ubdcc_shared_modules .
+cd ../../packages/ubdcc-dcn/
+ln -s ../ubdcc-shared-modules/ubdcc_shared_modules .
+cd ubdcc_dcn
+ln -s ../ubdcc_shared_modules .
 
-cd ../../lucit-ubdcc-mgmt/
-ln -s ../lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules .
-cd lucit_ubdcc_mgmt
-ln -s ../lucit_ubdcc_shared_modules .
+cd ../../ubdcc-mgmt/
+ln -s ../ubdcc-shared-modules/ubdcc_shared_modules .
+cd ubdcc_mgmt
+ln -s ../ubdcc_shared_modules .
 
-cd ../../lucit-ubdcc-restapi/
-ln -s ../lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules .
-cd lucit_ubdcc_restapi
-ln -s ../lucit_ubdcc_shared_modules .
+cd ../../ubdcc-restapi/
+ln -s ../ubdcc-shared-modules/ubdcc_shared_modules .
+cd ubdcc_restapi
+ln -s ../ubdcc_shared_modules .
 
 

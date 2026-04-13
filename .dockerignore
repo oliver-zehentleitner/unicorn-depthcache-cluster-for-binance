@@ -14,14 +14,14 @@ container/dev_station/Dockerfile
 container/generic_loader/*.log
 container/generic_loader/*.py.log
 
-container/generic_loader/Dockerfile.lucit-ubdcc-dcn
-container/generic_loader/Dockerfile.lucit-ubdcc-dcn-latest
-container/generic_loader/Dockerfile.lucit-ubdcc-mgmt
-container/generic_loader/Dockerfile.lucit-ubdcc-mgmt-latest
-container/generic_loader/Dockerfile.lucit-ubdcc-restapi
-container/generic_loader/Dockerfile.lucit-ubdcc-restapi-latest
+container/generic_loader/Dockerfile.ubdcc-dcn
+container/generic_loader/Dockerfile.ubdcc-dcn-latest
+container/generic_loader/Dockerfile.ubdcc-mgmt
+container/generic_loader/Dockerfile.ubdcc-mgmt-latest
+container/generic_loader/Dockerfile.ubdcc-restapi
+container/generic_loader/Dockerfile.ubdcc-restapi-latest
 
-container/generic_loader/lucit_ubdcc_dcn
-container/generic_loader/lucit_ubdcc_mgmt
-container/generic_loader/lucit_ubdcc_restapi
-container/generic_loader/lucit_ubdcc_shared_modules
+container/generic_loader/ubdcc_dcn
+container/generic_loader/ubdcc_mgmt
+container/generic_loader/ubdcc_restapi
+container/generic_loader/ubdcc_shared_modules

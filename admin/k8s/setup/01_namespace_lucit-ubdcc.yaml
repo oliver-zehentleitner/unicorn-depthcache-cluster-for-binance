@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: lucit-ubdcc
-  labels:
-    author: lucit
-  annotations:
-    author: LUCIT <it@lucit.tech>

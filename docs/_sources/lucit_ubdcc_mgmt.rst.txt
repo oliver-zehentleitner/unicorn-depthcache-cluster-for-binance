@@ -7,7 +7,7 @@ Submodules
 lucit\_ubdcc\_mgmt.Mgmt module
 ------------------------------
 
-.. automodule:: lucit_ubdcc_mgmt.Mgmt
+.. automodule:: ubdcc_mgmt.Mgmt
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ lucit\_ubdcc\_mgmt.Mgmt module
 lucit\_ubdcc\_mgmt.RestEndpoints module
 ---------------------------------------
 
-.. automodule:: lucit_ubdcc_mgmt.RestEndpoints
+.. automodule:: ubdcc_mgmt.RestEndpoints
    :members:
    :undoc-members:
    :show-inheritance:
@@ -23,7 +23,7 @@ lucit\_ubdcc\_mgmt.RestEndpoints module
 Module contents
 ---------------
 
-.. automodule:: lucit_ubdcc_mgmt
+.. automodule:: ubdcc_mgmt
    :members:
    :undoc-members:
    :show-inheritance:

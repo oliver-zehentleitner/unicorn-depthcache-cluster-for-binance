@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "ubdcc-dcn"
+version = "0.1.4"
+description = "UBDCC Depth Cache Node — manages local Binance order books in a cluster pod"
+authors = ["Oliver Zehentleitner <>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance"
+documentation = "https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance"
+repository = "https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance"
+
+[tool.poetry.urls]
+'Howto' = 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance#howto'
+'Documentation' = 'https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance'
+'Wiki' = 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/wiki'
+'Author' = 'https://about.me/oliver-zehentleitner'
+'Changes' = 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/packages/ubdcc-dcn/CHANGELOG.md'
+'License' = 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE'
+'Issue Tracker' = 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/issues'
+'Telegram' = 'https://t.me/unicorndevs'
+'Chat' = 'https://app.gitter.im/#/room/#unicorn-depthcache-cluster-for-binance:gitter.im'
+'Get Support' = 'https://about.me/oliver-zehentleitner/get-support.html'
+
+[tool.poetry.dependencies]
+python = ">=3.12.0"
+ubdcc-shared-modules = "==0.1.4"
+unicorn_binance_local_depth_cache = "==2.6.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["setuptools", "wheel", "Cython", "pip"]
+build-backend = "setuptools.build_meta"
+
+[tool.poetry.package_data]
+"ubdcc_dcn" = ["*.so", "*.dll", "*.pyd"]

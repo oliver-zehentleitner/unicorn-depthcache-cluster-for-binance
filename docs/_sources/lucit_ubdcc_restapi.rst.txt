@@ -7,7 +7,7 @@ Submodules
 lucit\_ubdcc\_restapi.RestApi module
 ------------------------------------
 
-.. automodule:: lucit_ubdcc_restapi.RestApi
+.. automodule:: ubdcc_restapi.RestApi
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ lucit\_ubdcc\_restapi.RestApi module
 lucit\_ubdcc\_restapi.RestEndpoints module
 ------------------------------------------
 
-.. automodule:: lucit_ubdcc_restapi.RestEndpoints
+.. automodule:: ubdcc_restapi.RestEndpoints
    :members:
    :undoc-members:
    :show-inheritance:
@@ -23,7 +23,7 @@ lucit\_ubdcc\_restapi.RestEndpoints module
 Module contents
 ---------------
 
-.. automodule:: lucit_ubdcc_restapi
+.. automodule:: ubdcc_restapi
    :members:
    :undoc-members:
    :show-inheritance:
