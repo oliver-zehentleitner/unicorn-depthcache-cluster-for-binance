@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.abspath('../../../packages/ubdcc-shared-modules/'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'unicorn-depthcache-cluster-for-binance'
+project = 'unicorn-binance-depth-cache-cluster'
 copyright = '2024-2026, Oliver Zehentleitner'
 author = 'Oliver Zehentleitner'
 
@@ -89,7 +89,7 @@ pygments_style = None
 
 html_theme = 'alabaster'
 html_context = {'github_user_name': 'oliver-zehentleitner',
-                'github_repo_name': 'unicorn-depthcache-cluster-for-binance',
+                'github_repo_name': 'unicorn-binance-depth-cache-cluster',
                 'project_name': project,
 
 myst_heading_anchors = 3
@@ -118,7 +118,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'unicorn-depthcache-cluster-for-binance-apidoc'
+htmlhelp_basename = 'unicorn-binance-depth-cache-cluster-apidoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -145,8 +145,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'unicorn-depthcache-cluster-for-binance.tex',
-     'unicorn-depthcache-cluster-for-binance Documentation',
+    (master_doc, 'unicorn-binance-depth-cache-cluster.tex',
+     'unicorn-binance-depth-cache-cluster Documentation',
      'Oliver Zehentleitner', 'manual'),
 ]
 
@@ -156,7 +156,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'unicorn-depthcache-cluster-for-binance', 'unicorn-depthcache-cluster-for-binance Documentation',
+    (master_doc, 'unicorn-binance-depth-cache-cluster', 'unicorn-binance-depth-cache-cluster Documentation',
      [author], 1)
 ]
 
@@ -167,8 +167,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'unicorn-depthcache-cluster-for-binance', 'unicorn-depthcache-cluster-for-binance Documentation',
-     author, 'unicorn-depthcache-cluster-for-binance', 'One line description of project.',
+    (master_doc, 'unicorn-binance-depth-cache-cluster', 'unicorn-binance-depth-cache-cluster Documentation',
+     author, 'unicorn-binance-depth-cache-cluster', 'One line description of project.',
      'Miscellaneous'),
 ]
 

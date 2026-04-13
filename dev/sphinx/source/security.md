@@ -1,14 +1,14 @@
 # Security Policies and Procedures
 This document outlines security procedures and general policies for the 
-`unicorn-depthcache-cluster-for-binance` project.
+`unicorn-binance-depth-cache-cluster` project.
 
   * [Reporting a Bug](#reporting-a-bug)
   * [Disclosure Policy](#disclosure-policy)
   * [Comments on this Policy](#comments-on-this-policy)
 
 ## Reporting a Bug
-`Oliver Zehentleitner` takes all security bugs in `unicorn-depthcache-cluster-for-binance` seriously.
-Thank you for improving the security of `unicorn-depthcache-cluster-for-binance`. We appreciate your 
+`Oliver Zehentleitner` takes all security bugs in `unicorn-binance-depth-cache-cluster` seriously.
+Thank you for improving the security of `unicorn-binance-depth-cache-cluster`. We appreciate your 
 efforts and responsible disclosure and will make every effort to acknowledge your contributions.
 
 Report security bugs via our contact form: 

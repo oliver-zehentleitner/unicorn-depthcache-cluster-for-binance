@@ -1,13 +1,13 @@
-# unicorn-depthcache-cluster-for-binance Change Log
+# unicorn-binance-depth-cache-cluster Change Log
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to 
 [Semantic Versioning](http://semver.org/).
 
-[Discussions about unicorn-depthcache-cluster-for-binance releases!](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/discussions/categories/releases)
+[Discussions about unicorn-binance-depth-cache-cluster releases!](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/discussions/categories/releases)
 
-[How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance/readme.html#installation-and-upgrade)
+[How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/readme.html#installation-and-upgrade)
 
 ## 0.2.0
 ### Added
@@ -32,7 +32,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## 0.1.4
 ### Fixed
-- https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/issues/8 - We don't overwrite 
+- https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues/8 - We don't overwrite 
   the None anymore.
 
 ## 0.1.3
