@@ -69,6 +69,7 @@ provided by
 | [Binance USD-M Futures](https://www.binance.com)                   | `binance.com-futures`         |
 | [Binance USD-M Futures Testnet](https://testnet.binancefuture.com) | `binance.com-futures-testnet` |
 | [Binance US](https://www.binance.us/)                              | `binance.us`                  |
+| [Binance TR](https://www.trbinance.com)                            | `trbinance.com`               |
 
 
 ## Current State

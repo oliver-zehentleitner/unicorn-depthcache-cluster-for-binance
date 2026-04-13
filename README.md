@@ -65,6 +65,7 @@ provided by
 | [Binance USD-M Futures](https://www.binance.com)                   | `binance.com-futures`         |
 | [Binance USD-M Futures Testnet](https://testnet.binancefuture.com) | `binance.com-futures-testnet` |
 | [Binance US](https://www.binance.us/)                              | `binance.us`                  |
+| [Binance TR](https://www.trbinance.com)                            | `trbinance.com`               |
 
 If you like the project, please 
 [![star](https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-local-depth-cache/master/images/misc/star.png)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/stargazers) it on 
