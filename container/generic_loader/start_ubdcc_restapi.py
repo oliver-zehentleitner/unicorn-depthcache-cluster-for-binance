@@ -8,7 +8,6 @@
 # Github: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster
 # Documentation: https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster
 # PyPI: https://pypi.org/project/unicorn-binance-depth-cache-cluster
-# LUCIT Online Shop: https://github.com/oliver-zehentleitner
 #
 # License: MIT
 # https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/LICENSE

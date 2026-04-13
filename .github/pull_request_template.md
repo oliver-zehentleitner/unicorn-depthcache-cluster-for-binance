@@ -1,5 +1,4 @@
-Contributions via GitHub pull requests are welcome. However, contributors should be aware that submitted code
-automatically becomes LUCIT IT-Management GmbH's property and copyright.
+Contributions via GitHub pull requests are welcome.
 
 Please read [our license terms](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/LICENSE) 
 thoroughly!
@@ -43,9 +42,8 @@ thoroughly!
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 
-- [ ] I understand that the exploitation right of my donated code is transferred to the LUCIT company according to the 
-[MIT license](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/LICENSE) 
-agreement. This is important so that we can publish your code in our packages.
+- [ ] I understand that my contribution is licensed under the 
+[MIT license](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/LICENSE).
 - [ ] My code follows the code style of this project.
 - [ ] My change requires a change to the documentation.
 - [ ] I have updated the documentation accordingly.
