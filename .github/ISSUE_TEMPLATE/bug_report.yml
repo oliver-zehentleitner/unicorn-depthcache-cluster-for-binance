@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a bug with this ubdcc_shared_modules.
+description: Report a bug with this UNICORN Binance DepthCache Cluster.
 labels: bug
 assignees:
   - oliver-zehentleitner
@@ -14,11 +14,11 @@ body:
   - type: checkboxes
     id: Confirmation
     attributes:
-      label: Solution to Issue cannot be found in the documentation or other Issues and also occurs in the latest version of this ubdcc_shared_modules.
+      label: Solution to Issue cannot be found in the documentation or other Issues and also occurs in the latest version of this UNICORN Binance DepthCache Cluster.
       description: |
         I have searched for other Issues with the same problem or similar feature requests and have looked in the documentation. This issue also affects the latest version of this library.
       options:
-        - label: I checked the documentation and other Issues. I am using the latest version of this ubdcc_shared_modules.
+        - label: I checked the documentation and other Issues. I am using the latest version of this UNICORN Binance DepthCache Cluster.
           required: true
 
   - type: textarea
@@ -37,6 +37,8 @@ body:
       description: |
         In which Python version is the code executed?
       options:
+        - Python3.14
+        - Python3.13
         - Python3.12
     validations:
       required: true
