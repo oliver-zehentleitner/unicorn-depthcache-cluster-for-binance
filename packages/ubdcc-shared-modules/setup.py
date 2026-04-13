@@ -4,13 +4,13 @@
 # File: packages/ubdcc-shared-modules/setup.py
 #
 # Part of ‘UNICORN Binance DepthCache Cluster’
-# Project website: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
-# Github: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
-# Documentation: https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance
+# Project website: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster
+# Github: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster
+# Documentation: https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster
 # PyPI: https://pypi.org/project/ubdcc-shared-modules/
 #
 # License: MIT
-# https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
+# https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/LICENSE
 #
 # Author: Oliver Zehentleitner
 #
@@ -33,7 +33,7 @@ setup(
     version="0.2.0",
     author="Oliver Zehentleitner",
     author_email='',
-    url="https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance",
+    url="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster",
     description="UBDCC Shared Modules — core library for the UNICORN DepthCache Cluster for Binance",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -41,14 +41,14 @@ setup(
     install_requires=['aiohttp', 'Cython', 'fastapi', 'kubernetes', 'uvicorn'],
     keywords='',
     project_urls={
-        'Howto': 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance#howto',
-        'Documentation': 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance',
-        'Wiki': 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/wiki',
+        'Howto': 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster#howto',
+        'Documentation': 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster',
+        'Wiki': 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/wiki',
         'Author': 'https://about.me/oliver-zehentleitner',
-        'Changes': 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/packages/ubdcc-mgmt/CHANGELOG.md',
-        'License': 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE',
-        'Issue Tracker': 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/issues',
-        'Chat': 'https://gitter.im/unicorn-trading-suite/unicorn-depthcache-cluster-for-binance',
+        'Changes': 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/packages/ubdcc-mgmt/CHANGELOG.md',
+        'License': 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/LICENSE',
+        'Issue Tracker': 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues',
+        'Chat': 'https://gitter.im/unicorn-trading-suite/unicorn-binance-depth-cache-cluster',
         'Telegram': 'https://t.me/unicorndevs',
         'Get Support': 'https://about.me/oliver-zehentleitner/get-support.html',
     },

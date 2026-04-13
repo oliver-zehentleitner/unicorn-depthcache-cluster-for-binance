@@ -5,20 +5,20 @@ description = "UBDCC Depth Cache Node — manages local Binance order books in a
 authors = ["Oliver Zehentleitner <>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance"
-documentation = "https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance"
-repository = "https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance"
+homepage = "https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster"
+documentation = "https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster"
+repository = "https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster"
 
 [tool.poetry.urls]
-'Howto' = 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance#howto'
-'Documentation' = 'https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance'
-'Wiki' = 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/wiki'
+'Howto' = 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster#howto'
+'Documentation' = 'https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster'
+'Wiki' = 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/wiki'
 'Author' = 'https://about.me/oliver-zehentleitner'
-'Changes' = 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/packages/ubdcc-dcn/CHANGELOG.md'
-'License' = 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE'
-'Issue Tracker' = 'https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/issues'
+'Changes' = 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/packages/ubdcc-dcn/CHANGELOG.md'
+'License' = 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/LICENSE'
+'Issue Tracker' = 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues'
 'Telegram' = 'https://t.me/unicorndevs'
-'Chat' = 'https://app.gitter.im/#/room/#unicorn-depthcache-cluster-for-binance:gitter.im'
+'Chat' = 'https://app.gitter.im/#/room/#unicorn-binance-depth-cache-cluster:gitter.im'
 'Get Support' = 'https://about.me/oliver-zehentleitner/get-support.html'
 
 [tool.poetry.dependencies]

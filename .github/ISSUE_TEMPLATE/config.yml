@@ -4,10 +4,10 @@ contact_links:
     url: https://t.me/unicorndevs
     about: Chat with the community about the UNICORN Binance DepthCache Cluster and ask general questions.
   - name: UNICORN Binance DepthCache Cluster Discussions
-    url: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/discussions
+    url: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/discussions
     about: Ask general questions.
   - name: UNICORN Binance DepthCache Cluster documentation
-    url: https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance/
+    url: https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/
     about: The complete UNICORN Binance DepthCache Cluster documentation.
   - name: Get Professional and Fast Support
     url: https://about.me/oliver-zehentleitner/get-support.html

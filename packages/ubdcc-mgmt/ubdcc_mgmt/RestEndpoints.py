@@ -4,13 +4,13 @@
 #
 # File: packages/ubdcc-mgmt/ubdcc_mgmt/RestEndpoints.py
 #
-# Project website: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
-# Github: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
-# Documentation: https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance
+# Project website: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster
+# Github: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster
+# Documentation: https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster
 # PyPI: https://pypi.org/project/ubdcc-mgmt
 #
 # License: MIT
-# https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
+# https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/LICENSE
 #
 # Author: Oliver Zehentleitner
 #

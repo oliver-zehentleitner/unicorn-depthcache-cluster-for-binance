@@ -4,14 +4,14 @@
 #
 # File: container/generic_loader/start_ubdcc_dcn.py
 #
-# Project website: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
-# Github: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
-# Documentation: https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance
-# PyPI: https://pypi.org/project/unicorn-depthcache-cluster-for-binance
+# Project website: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster
+# Github: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster
+# Documentation: https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster
+# PyPI: https://pypi.org/project/unicorn-binance-depth-cache-cluster
 # LUCIT Online Shop: https://github.com/oliver-zehentleitner
 #
 # License: MIT
-# https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
+# https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/LICENSE
 #
 # Author: Oliver Zehentleitner
 #
