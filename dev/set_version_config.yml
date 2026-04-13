@@ -26,4 +26,4 @@ files:
 - packages/ubdcc-shared-modules/pyproject.toml
 - packages/ubdcc-shared-modules/setup.py
 - README.md
-version: 0.1.4
+version: 0.2.0

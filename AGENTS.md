@@ -11,7 +11,7 @@ Open development tasks and decisions are tracked in **[TASKS.md](TASKS.md)**.
 Kubernetes-based microservice cluster (MIT License) that manages multiple local Binance order book depth caches across cluster nodes. Clients interact via a public REST API; no local Binance connection required on the client side.
 
 **Abbreviation:** UBDCC  
-**Current Version:** 0.1.4  
+**Current Version:** 0.2.0  
 **Author:** Oliver Zehentleitner  
 **Python:** 3.12+  
 **Runtime:** Kubernetes (also runnable in dev mode without K8s)
@@ -118,7 +118,7 @@ Defined in each service's `RestEndpoints.py`. Public endpoints (via restapi):
 
 - `dev/set_version.py` + `dev/set_version_config.yml` — update version across all packages
 - Version currently in sync across all `setup.py` and `pyproject.toml` files
-- Current version: `0.1.4`
+- Current version: `0.2.0`
 
 ---
 

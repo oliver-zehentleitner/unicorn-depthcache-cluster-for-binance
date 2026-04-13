@@ -1,5 +1,3 @@
-[![Get a UNICORN DepthCache Cluster for Binance License](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/images/logo/LUCIT-UBDCC-License-Offer.png)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance)
-
 [![License](https://img.shields.io/badge/license-MIT-blue)](https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance/license.html)
 [![Build and Publish PyPi (ubdcc-dcn)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_ubdcc_dcn.yml/badge.svg)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_ubdcc_dcn.yml)
 [![Build and Publish PyPi (ubdcc-mgmt)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_ubdcc_mgmt.yml/badge.svg)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_ubdcc_mgmt.yml)
@@ -13,7 +11,7 @@
 
 # UNICORN DepthCache Cluster for Binance (UBDCC)
 
-A highly scalable Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Cache 
+A highly scalable Kubernetes application to manage multiple and redundant UNICORN Binance Local Depth Cache 
 Instances on a Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order books). 
 
 The cluster can be accessed from any programming language via a REST API, allowing Asks and Bids to be retrieved in 
@@ -22,15 +20,8 @@ JSON format.
 [Get help](https://about.me/oliver-zehentleitner/get-support.html)!
 
 If you like the project, please 
-[![star](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-local-depth-cache/master/images/misc/star.png)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/stargazers) it on 
+[![star](https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-local-depth-cache/master/images/misc/star.png)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/stargazers) it on 
 [GitHub](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance)! 
-
-## Get a UNICORN DepthCache Cluster for Binance License
-
-***Licenses will only be publicly available in the store in a few days. If you are interested in a free trial license, 
-please [contact us via the chat](https://about.me/oliver-zehentleitner/get-support.html)!***
-
-To run the *UNICORN DepthCache Cluster for Binance* you need a [valid license](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance)!
 
 ## What is UBDCC?
 
@@ -57,7 +48,7 @@ failover, ensuring high availability and quick response times.
 a specific amount of top Asks/Bids or by setting a threshold.
 - **HTTP Access**: DepthCache values can be retrieved through HTTP using both synchronous and asynchronous methods 
 provided by 
-[UBLDC](https://unicorn-binance-local-depth-cache.docs.lucit.tech/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster).
+[UBLDC](https://oliver-zehentleitner.github.io/unicorn-binance-local-depth-cache/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster).
 - **Top Performance**: The entire code base is deployed in the Kubernetes cluster as a compiled C-Extension!
 - **Supported Architectures**: CPython 3.12 on 64-bit (x86_64) and 32-bit (i686): musllinux (based on musl libc 1.1+),
   manylinux (based on glibc 2.5+ and 2.17+) compatible with manylinux1 and manylinux2014
@@ -81,7 +72,7 @@ Bids. [Vote here for new features!](https://github.com/oliver-zehentleitner/unic
 
 For more information, check out the 
 [GitHub Repository](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance) and the
-[Docs](https://unicorn-binance-depth-cache-cluster.docs.lucit.tech).
+[Docs](https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance).
 
 ## Watch a Demo Video
 [![Watch the demo video](https://img.youtube.com/vi/hq2iZPiFnvE/maxresdefault.jpg)](https://www.youtube.com/watch?v=hq2iZPiFnvE)
@@ -126,7 +117,7 @@ helm search repo ubdcc
 - Then
 
 ``` 
-helm install ubdcc ubdcc/ubdcc --version 0.1.4
+helm install ubdcc ubdcc/ubdcc --version 0.2.0
 ```
 
 #### Choose a namespace
@@ -192,9 +183,9 @@ kubectl delete -f ./ubdcc-restapi_service.yaml
 
 ## Accessing the DepthCaches
 
-The UNICORN DepthCache Cluster for Binance is accessed with the Python module [UNICORN Binance Local Depth Cache](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache?tab=readme-ov-file#connect-to-a-unicorn-depthcache-cluster-for-binance).
+The UNICORN DepthCache Cluster for Binance is accessed with the Python module [UNICORN Binance Local Depth Cache](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache?tab=readme-ov-file#connect-to-a-unicorn-depthcache-cluster-for-binance).
 
-Just try this [examples](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache/tree/master/examples/unicorn_depthcache_cluster_for_binance)!
+Just try this [examples](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache/tree/master/examples/unicorn_depthcache_cluster_for_binance)!
 
 ## How to report Bugs or suggest Improvements?
 [List of planned features](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement) - click ![thumbs-up](https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-suite/master/images/misc/thumbup.png) if you need one of them or suggest a new feature!
@@ -231,6 +222,4 @@ of any kind, including but not limited to direct or indirect damages for loss of
 
 ## Commercial Support
 
-[![Get professional and fast support](https://raw.githubusercontent.com/LUCIT-Systems-and-Development/unicorn-trading-suite/master/images/support/LUCIT-get-professional-and-fast-support.png)](https://about.me/oliver-zehentleitner/get-support.html)
-
-***Do you need a developer, operator or consultant?*** [Contact us](https://about.me/oliver-zehentleitner/contact.html) for a non-binding initial consultation!
+***Do you need a developer, operator or consultant?*** [Get in touch](https://about.me/oliver-zehentleitner/get-support.html) for a non-binding initial consultation!

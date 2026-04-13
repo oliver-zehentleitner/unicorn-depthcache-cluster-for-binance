@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ubdcc-restapi"
-version = "0.1.4"
+version = "0.2.0"
 description = "UBDCC REST API — public HTTP API for the UNICORN DepthCache Cluster"
 authors = ["Oliver Zehentleitner <>"]
 license = "MIT"
@@ -23,7 +23,7 @@ repository = "https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster
 
 [tool.poetry.dependencies]
 python = ">=3.12.0"
-ubdcc-shared-modules = "==0.1.4"
+ubdcc-shared-modules = "==0.2.0"
 
 [tool.poetry.dev-dependencies]
 

@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 [How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance/readme.html#installation-and-upgrade)
 
-## 0.1.4.dev (development stage/unreleased/unstable)
+## 0.2.0
 ### Added
 - AGENTS.md and TASKS.md
 ### Changed

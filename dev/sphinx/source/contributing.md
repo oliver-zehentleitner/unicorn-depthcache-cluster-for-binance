@@ -1,7 +1,7 @@
 # Contributing
 
 Contributions via GitHub pull requests are welcome. However, contributors should be aware that submitted code
-automatically becomes LUCIT IT-Management GmbH's property and copyright.
+automatically becomes Oliver Zehentleitner's property and copyright.
 
 Please read [our license terms](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE) 
 thoroughly!

@@ -1,5 +1,3 @@
-[![Get a UNICORN DepthCache Cluster for Binance License](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/images/logo/LUCIT-UBDCC-License-Offer.png)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance)
-
 [![License](https://img.shields.io/badge/license-MIT-blue)](https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance/license.html)
 [![Build and Publish PyPi (ubdcc-dcn)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_ubdcc_dcn.yml/badge.svg)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_ubdcc_dcn.yml)
 [![Build and Publish PyPi (ubdcc-mgmt)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_ubdcc_mgmt.yml/badge.svg)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_ubdcc_mgmt.yml)
@@ -9,11 +7,11 @@
 [![Github](https://img.shields.io/badge/source-github-cbc2c8)](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance)
 [![Telegram](https://img.shields.io/badge/community-telegram-41ab8c)](https://t.me/unicorndevs)
 [![Gitter](https://img.shields.io/badge/community-gitter-41ab8c)](https://gitter.im/unicorn-trading-suite/unicorn-depthcache-cluster-for-binance?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Get Free Professional Support](https://img.shields.io/badge/chat-lucit%20support-004166)](https://about.me/oliver-zehentleitner/get-support.html)
+
 
 # UNICORN DepthCache Cluster for Binance (UBDCC)
 
-A highly scalable Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Cache 
+A highly scalable Kubernetes application to manage multiple and redundant UNICORN Binance Local Depth Cache 
 Instances on a Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order books). 
 
 The cluster can be accessed from any programming language via a REST API, allowing Asks and Bids to be retrieved in 
@@ -126,7 +124,7 @@ helm search repo ubdcc
 - Then
 
 ``` 
-helm install ubdcc ubdcc/ubdcc --version 0.1.4
+helm install ubdcc ubdcc/ubdcc --version 0.2.0
 ```
 
 #### Choose a namespace
@@ -192,9 +190,9 @@ kubectl delete -f ./ubdcc-restapi_service.yaml
 
 ## Accessing the DepthCaches
 
-The UNICORN DepthCache Cluster for Binance is accessed with the Python module [UNICORN Binance Local Depth Cache](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache?tab=readme-ov-file#connect-to-a-unicorn-depthcache-cluster-for-binance).
+The UNICORN DepthCache Cluster for Binance is accessed with the Python module [UNICORN Binance Local Depth Cache](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache?tab=readme-ov-file#connect-to-a-unicorn-depthcache-cluster-for-binance).
 
-Just try this [examples](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache/tree/master/examples/unicorn_depthcache_cluster_for_binance)!
+Just try this [examples](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache/tree/master/examples/unicorn_depthcache_cluster_for_binance)!
 
 ## How to report Bugs or suggest Improvements?
 [List of planned features](https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement) - click ![thumbs-up](https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-suite/master/images/misc/thumbup.png) if you need one of them or suggest a new feature!
@@ -231,6 +229,6 @@ of any kind, including but not limited to direct or indirect damages for loss of
 
 ## Commercial Support
 
-[![Get professional and fast support](https://raw.githubusercontent.com/LUCIT-Systems-and-Development/unicorn-trading-suite/master/images/support/LUCIT-get-professional-and-fast-support.png)](https://about.me/oliver-zehentleitner/get-support.html)
+[
 
 ***Do you need a developer, operator or consultant?*** [Contact us](https://about.me/oliver-zehentleitner/contact.html) for a non-binding initial consultation!
