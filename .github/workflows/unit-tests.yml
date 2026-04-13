@@ -20,11 +20,11 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest
+        pip install pytest pytest-cov
         pip install -r packages/ubdcc-shared-modules/requirements.txt
 
     - name: Unit test
-      run: python -m pytest unittest_ubdcc.py -v
+      run: pytest --cov --cov-branch --cov-report=xml unittest_ubdcc.py -v
 
   test_python_3_14:
     runs-on: ubuntu-latest
@@ -39,16 +39,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest
+        pip install pytest pytest-cov
         pip install -r packages/ubdcc-shared-modules/requirements.txt
 
     - name: Unit test
-      run: python -m pytest unittest_ubdcc.py -v
+      run: pytest --cov --cov-branch --cov-report=xml unittest_ubdcc.py -v
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        flags: unittests
-        name: codecov-umbrella
-        verbose: true
+        slug: oliver-zehentleitner/unicorn-binance-depth-cache-cluster
