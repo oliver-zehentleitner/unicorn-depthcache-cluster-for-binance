@@ -19,7 +19,8 @@ import unittest
 
 
 class TestUBDCC(unittest.TestCase):
-    pass
+    def test_placeholder(self):
+        pass
 
 
 if __name__ == "__main__":
