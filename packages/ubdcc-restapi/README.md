@@ -1,25 +1,20 @@
 [![GitHub Release](https://img.shields.io/github/release/oliver-zehentleitner/unicorn-binance-depth-cache-cluster.svg?label=github)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/releases)
 [![GitHub Downloads](https://img.shields.io/github/downloads/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/total?color=blue)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/releases)
-[![PyPi Release](https://img.shields.io/pypi/v/ubdcc-mgmt?color=blue)](https://pypi.org/project/ubdcc-mgmt/)
-[![PyPi Downloads](https://pepy.tech/badge/ubdcc-mgmt)](https://pepy.tech/project/ubdcc-mgmt)
+[![PyPi Release](https://img.shields.io/pypi/v/ubdcc-restapi?color=blue)](https://pypi.org/project/ubdcc-restapi/)
+[![PyPi Downloads](https://pepy.tech/badge/ubdcc-restapi)](https://pepy.tech/project/ubdcc-restapi)
 [![License](https://img.shields.io/badge/license-MIT-blue)](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/license.html)
-[![Supported Python Version](https://img.shields.io/pypi/pyversions/ubdcc-mgmt.svg)](https://www.python.org/downloads/)
-[![PyPI - Status](https://img.shields.io/pypi/status/ubdcc-mgmt.svg)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues)
-[![Build and Publish PyPi](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_ubdcc_mgmt.yml/badge.svg)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_ubdcc_mgmt.yml)
-[![Read the Docs](https://img.shields.io/badge/read-%20docs-yellow)](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/)
-[![Github](https://img.shields.io/badge/source-github-cbc2c8)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/tree/master/packages/ubdcc-mgmt)
+[![Supported Python Version](https://img.shields.io/pypi/pyversions/ubdcc-restapi.svg)](https://www.python.org/downloads/)
+[![PyPI - Status](https://img.shields.io/pypi/status/ubdcc-restapi.svg)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues)
+[![Build and Publish PyPi](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_ubdcc_restapi.yml/badge.svg)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_ubdcc_restapi.yml)
+[![Read the Docs](https://img.shields.io/badge/read-%20docs-yellow)](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster)
+[![Github](https://img.shields.io/badge/source-github-cbc2c8)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/tree/master/packages/ubdcc-restapi)
 [![Telegram](https://img.shields.io/badge/community-telegram-41ab8c)](https://t.me/unicorndevs)
-[![Gitter](https://img.shields.io/badge/community-gitter-41ab8c)](https://gitter.im/unicorn-binance-depth-cache-cluster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Get Free Professional Support](
+[![Gitter](https://img.shields.io/badge/community-gitter-41ab8c)](https://gitter.im/unicorn-trading-suite/unicorn-binance-depth-cache-cluster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # UNICORN Binance DepthCache Cluster REST API
 The `ubdcc-restapi` module for UNICORN Binance DepthCache Cluster REST API.
 
 Part of '[UNICORN Binance DepthCache Cluster](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster)'.
-
-## Get a UNICORN DepthCache Cluster for Binance License
-
-To run the *UNICORN DepthCache Cluster for Binance* you need a [valid license](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster)!
 
 ## How to report Bugs or suggest Improvements?
 [List of planned features](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement) - click ![thumbs-up](https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-suite/master/images/misc/thumbup.png) if you need one of them or suggest a new feature!
@@ -53,8 +48,3 @@ jurisdiction.
 
 Under no circumstances will we be responsible or liable for any claims, damages, losses, expenses, costs or liabilities 
 of any kind, including but not limited to direct or indirect damages for loss of profits.
-
-## Commercial Support
-
-
-***Do you need a developer, operator or consultant?*** [Contact us](https://about.me/oliver-zehentleitner/contact.html) for a non-binding initial consultation!
