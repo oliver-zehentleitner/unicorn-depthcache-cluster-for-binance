@@ -7,25 +7,6 @@ on:
     branches: [ master ]
 
 jobs:
-  test_python_3_12:
-    runs-on: ubuntu-latest
-    steps:
-    - name: GitHub Checkout
-      uses: actions/checkout@v4
-
-    - uses: actions/setup-python@v4
-      with:
-        python-version: "3.12"
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pytest pytest-cov
-        pip install -r packages/ubdcc-shared-modules/requirements.txt
-
-    - name: Unit test
-      run: pytest --cov --cov-branch --cov-report=xml unittest_ubdcc.py -v
-
   test_python_3_14:
     runs-on: ubuntu-latest
     steps:
