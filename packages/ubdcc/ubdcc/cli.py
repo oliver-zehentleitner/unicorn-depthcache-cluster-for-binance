@@ -29,6 +29,32 @@ import requests
 
 from ubdcc import __version__
 
+STATE_FILE = ".ubdcc"
+DEFAULT_MGMT_PORT = 42080
+
+
+def save_port(port):
+    with open(STATE_FILE, "w") as f:
+        f.write(str(port))
+
+
+def load_port():
+    try:
+        with open(STATE_FILE, "r") as f:
+            return int(f.read().strip())
+    except (FileNotFoundError, ValueError):
+        return None
+
+
+def get_mgmt_port(args):
+    """Resolve mgmt port: --port flag > state file > default."""
+    if args.port is not None:
+        return args.port
+    saved = load_port()
+    if saved is not None:
+        return saved
+    return DEFAULT_MGMT_PORT
+
 
 def is_port_free(port, host='127.0.0.1'):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -65,10 +91,11 @@ def wait_for_cluster(mgmt_port, expected_pods, timeout=120):
 
 
 def cmd_start(args):
-    mgmt_port = args.port if args.port else find_free_port(42080)
+    mgmt_port = args.port if args.port else find_free_port(DEFAULT_MGMT_PORT)
     dcn_count = args.dcn
     logdir = args.logdir if args.logdir else os.getcwd()
     os.makedirs(logdir, exist_ok=True)
+    save_port(mgmt_port)
 
     print(f"UBDCC Cluster Manager v{__version__}")
     print(f"Starting cluster with mgmt port {mgmt_port}, {dcn_count} DCN(s)...")
@@ -119,8 +146,8 @@ def cmd_start(args):
     else:
         print("Warning: Timeout waiting for all pods to register. Check the logs.")
 
-    print(f"\nUse 'ubdcc status --port {mgmt_port}' to check.")
-    print(f"Use 'ubdcc stop --port {mgmt_port}' to shut down.\n")
+    print(f"\nUse 'ubdcc status' to check.")
+    print(f"Use 'ubdcc stop' to shut down.\n")
 
     # Keep running, wait for Ctrl+C
     def signal_handler(sig, frame):
@@ -146,7 +173,7 @@ def cmd_start(args):
 
 
 def cmd_status(args):
-    mgmt_port = args.port if args.port else 42080
+    mgmt_port = get_mgmt_port(args)
     url = f"http://127.0.0.1:{mgmt_port}/get_cluster_info"
     try:
         response = requests.get(url, timeout=5)
@@ -160,12 +187,12 @@ def cmd_status(args):
 
 
 def cmd_stop(args):
-    mgmt_port = args.port if args.port else 42080
+    mgmt_port = get_mgmt_port(args)
     shutdown_all(mgmt_port)
 
 
 def cmd_restart(args):
-    mgmt_port = args.port if args.port else 42080
+    mgmt_port = get_mgmt_port(args)
     target = args.name
     url = f"http://127.0.0.1:{mgmt_port}/get_cluster_info"
     try:
