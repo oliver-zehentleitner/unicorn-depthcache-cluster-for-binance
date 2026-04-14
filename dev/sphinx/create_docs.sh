@@ -3,14 +3,14 @@
 #
 # File: dev/sphinx/create_docs.sh
 #
-# Part of ‘UNICORN Binance Local Depth Cache’
-# Project website: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
-# Github: https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance
-# Documentation: https://oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance
+# Part of ‘UNICORN Binance DepthCache Cluster’
+# Project website: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster
+# Github: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster
+# Documentation: https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster
 # PyPI: https://pypi.org/project/unicorn-binance-depth-cache-cluster
 #
 # License: MIT
-# https://github.com/oliver-zehentleitner/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
+# https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/LICENSE
 #
 # Author: Oliver Zehentleitner
 #
@@ -38,4 +38,4 @@ rm build/html
 ln -s ../../../docs build/html
 make html -d
 echo "Creating CNAME file for GitHub."
-echo "oliver-zehentleitner.github.io/unicorn-depthcache-cluster-for-binance" >> build/html/CNAME
+echo "oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster" > build/html/CNAME
