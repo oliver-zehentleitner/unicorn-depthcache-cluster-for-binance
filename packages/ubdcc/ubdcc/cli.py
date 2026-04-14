@@ -233,12 +233,21 @@ def cmd_start(args):
                     requests.get(f"http://127.0.0.1:{mgmt_port}/shutdown", timeout=5)
                 except requests.exceptions.ConnectionError:
                     pass
-                time.sleep(2)
+                for name, proc, log in processes:
+                    if name == "mgmt":
+                        proc.wait(timeout=10)
+                        break
                 pid = spawn_mgmt()
                 print(f"  mgmt restarted (PID {pid})")
-                time.sleep(3)
+                print("  Waiting for mgmt to come up...")
+                for _ in range(30):
+                    try:
+                        requests.get(f"http://127.0.0.1:{mgmt_port}/test", timeout=2)
+                        print("  mgmt is ready!")
+                        break
+                    except requests.exceptions.ConnectionError:
+                        time.sleep(1)
             elif arg in ('ubdcc-restapi', 'restapi'):
-                # Find restapi port and shut it down
                 try:
                     data = requests.get(f"http://127.0.0.1:{mgmt_port}/get_cluster_info", timeout=5).json()
                     for uid, pod in data.get('db', {}).get('pods', {}).items():
@@ -247,17 +256,16 @@ def cmd_start(args):
                             break
                 except requests.exceptions.ConnectionError:
                     pass
-                time.sleep(2)
+                for name, proc, log in processes:
+                    if name == "restapi":
+                        proc.wait(timeout=10)
+                        break
                 pid = spawn_restapi()
                 print(f"  restapi restarted (PID {pid})")
-                time.sleep(3)
             else:
-                # DCN or other pod by name
                 restart_pod(mgmt_port, arg)
-                time.sleep(2)
                 nr, pid = spawn_dcn()
                 print(f"  dcn-{nr} respawned (PID {pid})")
-                time.sleep(3)
         elif cmd in ('help', '/help', '?'):
             print()
             print("Available commands:")
