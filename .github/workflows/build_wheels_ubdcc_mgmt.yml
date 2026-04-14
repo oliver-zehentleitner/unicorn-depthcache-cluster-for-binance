@@ -27,11 +27,13 @@ jobs:
           sparse-checkout: 'packages/ubdcc-mgmt/'
 
       - name: Move directory contents
+        shell: bash
         run: |
           mv ubdcc-mgmt/packages/ubdcc-mgmt/* ./
           rm -rf ubdcc-mgmt
 
       - name: ls -l
+        shell: bash
         run: ls -l
 
       - name: Upgrade pip
@@ -74,6 +76,7 @@ jobs:
           sparse-checkout: 'packages/ubdcc-mgmt/'
 
       - name: Move directory contents
+        shell: bash
         run: |
           mv ubdcc-mgmt/packages/ubdcc-mgmt/* ./
           rm -rf ubdcc-mgmt

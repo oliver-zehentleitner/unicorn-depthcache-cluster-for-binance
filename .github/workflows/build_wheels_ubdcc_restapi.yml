@@ -27,11 +27,13 @@ jobs:
           sparse-checkout: 'packages/ubdcc-restapi/'
 
       - name: Move directory contents
+        shell: bash
         run: |
           mv ubdcc-restapi/packages/ubdcc-restapi/* ./
           rm -rf ubdcc-restapi
 
       - name: ls -l
+        shell: bash
         run: ls -l
 
       - name: Upgrade pip
@@ -74,6 +76,7 @@ jobs:
           sparse-checkout: 'packages/ubdcc-restapi/'
 
       - name: Move directory contents
+        shell: bash
         run: |
           mv ubdcc-restapi/packages/ubdcc-restapi/* ./
           rm -rf ubdcc-restapi
