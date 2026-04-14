@@ -287,6 +287,16 @@ def remove_dcn(mgmt_port, target, processes):
 
 def restart_pod(mgmt_port, target):
     """Send shutdown to a specific pod by name or UID."""
+    # Handle mgmt separately — it doesn't register itself in the pod list
+    if target in ('ubdcc-mgmt', 'mgmt'):
+        try:
+            requests.get(f"http://127.0.0.1:{mgmt_port}/shutdown", timeout=5)
+            print(f"Shutdown signal sent to mgmt on port {mgmt_port}.")
+            print(f"Note: Restart the process manually or re-run 'ubdcc start'.")
+        except requests.exceptions.ConnectionError:
+            print(f"Cannot connect to mgmt on port {mgmt_port}.")
+        return
+
     url = f"http://127.0.0.1:{mgmt_port}/get_cluster_info"
     try:
         response = requests.get(url, timeout=5)
