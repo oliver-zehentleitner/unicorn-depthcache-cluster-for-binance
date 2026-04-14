@@ -156,8 +156,10 @@ class RestEndpoints(RestEndpointsBase):
         request_url = str(request.url)
         used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
         host = self.app.get_cluster_mgmt_address()
+        post_body = None
         if request.method == "POST":
             body = await request.json()
+            post_body = body
             url = host + endpoint
             result = await self.app.request(url=url, method="post", params=body)
         else:
@@ -167,14 +169,16 @@ class RestEndpoints(RestEndpointsBase):
         if result.get('error') is not None and result.get('error_id') is not None:
             return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
                                            params={"error": str(result)}, process_start_time=process_start_time,
-                                           url=request_url, used_pods=used_pods)
+                                           url=request_url, post_body=post_body, used_pods=used_pods)
         elif result.get('error_id') is not None:
             return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'),
-                                           url=request_url, process_start_time=process_start_time, used_pods=used_pods)
+                                           url=request_url, process_start_time=process_start_time,
+                                           post_body=post_body, used_pods=used_pods)
         else:
             if str(request.query_params.get("debug")).lower() == "true":
                 result['debug'] = self.create_debug_response(process_start_time=process_start_time,
-                                                             url=request_url, used_pods=used_pods)
+                                                             url=request_url, post_body=post_body,
+                                                             used_pods=used_pods)
             return result
 
     async def get_asks(self, request: Request):
