@@ -4,6 +4,7 @@ files:
 - .github/workflows/build_wheels_ubdcc_mgmt.yml
 - .github/workflows/build_wheels_ubdcc_restapi.yml
 - .github/workflows/build_wheels_ubdcc_shared_modules.yml
+- .github/workflows/docker_build.yml
 - .github/workflows/gh_release.yml
 - container/generic_loader/requirements-ubdcc_dcn.txt
 - container/generic_loader/requirements-ubdcc_mgmt.txt

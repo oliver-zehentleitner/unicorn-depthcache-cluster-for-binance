@@ -4,9 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version tag (must match an existing PyPI release, e.g. 0.3.3)'
+        description: 'Version tag (must match an existing PyPI release)'
         required: true
         type: string
+        default: '0.3.3'
 
 jobs:
   build:
