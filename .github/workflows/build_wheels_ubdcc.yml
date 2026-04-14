@@ -15,13 +15,13 @@ jobs:
         with:
           repository: ${{ github.repository }}
           ref: ${{ github.ref }}
-          path: ubdcc
+          path: checkout
           sparse-checkout: 'packages/ubdcc/'
 
       - name: Move directory contents
         run: |
-          mv ubdcc/packages/ubdcc/* ./
-          rm -rf ubdcc
+          mv checkout/packages/ubdcc/* ./
+          rm -rf checkout
 
       - name: ls -l
         run: ls -l
