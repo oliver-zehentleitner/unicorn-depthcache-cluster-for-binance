@@ -17,7 +17,6 @@
 # Copyright (c) 2024-2026, Oliver Zehentleitner (https://about.me/oliver-zehentleitner)
 # All rights reserved.
 
-import base64
 import orjson as json
 from ubdcc_shared_modules.Database import Database
 from ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
@@ -139,7 +138,7 @@ class RestEndpoints(RestEndpointsBase):
         else:
             exchange = request.query_params.get("exchange", None)
             markets_param = request.query_params.get("markets", None)
-            markets = json.loads(base64.b64decode(markets_param)) if markets_param else None
+            markets = markets_param.split(",") if markets_param else None
             desired_quantity = request.query_params.get("desired_quantity", None)
             update_interval = request.query_params.get("update_interval", None)
             refresh_interval = request.query_params.get("refresh_interval", None)
