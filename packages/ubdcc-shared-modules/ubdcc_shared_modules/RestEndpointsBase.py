@@ -42,12 +42,16 @@ class RestEndpointsBase:
         return response
 
     @staticmethod
-    def create_debug_response(process_start_time: float = None, url: str = None, used_pods: list = None) -> dict:
-        return {"cluster_execution_time": time.time() - process_start_time,
-                "request_time": 0,
-                "transmission_time": 0,
-                "url": url,
-                "used_pods": used_pods}
+    def create_debug_response(process_start_time: float = None, url: str = None,
+                              post_body: dict = None, used_pods: list = None) -> dict:
+        result = {"cluster_execution_time": time.time() - process_start_time,
+                  "request_time": 0,
+                  "transmission_time": 0,
+                  "url": url,
+                  "used_pods": used_pods}
+        if post_body is not None:
+            result["post_body"] = post_body
+        return result
 
     def create_depthcache_list_response(self) -> dict:
         if self.app.data.get('db') is None:
@@ -67,7 +71,8 @@ class RestEndpointsBase:
         return self.fastapi
 
     def get_error_response(self, event: str = None, error_id: str = None, message: str = None, params: dict = None,
-                           process_start_time: float = None, url: str = None, used_pods: list = None):
+                           process_start_time: float = None, url: str = None, post_body: dict = None,
+                           used_pods: list = None):
         response = {"event": event, "message": message, "result": "ERROR"}
         if error_id is not None:
             response['error_id'] = error_id
@@ -75,19 +80,19 @@ class RestEndpointsBase:
             response.update(params)
         if process_start_time is not None:
             response['debug'] = self.create_debug_response(process_start_time=process_start_time,
-                                                           url=url,
+                                                           url=url, post_body=post_body,
                                                            used_pods=used_pods)
         response_sorted = self.app.sort_dict(input_dict=response)
         return JSONResponse(status_code=200, content=response_sorted)
 
     def get_ok_response(self, event: str = None, params: dict = None, process_start_time: float = None,
-                        url: str = None, used_pods: list = None):
+                        url: str = None, post_body: dict = None, used_pods: list = None):
         response = {"event": event, "result": "OK"}
         if params:
             response.update(params)
         if process_start_time is not None:
             response['debug'] = self.create_debug_response(process_start_time=process_start_time,
-                                                           url=url,
+                                                           url=url, post_body=post_body,
                                                            used_pods=used_pods)
         response_sorted = self.app.sort_dict(input_dict=response)
         return JSONResponse(status_code=200, content=response_sorted)
