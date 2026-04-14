@@ -1,8 +1,4 @@
-License
-=======
-
 MIT License
------------
 
 Copyright (c) 2024-2026, Oliver Zehentleitner (https://about.me/oliver-zehentleitner)
 

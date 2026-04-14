@@ -2,7 +2,9 @@
 
 All notable changes to this package will be documented in this file.
 
-## 0.2.1
+## 0.3.0.dev (development stage/unreleased/unstable)
+
+## 0.3.0
 ### Added
 - `ubdcc` CLI cluster manager with interactive console:
   - `ubdcc start --dcn N [--port PORT] [--logdir DIR]` — spawn mgmt, restapi and N DCN processes

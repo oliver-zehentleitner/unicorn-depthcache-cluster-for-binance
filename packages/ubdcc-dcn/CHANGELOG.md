@@ -2,7 +2,9 @@
 
 All notable changes to this package will be documented in this file.
 
-## 0.2.1
+## 0.3.0.dev (development stage/unreleased/unstable)
+
+## 0.3.0
 ### Added
 - `mgmt_port` parameter on `DepthCacheNode` — accepts custom port from the ubdcc CLI
 ### Changed

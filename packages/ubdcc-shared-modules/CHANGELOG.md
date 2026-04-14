@@ -2,7 +2,9 @@
 
 All notable changes to this package will be documented in this file.
 
-## 0.2.1
+## 0.3.0.dev (development stage/unreleased/unstable)
+
+## 0.3.0
 ### Added
 - `/shutdown` REST endpoint (dev-mode only) on all pods — triggers graceful process shutdown via REST
 - `mgmt_port` parameter on `App` and `ServiceBase` — allows custom mgmt port via CLI

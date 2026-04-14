@@ -20,4 +20,4 @@
 set -xeuo pipefail
 
 # python3 -m pip install --upgrade pip setuptools wheel twine tqdm
-python3 -m pip install --user --upgrade pip setuptools wheel twine tqdm
+python3 -m pip install --upgrade pip setuptools wheel twine tqdm

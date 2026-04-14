@@ -9,7 +9,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 [How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/readme.html#installation-and-upgrade)
 
-## 0.2.1 (development)
+## 0.3.0.dev (development stage/unreleased/unstable)
+
+## 0.3.0
 ### Added
 - New `ubdcc` meta-package and cluster manager (`pip install ubdcc`)
 - `ubdcc` CLI command with interactive console:

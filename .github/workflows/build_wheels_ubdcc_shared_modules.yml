@@ -120,7 +120,7 @@ jobs:
           generate_release_notes: true
           name: ubdcc-shared-modules
           prerelease: false
-          tag_name: 0.2.0
+          tag_name: 0.3.0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create PyPi Release
