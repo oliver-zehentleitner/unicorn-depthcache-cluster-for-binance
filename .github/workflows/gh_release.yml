@@ -1,0 +1,30 @@
+name: Create GitHub Release
+
+on:
+  workflow_dispatch:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      discussions: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: 0.3.1
+        name: Release 0.3.1
+        body: |
+          Please read the [CHANGELOG](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/changelog.html) for further information.
+        discussion_category_name: releases
+        draft: false
+        prerelease: false
+        generate_release_notes: true
+        token: ${{ secrets.GITHUB_TOKEN }}
