@@ -28,7 +28,7 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
         - name: {{ .Values.name.restapi }}
-          image: "i018oau9.c1.de1.container-registry.ovh.net/library/ubdcc-restapi:{{ .Chart.AppVersion }}"
+          image: "ghcr.io/oliver-zehentleitner/ubdcc-restapi:{{ .Chart.AppVersion }}"
           ports:
             - name: rest-private
               containerPort: 8080

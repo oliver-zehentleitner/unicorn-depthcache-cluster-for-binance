@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: {{ .Values.name.dcn }}
-          image: "i018oau9.c1.de1.container-registry.ovh.net/library/ubdcc-dcn:{{ .Chart.AppVersion }}"
+          image: "ghcr.io/oliver-zehentleitner/ubdcc-dcn:{{ .Chart.AppVersion }}"
