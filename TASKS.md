@@ -1,4 +1,4 @@
-# TASKS.md — UNICORN DepthCache Cluster for Binance
+# TASKS.md — UNICORN Binance DepthCache Cluster
 
 Open development tasks, ideas, and decisions.
 
@@ -12,18 +12,24 @@ Open development tasks, ideas, and decisions.
 
 ## Backlog
 
-### [ ] Set up Docker registry and update build scripts
-- OVH private registry is gone with LUCIT
-- Decision needed: GitHub Container Registry (ghcr.io) or Docker Hub
-- Update all `dev/docker/*.sh` scripts and Dockerfiles with new registry
+### [ ] Update Helm chart and K8s YAMLs to ghcr.io
+- Helm templates still reference old OVH registry `i018oau9.c1.de1.container-registry.ovh.net/library/`
+- admin/k8s/*.yaml still have old SHA256 digests from OVH
+- Update to `ghcr.io/oliver-zehentleitner/ubdcc-*:<version>`
+- Consider: DCN as Deployment (replicas=n) instead of DaemonSet (1 per node) to support 1 DCN per CPU core
 
-### [ ] Regenerate Sphinx HTML docs
-- Theme changed from `python_docs_theme_lucit` to `alabaster`
-- All `docs/` HTML files still reference old LUCIT theme and package names
-- Run `cd dev/sphinx && make html` after Sphinx environment setup
+### [ ] Docker Compose
+- `docker compose up` → full cluster running
+- Configurable DCN count via environment variable or compose profiles
+- No K8s needed, familiar to most devs
+
+### [ ] Multi-arch Docker images
+- Currently amd64 only
+- Add arm64 for Apple Silicon / ARM servers
+- docker/build-push-action with `platforms: linux/amd64,linux/arm64`
 
 ### [ ] Add unit tests
-- No test coverage exists at all
+- No test coverage beyond placeholder exists
 - Start with mocked unit tests for `Database.py` and `App.py` logic
 
 ### [ ] Binance API Key support per DCN
@@ -38,25 +44,6 @@ Open development tasks, ideas, and decisions.
 ---
 
 ## Ideas — Distribution & Accessibility
-
-UBDCC's core value is already accessible via 5 PyPI packages + REST API. These wrappers would lower the barrier 
-further for different audiences.
-
-### [ ] Docker Compose
-- `docker compose up` → full cluster running
-- Configurable DCN count via environment variable or compose profiles
-- No K8s needed, familiar to most devs
-
-### [ ] Docker Images on ghcr.io
-- Public images at `ghcr.io/oliver-zehentleitner/ubdcc-*`
-- Base image: `python:3.14-slim`
-- GitHub Actions workflow for automated builds on release
-- Decide: keep "-latest" variant or drop it
-- Decide: amd64 only or also arm64
-
-### [ ] Helm Chart update
-- Already exists, needs registry URL update (OVH → ghcr.io)
-- DCN: consider Deployment with configurable replicas instead of DaemonSet (1 per core, not 1 per node)
 
 ### [ ] Config file support (YAML/TOML)
 - Predefined exchange, markets, ports, DCN count, desired_quantity
@@ -76,57 +63,73 @@ further for different audiences.
 - Broadens the "any language" promise
 - High effort per language
 
-### Decision: Docker/K8s is deferred for 0.2.0
-The 0.2.0 release ships with 5 PyPI packages + Local Setup + REST API documentation + CLI cluster manager.
-Docker images, Helm chart update, and K8s deployment are a follow-up release.
-
 ---
 
 ## Ideas — Architecture
 
 ### [ ] DCN-local DB updates as distributed transaction log
-**Status:** Concept only — needs visualization before implementation, easy to get wrong.
+**Status:** Concept only — needs visualization before implementation.
 
-**Problem:** If mgmt crashes between a `create_depthcache`/`stop_depthcache` and the next node sync, the restored DB is missing that change. The gap is small but real.
+**Problem:** If mgmt crashes between a `create_depthcache`/`stop_depthcache` and the next node sync, the restored DB is missing that change.
 
 **Concept:**
 - Each DCN already holds a local copy of the mgmt DB (`ubdcc_mgmt_backup`)
-- When a DCN successfully creates or stops a DepthCache, it could update its own local backup copy immediately (add/remove the DC entry)
-- On next sync, mgmt overwrites with the authoritative version as usual — this "flattens" the log
-- If mgmt crashes and recovers from a DCN, it gets the version that includes locally-applied changes → gap closed
+- When a DCN successfully creates or stops a DepthCache, it could update its own local backup copy immediately
+- On next sync, mgmt overwrites with the authoritative version — this "flattens" the log
+- If mgmt crashes and recovers from a DCN, it gets the version that includes locally-applied changes
 
-**Variants to consider:**
-- Single create: DCN updates local backup after successful create
-- Bulk create: DCN updates local backup once after the full batch
-- Stop: DCN updates local backup before delete (so the old state is preserved if stop fails)
-- Should restapi pods do the same? (they also hold a backup copy)
+**Variants:** Single create (update after add), bulk create (update once after batch), stop (update before delete). Should restapi also?
 
-**Risks:**
-- Concurrent creates on multiple DCNs could produce conflicting local states
-- Local backup format must stay compatible with mgmt's `replace_data()`
-- Need to handle the case where a DCN's local update is based on a stale backup (missed a sync)
+**Risks:** Concurrent creates on multiple DCNs → conflicting local states; stale backup → DCN updates based on old state.
 
 **Decision:** Deferred — Oliver wants to visualize the full flow before implementing.
 
 ---
 
-## Done
+## Done (0.3.x cycle)
 
-### [x] Remove LUCIT licensing system
-- Deleted `LicensingManager.py` and `LicensingExceptions.py`
-- Removed all license checks from `App.py`, `Database.py`, `RestEndpointsBase.py`
-- Removed `submit_license` endpoints from mgmt and restapi
-- Removed license params from UBLDC instantiation in DCN
-- Removed `lucit-licensing-python` from all setup.py and pyproject.toml
+### [x] CLI cluster manager (`ubdcc` package)
+- `ubdcc start --dcn N` with interactive `ubdcc>` console
+- Commands: status, add-dcn, remove-dcn (by count or name), restart, stop, help
+- `.ubdcc` state file for auto port detection
+- `python -m ubdcc` dev entry point
 
-### [x] Fix deprecated UBLDC method call in DepthCacheNode.py
-- `create_depth_cache()` → `create_depthcache()` in DCN
+### [x] Docker → ghcr.io migration
+- `.github/workflows/docker_build.yml` builds 3 images in parallel
+- Pushes to `ghcr.io/oliver-zehentleitner/ubdcc-{dcn,mgmt,restapi}:<version>+latest`
+- Dropped `-latest` variants and `dev_station` container
+- Base image: python:3.14-slim
 
-### [x] Pin UBLDC dependency to current stable version
-- `ubdcc-dcn` setup.py: `unicorn_binance_local_depth_cache==2.6.0` → `unicorn-binance-local-depth-cache>=2.8.1`
+### [x] Python 3.9-3.14 support on Linux/macOS/Windows
+- All 5 packages, UBWA build pattern (cibuildwheel v3.4.1, 3 OS matrix)
 
-### [x] Rebrand LUCIT → Oliver Zehentleitner / MIT
-- Renamed packages: `lucit-ubdcc-*` → `ubdcc-*`, namespaces: `lucit_ubdcc_*` → `ubdcc_*`
-- Replaced LSOSL with MIT license
-- Updated all headers, copyright, author, URLs
-- Updated K8s, Helm, Docker, CI/CD, Sphinx
+### [x] Separate GitHub Release from PyPI workflows
+- `gh_release.yml` handles release creation once per tag
+- Individual build workflows only push to PyPI
+
+### [x] REST API improvements
+- `/create_depthcaches` supports GET + POST (GET with comma-separated markets for browser debugging)
+- `/shutdown` endpoint (dev-mode only) for graceful process shutdown
+- `debug=true` includes `post_body` for POST requests
+- `mgmt_port` parameter threaded through all services
+- SO_REUSEADDR fix for TIME_WAIT after restart
+- Port retry on bind failure (race condition fix)
+- `os._exit(0)` after /shutdown response (prevents hanging)
+
+### [x] Sphinx docs rebuild
+- Restored `python_docs_theme_lucit` (consistent with rest of UBS)
+- Added sphinxcontrib-mermaid + myst_fence_as_directive
+- create_docs.sh: CNAME fix (> instead of >>), license.rst with title
+- 0 build warnings
+
+### [x] README overhaul
+- "What is UBDCC?" + "Why?" sections for new users
+- Architecture diagram (Mermaid, inline — no Lucidchart dependency)
+- Local Setup with CLI as primary path
+- Full REST API reference (public + internal endpoints)
+- Debug guide, ports table, sizing recommendations
+
+### [x] LUCIT removal + MIT rebrand (0.2.0)
+- Package renames: `lucit-ubdcc-*` → `ubdcc-*`
+- LICENSE: LSOSL → MIT
+- All URLs, headers, project_urls aligned with UBS standard
