@@ -1,0 +1,37 @@
+name: Package and Publish Helm Chart
+
+on:
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+
+      - name: Package chart
+        run: |
+          cd docs/helm
+          helm package ../../dev/helm/ubdcc/
+          helm repo index . --url https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/helm
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/helm/
+          if git diff --cached --quiet; then
+            echo "Nothing to commit"
+          else
+            git commit -m "Helm: publish chart package and updated index"
+            git push
+          fi
