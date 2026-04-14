@@ -1,3 +1,0 @@
-ubdcc-dcn
-ubdcc-mgmt
-ubdcc-restapi
