@@ -20,6 +20,7 @@ jobs:
 
       - name: Package chart
         run: |
+          mkdir -p docs/helm
           cd docs/helm
           helm package ../../dev/helm/ubdcc/
           helm repo index . --url https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/helm
