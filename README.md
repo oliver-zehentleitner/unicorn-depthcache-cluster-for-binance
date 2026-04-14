@@ -14,45 +14,54 @@
 
 # UNICORN Binance DepthCache Cluster (UBDCC)
 
-A highly scalable Kubernetes application to manage multiple and redundant UNICORN Binance Local Depth Cache 
-Instances on a Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order books). 
+Scalable, redundant order book data for Binance — deployed on Kubernetes, accessed via REST API from any language.
 
-The cluster can be accessed from any programming language via a REST API, allowing Asks and Bids to be retrieved in 
-JSON format.
+Built on [UNICORN Binance Local Depth Cache (UBLDC)](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache). 
+Part of the [UNICORN Binance Suite](https://github.com/oliver-zehentleitner/unicorn-binance-suite).
 
+## Why?
 
-Part of '[UNICORN Binance Suite](https://github.com/oliver-zehentleitner/unicorn-binance-suite)'.
+Running order book depth caches on a single machine hits limits fast:
 
-## What is UBDCC?
+- **Rate limits**: One public IP can only handle so many Binance API requests. A cluster spreads the load across 
+multiple nodes with their own IPs.
+- **Shared access**: Multiple trading bots, services or team members need the same order book data. UBDCC serves it 
+via a REST API — no shared state, no duplicate connections.
+- **Reliability**: If a node goes down, redundant copies of each DepthCache keep serving data. The management pod 
+recovers its state automatically from the remaining nodes.
 
-The main idea is to deploy the UBDCC on a Kubernetes cluster with, for example, 4 rented servers. You can create and 
-manage DepthCaches within the cluster environment instead of on local servers and access them from multiple clients.
+## How it works
+
+Deploy UBDCC on a Kubernetes cluster and create DepthCaches through the REST API instead of running them locally.
+
+The cluster consists of three pod types:
+- **mgmt** (1x) — manages the cluster state, distributes DepthCaches across nodes
+- **restapi** (1x per node) — REST API gateway, load-balances requests to DCN pods
+- **dcn** (multiple) — runs the actual DepthCaches via UBLDC
+
+Each DCN pod runs a single Python process, so **one DCN pod per CPU core** gives the best performance (Python's GIL 
+limits each process to one core). A typical setup with 2 servers and 4 cores each: 1 mgmt, 2 restapi, 6 DCN pods.
 
 For example, when you configure the system to create 200 DepthCaches with a `desired_quantity` of `2`, UBDCC will deploy
-2 DepthCaches for each symbol/market. These DepthCaches are evenly distributed across the nodes of the cluster and can 
-download order book snapshots from the Binance Rest API using their own public IP addresses. On the first run, each 
-server starts 50 DepthCaches, synchronizing the full set of 200 as quickly as possible. Afterward, replicas are 
-initiated, with each node handling 100 DepthCaches.
+2 DepthCaches for each symbol/market. These are evenly distributed across the DCN pods and can download order book 
+snapshots from the Binance REST API using their own public IP addresses. On the first run, each pod starts its share of 
+DepthCaches as quickly as possible. Afterward, replicas are initiated for redundancy.
 
 [![Visual overview](https://lucid.app/publicSegments/view/7ba7d734-4bb2-467f-b7b9-74ea0d1deec2/image.png)](https://lucid.app/publicSegments/view/7ba7d734-4bb2-467f-b7b9-74ea0d1deec2/image.png)
 
 ## Key Features
 
-- **Asynchronous Operation**: The entire cluster code is built to run asynchronously.
-- **Load Balancing & Failover**: All requests for data (Asks/Bids) are handled via a load balancer with built-in 
-failover, ensuring high availability and quick response times.
-  - Local requests for Asks/Bids: ~0.01 seconds
-  - Requests via the Internet: ~0.06 seconds
-- **Flexible Data Retrieval**: You can trim the amount of transferred data at the cluster level, either by limiting to
-a specific amount of top Asks/Bids or by setting a threshold.
-- **HTTP Access**: DepthCache values can be retrieved through HTTP using both synchronous and asynchronous methods 
-provided by 
-[UBLDC](https://oliver-zehentleitner.github.io/unicorn-binance-local-depth-cache/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster).
-- **Top Performance**: The entire code base is deployed in the Kubernetes cluster as a compiled C-Extension!
-- **Supported Architectures**: Kubernetes on 64-bit (x86_64) and 32-bit (i686): musllinux (based on musl libc 1.1+),
-  manylinux (based on glibc 2.5+ and 2.17+) compatible with manylinux1 and manylinux2014
-- **Manages Binance Weight Costs**: If the weight costs become too high, the cluster throttles the initialization.
-- **Supported Exchanges**:
+- **Fast access**: Order book Asks/Bids in ~0.01s (local) or ~0.06s (internet). All requests are load-balanced with 
+automatic failover.
+- **Any language**: Retrieve DepthCache data via HTTP/JSON. Python users can use the 
+[UBLDC cluster module](https://oliver-zehentleitner.github.io/unicorn-binance-local-depth-cache/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster) 
+for sync and async access.
+- **Flexible filtering**: Trim data at the cluster level — limit to top N Asks/Bids or filter by volume threshold.
+- **Compiled C-Extensions**: The entire cluster runs as Cython-compiled code for maximum performance.
+- **Smart rate limiting**: Automatically throttles initialization when Binance API weight costs get too high.
+- **Self-healing state**: The cluster database is replicated to every node. If the management pod restarts, it 
+recovers the latest state automatically — no external database (Redis, etcd) required.
+- **Supported exchanges**:
 
 | Exchange                                                           | Exchange string               | 
 |--------------------------------------------------------------------|-------------------------------| 
@@ -85,7 +94,7 @@ helm repo add ubdcc https://oliver-zehentleitner.github.io/unicorn-binance-depth
 helm repo update
 ```
 
-- Install the UNICORN DepthCache Cluster for Binance
+- Install the UNICORN Binance DepthCache Cluster
 
 ``` 
 helm install ubdcc ubdcc/ubdcc
@@ -188,7 +197,7 @@ If you don't find an issue related to your topic, please open a new [issue](http
 [Report a security bug!](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/security/policy)
 
 ## Contributing
-[UNICORN DepthCache Cluster for Binance](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster) is an open 
+[UNICORN Binance DepthCache Cluster](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster) is an open 
 source project which welcomes contributions which can be anything from simple documentation fixes and reporting dead links to new features. To 
 contribute follow 
 [this guide](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/CONTRIBUTING.md).
