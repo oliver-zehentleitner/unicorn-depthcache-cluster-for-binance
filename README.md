@@ -141,7 +141,7 @@ ubdcc start --dcn 4
 This starts 1 mgmt + 1 restapi + 4 DCN processes and drops you into an interactive console:
 
 ```
-UBDCC Cluster Manager v0.3.0
+UBDCC Cluster Manager v0.3.1
 Starting cluster with mgmt port 42080, 4 DCN(s)...
   mgmt started (PID 12345)
   restapi started (PID 12346)
@@ -155,15 +155,15 @@ Cluster is ready!
 
 ROLE             NAME                 PORT     STATUS     VERSION
 ----------------------------------------------------------------------
-ubdcc-mgmt       ubdcc-mgmt           42080    running    0.3.0
-ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.3.0
-ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.3.0
-ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.3.0
-ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.3.0
-ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.3.0
+ubdcc-mgmt       ubdcc-mgmt           42080    running    0.3.1
+ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.3.1
+ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.3.1
+ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.3.1
+ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.3.1
+ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.3.1
 
 DepthCaches: 0
-Version: 0.3.0
+Version: 0.3.1
 
 REST API: http://127.0.0.1:42081/
 Cluster info: http://127.0.0.1:42081/get_cluster_info
@@ -383,7 +383,7 @@ helm search repo ubdcc
 - Then
 
 ``` 
-helm install ubdcc ubdcc/ubdcc --version 0.3.0
+helm install ubdcc ubdcc/ubdcc --version 0.3.1
 ```
 
 #### Choose a namespace
