@@ -1,4 +1,4 @@
-name: Build and Publish GH+PyPi (ubdcc-mgmt)
+name: Build and Publish PyPi (ubdcc-mgmt)
 
 on:
   workflow_dispatch:

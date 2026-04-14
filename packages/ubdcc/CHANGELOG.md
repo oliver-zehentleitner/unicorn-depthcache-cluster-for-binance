@@ -21,7 +21,7 @@ All notable changes to this package will be documented in this file.
 - GitHub Release step in the build workflow
 ### Changed
 - Python support extended to 3.9-3.14 on Linux, macOS and Windows
-- Workflow renamed to "Build and Publish GH+PyPi (ubdcc)" for consistency with other packages
+- Workflow renamed to "Build and Publish PyPi (ubdcc)" for consistency with other packages
 
 ## 0.2.0
 ### Added

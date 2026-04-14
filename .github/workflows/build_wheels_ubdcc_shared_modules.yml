@@ -1,4 +1,4 @@
-name: Build and Publish GH+PyPi (ubdcc-shared-modules)
+name: Build and Publish PyPi (ubdcc-shared-modules)
 
 on:
   workflow_dispatch:
