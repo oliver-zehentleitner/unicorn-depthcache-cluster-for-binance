@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: ubdcc-dcn
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/ubdcc-dcn@sha256:f7e2e1a961c9250431ee9fcb23ff4a28eaa640f1edc7ebd2f7a871e39699c2b9
+          image: ghcr.io/oliver-zehentleitner/ubdcc-dcn:0.3.3
