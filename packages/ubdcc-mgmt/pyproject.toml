@@ -13,13 +13,11 @@ repository = "https://github.com/oliver-zehentleitner/unicorn-binance-depth-cach
 'Howto' = 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster#howto'
 'Documentation' = 'https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster'
 'Wiki' = 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/wiki'
-'Author' = 'https://about.me/oliver-zehentleitner'
+'Author' = 'https://www.linkedin.com/in/oliver-zehentleitner'
 'Changes' = 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/packages/ubdcc-mgmt/CHANGELOG.md'
 'License' = 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/LICENSE'
 'Issue Tracker' = 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues'
 'Telegram' = 'https://t.me/unicorndevs'
-'Chat' = 'https://app.gitter.im/#/room/#unicorn-binance-depth-cache-cluster:gitter.im'
-'Get Support' = 'https://about.me/oliver-zehentleitner/get-support.html'
 
 [tool.poetry.dependencies]
 python = ">=3.9.0"
