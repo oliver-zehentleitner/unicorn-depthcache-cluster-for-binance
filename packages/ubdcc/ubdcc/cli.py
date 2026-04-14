@@ -146,30 +146,60 @@ def cmd_start(args):
     else:
         print("Warning: Timeout waiting for all pods to register. Check the logs.")
 
-    print(f"\nUse 'ubdcc status' to check.")
-    print(f"Use 'ubdcc stop' to shut down.\n")
+    print(f"\nType 'help' for available commands, Ctrl+C or 'stop' to shut down.\n")
 
-    # Keep running, wait for Ctrl+C
-    def signal_handler(sig, frame):
-        print("\nReceived interrupt, shutting down cluster...")
+    # Interactive console
+    def do_shutdown():
+        print("\nShutting down cluster...")
         shutdown_all(mgmt_port)
         for name, proc, log in processes:
             proc.terminate()
             log.close()
+        try:
+            os.remove(STATE_FILE)
+        except FileNotFoundError:
+            pass
         sys.exit(0)
 
-    signal.signal(signal.SIGINT, signal_handler)
-    signal.signal(signal.SIGTERM, signal_handler)
+    signal.signal(signal.SIGINT, lambda sig, frame: do_shutdown())
+    signal.signal(signal.SIGTERM, lambda sig, frame: do_shutdown())
 
-    try:
-        while True:
-            # Check if any process died
-            for name, proc, log in processes:
-                if proc.poll() is not None:
-                    print(f"Warning: {name} (PID {proc.pid}) has exited with code {proc.returncode}")
-            time.sleep(5)
-    except KeyboardInterrupt:
-        signal_handler(None, None)
+    while True:
+        try:
+            cmd = input("ubdcc> ").strip().lower()
+        except (KeyboardInterrupt, EOFError):
+            do_shutdown()
+
+        if not cmd:
+            continue
+        elif cmd in ('status', '/status'):
+            try:
+                response = requests.get(f"http://127.0.0.1:{mgmt_port}/get_cluster_info", timeout=5)
+                data = response.json()
+                if data.get('result') == 'OK':
+                    print()
+                    print_status_table(data, mgmt_port=mgmt_port)
+                    print()
+            except requests.exceptions.ConnectionError:
+                print("Cannot connect to mgmt.")
+        elif cmd in ('stop', '/stop', 'quit', 'exit'):
+            do_shutdown()
+        elif cmd.startswith(('restart ', '/restart ')):
+            target = cmd.split(None, 1)[1] if len(cmd.split(None, 1)) > 1 else None
+            if target:
+                restart_pod(mgmt_port, target)
+            else:
+                print("Usage: restart <pod-name>")
+        elif cmd in ('help', '/help', '?'):
+            print()
+            print("Available commands:")
+            print("  status          Show cluster status")
+            print("  stop            Shut down the cluster")
+            print("  restart <name>  Restart a specific pod")
+            print("  help            Show this help")
+            print()
+        else:
+            print(f"Unknown command: {cmd}. Type 'help' for available commands.")
 
 
 def cmd_status(args):
@@ -193,7 +223,11 @@ def cmd_stop(args):
 
 def cmd_restart(args):
     mgmt_port = get_mgmt_port(args)
-    target = args.name
+    restart_pod(mgmt_port, args.name)
+
+
+def restart_pod(mgmt_port, target):
+    """Send shutdown to a specific pod by name or UID."""
     url = f"http://127.0.0.1:{mgmt_port}/get_cluster_info"
     try:
         response = requests.get(url, timeout=5)
@@ -215,7 +249,7 @@ def cmd_restart(args):
                 print(f"Cannot connect to '{name}' on port {port}.")
             return
 
-    print(f"Pod '{target}' not found. Use 'ubdcc status' to see available pods.")
+    print(f"Pod '{target}' not found. Use 'status' to see available pods.")
 
 
 def shutdown_all(mgmt_port):
