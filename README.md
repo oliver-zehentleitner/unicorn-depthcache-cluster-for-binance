@@ -103,18 +103,97 @@ pip install ubdcc-mgmt ubdcc-restapi ubdcc-dcn
 Open a separate terminal for each process:
 
 ```bash
-# Terminal 1: Management
+# Terminal 1: Management (internal, port 42080)
 python -c "import os; from ubdcc_mgmt.Mgmt import Mgmt; Mgmt(cwd=os.getcwd())"
 
-# Terminal 2: REST API
+# Terminal 2: REST API (your access point, port 42081)
 python -c "import os; from ubdcc_restapi.RestApi import RestApi; RestApi(cwd=os.getcwd())"
 
 # Terminal 3+: DepthCacheNode (start one per CPU core you want to use)
 python -c "import os; from ubdcc_dcn.DepthCacheNode import DepthCacheNode; DepthCacheNode(cwd=os.getcwd())"
 ```
 
-The REST API is available at `http://127.0.0.1:42080`. Create DepthCaches and query order book data through this 
-endpoint. See [Accessing the DepthCaches](#accessing-the-depthcaches) for examples.
+**Start order does not matter.** All components automatically discover each other and reconnect if any process 
+restarts. The mgmt needs a few seconds on first start before it accepts registrations.
+
+### Ports
+
+| Component | Default port | Purpose |
+|-----------|-------------|---------|
+| mgmt | 42080 | Internal cluster management (not for direct use) |
+| restapi | 42081 | **Your access point** — all queries go here |
+| dcn | 42082+ | Internal, auto-increments if multiple DCNs run on the same host |
+
+### Good to know
+
+- **DCN ports auto-increment**: When you start multiple DCN processes on the same machine, each one automatically 
+finds the next free port (42082, 42083, 42084, ...). No manual configuration needed.
+- **DepthCaches need a moment**: After creating a DepthCache, it needs a few seconds to download the initial order 
+book snapshot from Binance before it can serve data. The status changes from `starting` to `running`.
+- **Initialization is sequential**: DepthCaches are initialized one by one to stay within Binance API rate limits. 
+This is slower at startup but ensures stable operation. With redundancy (`desired_quantity > 1`), the delay is not 
+noticeable in production because at least one copy is always running.
+
+## REST API
+
+The REST API (default port **42081** locally, port **80** on Kubernetes) provides the following endpoints:
+
+### Create DepthCaches
+
+```bash
+# Create multiple DepthCaches (POST with JSON body)
+curl -X POST 'http://127.0.0.1:42081/create_depthcaches' \
+  -H 'Content-Type: application/json' \
+  -d '{"exchange": "binance.com", "markets": ["BTCUSDT", "ETHUSDT", "BNBUSDT"], "desired_quantity": 2}'
+
+# Create a single DepthCache (GET)
+curl 'http://127.0.0.1:42081/create_depthcache?exchange=binance.com&market=BTCUSDT&desired_quantity=2'
+
+# Create multiple via GET (useful for browser testing, comma-separated markets)
+curl 'http://127.0.0.1:42081/create_depthcaches?exchange=binance.com&markets=BTCUSDT,ETHUSDT&desired_quantity=1'
+```
+
+### Query order book data
+
+```bash
+# Get top 3 asks
+curl 'http://127.0.0.1:42081/get_asks?exchange=binance.com&market=BTCUSDT&limit_count=3'
+
+# Get bids filtered by volume threshold
+curl 'http://127.0.0.1:42081/get_bids?exchange=binance.com&market=ETHUSDT&threshold_volume=100000'
+```
+
+### Manage and monitor
+
+```bash
+# List all DepthCaches and their status
+curl 'http://127.0.0.1:42081/get_depthcache_list'
+
+# Get detailed info for a specific DepthCache
+curl 'http://127.0.0.1:42081/get_depthcache_info?exchange=binance.com&market=BTCUSDT'
+
+# Cluster overview (registered pods, versions, timestamps)
+curl 'http://127.0.0.1:42081/get_cluster_info'
+
+# Stop a DepthCache
+curl 'http://127.0.0.1:42081/stop_depthcache?exchange=binance.com&market=BTCUSDT'
+```
+
+### Debugging
+
+Add `debug=true` to any request to get timing and routing details:
+
+```bash
+curl 'http://127.0.0.1:42081/get_asks?exchange=binance.com&market=BTCUSDT&limit_count=2&debug=true'
+```
+
+The response includes a `debug` block with:
+- `cluster_execution_time` — time spent processing the request inside the cluster
+- `transmission_time` — network overhead between restapi and DCN
+- `request_time` — total round-trip time (filled by the UBLDC Python client)
+- `url` — the internal URL that was routed to
+- `post_body` — the POST body (for POST requests)
+- `used_pods` — which pods handled this request
 
 ## Kubernetes Setup
 
@@ -220,11 +299,13 @@ kubectl delete -f ./ubdcc-restapi.yaml
 kubectl delete -f ./ubdcc-restapi_service.yaml
 ```
 
-## Accessing the DepthCaches
+## Accessing from Python
 
-The UNICORN Binance DepthCache Cluster is accessed with the Python module [UNICORN Binance Local Depth Cache](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache?tab=readme-ov-file#connect-to-a-unicorn-binance-depth-cache-cluster).
+While the REST API can be used from any language, Python users can use the 
+[UBLDC cluster module](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache?tab=readme-ov-file#connect-to-a-unicorn-binance-depth-cache-cluster) 
+for a native experience with sync and async support, automatic connection handling, and `debug=True` output.
 
-Just try this [examples](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache/tree/master/examples/unicorn_binance_depth_cache_cluster)!
+See the [examples](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache/tree/master/examples/unicorn_binance_depth_cache_cluster).
 
 ## How to report Bugs or suggest Improvements?
 [List of planned features](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement) - click ![thumbs-up](https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-suite/master/images/misc/thumbup.png) if you need one of them or suggest a new feature!
