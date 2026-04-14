@@ -24,8 +24,8 @@
 [Contributing](#contributing) | [Disclaimer](#disclaimer)
 
 Manage hundreds of Binance order book depth caches and access them via REST API — from any programming language, 
-any number of clients, with load balancing and automatic failover. Simple to set up: `pip install`, start three 
-processes, done.
+any number of clients, with load balancing and automatic failover. Simple to set up: `pip install ubdcc`, then 
+`ubdcc start`, done.
 
 Built on [UNICORN Binance Local Depth Cache (UBLDC)](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache). 
 Part of the [UNICORN Binance Suite](https://github.com/oliver-zehentleitner/unicorn-binance-suite).
