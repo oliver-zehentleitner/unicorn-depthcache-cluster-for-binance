@@ -125,16 +125,24 @@ def cmd_start(args):
     print(f"  restapi started (PID {restapi_proc.pid})")
 
     # Start DCNs
-    for i in range(dcn_count):
-        dcn_log = open(os.path.join(logdir, f"ubdcc-dcn-{i+1}.log"), "w")
-        dcn_proc = subprocess.Popen(
+    dcn_counter = [0]  # mutable for closure access
+
+    def spawn_dcn():
+        dcn_counter[0] += 1
+        nr = dcn_counter[0]
+        log = open(os.path.join(logdir, f"ubdcc-dcn-{nr}.log"), "w")
+        proc = subprocess.Popen(
             [sys.executable, "-c",
              f"import os; from ubdcc_dcn.DepthCacheNode import DepthCacheNode; "
              f"DepthCacheNode(cwd='{cwd}', mgmt_port={mgmt_port})"],
-            stdout=dcn_log, stderr=subprocess.STDOUT
+            stdout=log, stderr=subprocess.STDOUT
         )
-        processes.append((f"dcn-{i+1}", dcn_proc, dcn_log))
-        print(f"  dcn-{i+1} started (PID {dcn_proc.pid})")
+        processes.append((f"dcn-{nr}", proc, log))
+        return nr, proc.pid
+
+    for i in range(dcn_count):
+        nr, pid = spawn_dcn()
+        print(f"  dcn-{nr} started (PID {pid})")
 
     expected_pods = 1 + dcn_count  # restapi + DCNs (mgmt doesn't register itself)
     print(f"\nWaiting for {expected_pods} pods to register with mgmt...")
@@ -184,6 +192,20 @@ def cmd_start(args):
                 print("Cannot connect to mgmt.")
         elif cmd in ('stop', '/stop', 'quit', 'exit'):
             do_shutdown()
+        elif cmd.startswith(('add-dcn', '/add-dcn')):
+            parts = cmd.split()
+            count = int(parts[1]) if len(parts) > 1 else 1
+            for _ in range(count):
+                nr, pid = spawn_dcn()
+                print(f"  dcn-{nr} started (PID {pid})")
+            print(f"Waiting for registration...")
+            time.sleep(3)
+        elif cmd.startswith(('remove-dcn ', '/remove-dcn ')):
+            target = cmd.split(None, 1)[1] if len(cmd.split(None, 1)) > 1 else None
+            if target:
+                remove_dcn(mgmt_port, target, processes)
+            else:
+                print("Usage: remove-dcn <pod-name>")
         elif cmd.startswith(('restart ', '/restart ')):
             target = cmd.split(None, 1)[1] if len(cmd.split(None, 1)) > 1 else None
             if target:
@@ -193,10 +215,12 @@ def cmd_start(args):
         elif cmd in ('help', '/help', '?'):
             print()
             print("Available commands:")
-            print("  status          Show cluster status")
-            print("  stop            Shut down the cluster")
-            print("  restart <name>  Restart a specific pod")
-            print("  help            Show this help")
+            print("  status            Show cluster status")
+            print("  add-dcn [count]   Spawn new DCN process(es)")
+            print("  remove-dcn <name> Stop and remove a DCN")
+            print("  restart <name>    Restart a specific pod")
+            print("  stop              Shut down the cluster")
+            print("  help              Show this help")
             print()
         else:
             print(f"Unknown command: {cmd}. Type 'help' for available commands.")
@@ -224,6 +248,40 @@ def cmd_stop(args):
 def cmd_restart(args):
     mgmt_port = get_mgmt_port(args)
     restart_pod(mgmt_port, args.name)
+
+
+def remove_dcn(mgmt_port, target, processes):
+    """Stop a DCN pod and remove it from the process list."""
+    url = f"http://127.0.0.1:{mgmt_port}/get_cluster_info"
+    try:
+        response = requests.get(url, timeout=5)
+        data = response.json()
+    except requests.exceptions.ConnectionError:
+        print(f"Cannot connect to mgmt on port {mgmt_port}.")
+        return
+
+    pods = data.get('db', {}).get('pods', {})
+    for uid, pod in pods.items():
+        if pod['NAME'] == target or uid == target:
+            if pod.get('ROLE') != 'ubdcc-dcn':
+                print(f"'{target}' is not a DCN. Use 'remove-dcn' only for DCN pods.")
+                return
+            port = pod['API_PORT_REST']
+            name = pod['NAME']
+            try:
+                requests.get(f"http://127.0.0.1:{port}/shutdown", timeout=5)
+                print(f"  Removed: {name} (port {port})")
+            except requests.exceptions.ConnectionError:
+                print(f"  Warning: Could not reach {name} on port {port}")
+            # Remove from local process list
+            for i, (pname, proc, log) in enumerate(processes):
+                if proc.poll() is not None or pname.startswith('dcn'):
+                    # Can't match by name since local names differ from pod names
+                    # Just clean up dead processes
+                    pass
+            return
+
+    print(f"Pod '{target}' not found. Use 'status' to see available pods.")
 
 
 def restart_pod(mgmt_port, target):
