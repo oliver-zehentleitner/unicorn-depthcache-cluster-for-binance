@@ -93,6 +93,8 @@ asyncio — from the REST API down to the WebSocket connections. DepthCache mana
 the UBWA WebSocket event loop, so order book updates are processed with zero overhead. Cluster management, data queries 
 and node communication all run non-blocking, keeping response times consistent even when many clients query 
 simultaneously.
+- **Proven at scale**: Tested with [298 redundant Binance Futures DepthCaches (596 total with desired_quantity=2)](https://www.youtube.com/watch?v=hq2iZPiFnvE) 
+in a live demo.
 - **Compiled C-Extensions**: The entire cluster runs as Cython-compiled code for maximum performance.
 - **Smart rate limiting**: Automatically throttles initialization when Binance API weight costs get too high.
 - **Self-healing state**: The cluster database is replicated to every node on each sync cycle. If the management pod 
