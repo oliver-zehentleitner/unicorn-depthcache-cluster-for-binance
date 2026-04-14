@@ -33,7 +33,11 @@ class RestEndpoints(RestEndpointsBase):
             return await self.create_depthcache(request=request)
 
         @self.fastapi.post("/create_depthcaches")
-        async def create_depthcaches(request: Request):
+        async def create_depthcaches_post(request: Request):
+            return await self.create_depthcaches(request=request)
+
+        @self.fastapi.get("/create_depthcaches")
+        async def create_depthcaches_get(request: Request):
             return await self.create_depthcaches(request=request)
 
         @self.fastapi.get("/get_asks")
@@ -152,9 +156,14 @@ class RestEndpoints(RestEndpointsBase):
         request_url = str(request.url)
         used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
         host = self.app.get_cluster_mgmt_address()
-        body = await request.json()
-        url = host + endpoint
-        result = await self.app.request(url=url, method="post", params=body)
+        if request.method == "POST":
+            body = await request.json()
+            url = host + endpoint
+            result = await self.app.request(url=url, method="post", params=body)
+        else:
+            query = str(request.url.query)
+            url = host + endpoint + "?" + query
+            result = await self.app.request(url=url, method="get")
         if result.get('error') is not None and result.get('error_id') is not None:
             return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
                                            params={"error": str(result)}, process_start_time=process_start_time,

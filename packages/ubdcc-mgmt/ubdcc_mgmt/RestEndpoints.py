@@ -35,7 +35,11 @@ class RestEndpoints(RestEndpointsBase):
             return await self.create_depthcache(request=request)
 
         @self.fastapi.post("/create_depthcaches")
-        async def create_depthcaches(request: Request):
+        async def create_depthcaches_post(request: Request):
+            return await self.create_depthcaches(request=request)
+
+        @self.fastapi.get("/create_depthcaches")
+        async def create_depthcaches_get(request: Request):
             return await self.create_depthcaches(request=request)
 
         @self.fastapi.get("/get_cluster_info")
@@ -124,12 +128,20 @@ class RestEndpoints(RestEndpointsBase):
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
-        body = json.loads(await request.body())
-        exchange = body.get("exchange", None)
-        markets = body.get("markets", None)
-        desired_quantity = body.get("desired_quantity", None)
-        update_interval = body.get("update_interval", None)
-        refresh_interval = body.get("refresh_interval", None)
+        if request.method == "POST":
+            body = json.loads(await request.body())
+            exchange = body.get("exchange", None)
+            markets = body.get("markets", None)
+            desired_quantity = body.get("desired_quantity", None)
+            update_interval = body.get("update_interval", None)
+            refresh_interval = body.get("refresh_interval", None)
+        else:
+            exchange = request.query_params.get("exchange", None)
+            markets_param = request.query_params.get("markets", None)
+            markets = markets_param.split(",") if markets_param else None
+            desired_quantity = request.query_params.get("desired_quantity", None)
+            update_interval = request.query_params.get("update_interval", None)
+            refresh_interval = request.query_params.get("refresh_interval", None)
         if exchange == "None":
             exchange = None
         if markets == "None":
