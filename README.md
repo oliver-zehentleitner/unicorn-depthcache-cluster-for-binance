@@ -88,6 +88,9 @@ internet typically ~60ms. All requests are load-balanced with automatic failover
 for sync and async access.
 - **Flexible filtering**: Trim data at the cluster level — limit to top N Asks/Bids or filter by volume threshold. 
 No need to transfer the full order book when you only need the best prices.
+- **Fully async**: Optimized for fast processing of concurrent requests. The entire stack is built on asyncio — 
+cluster management, data queries and node communication all run non-blocking, so response times stay consistent 
+even when many clients query simultaneously.
 - **Compiled C-Extensions**: The entire cluster runs as Cython-compiled code for maximum performance.
 - **Smart rate limiting**: Automatically throttles initialization when Binance API weight costs get too high.
 - **Self-healing state**: The cluster database is replicated to every node on each sync cycle. If the management pod 
