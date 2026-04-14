@@ -102,7 +102,7 @@ ubdcc start --dcn 4          # starts mgmt + restapi + 4 DCN in interactive shel
 
 Interactive shell commands: `status`, `add-dcn [count]`, `remove-dcn <count|name>`, `restart <name>`, `stop`, `help`.
 
-`.ubdcc` state file in CWD stores the mgmt port so `status`/`stop`/`restart` find it without `--port`.
+`.ubdcc` state file in CWD stores the mgmt port so `status`/`stop` find it without `--port`.
 
 ---
 

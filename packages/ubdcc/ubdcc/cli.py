@@ -303,11 +303,6 @@ def cmd_stop(args):
     shutdown_all(mgmt_port)
 
 
-def cmd_restart(args):
-    mgmt_port = get_mgmt_port(args)
-    restart_pod(mgmt_port, args.name)
-
-
 def remove_dcn_by_count(mgmt_port, count, processes):
     """Stop N DCN pods."""
     url = f"http://127.0.0.1:{mgmt_port}/get_cluster_info"
@@ -511,11 +506,6 @@ def main():
     stop_parser = subparsers.add_parser('stop', help='Stop the cluster')
     stop_parser.add_argument('--port', type=int, default=None, help='Mgmt port (default: 42080)')
 
-    # restart
-    restart_parser = subparsers.add_parser('restart', help='Restart a specific pod')
-    restart_parser.add_argument('name', help='Pod name or UID to restart')
-    restart_parser.add_argument('--port', type=int, default=None, help='Mgmt port (default: 42080)')
-
     args = parser.parse_args()
 
     if args.command == 'start':
@@ -524,8 +514,6 @@ def main():
         cmd_status(args)
     elif args.command == 'stop':
         cmd_stop(args)
-    elif args.command == 'restart':
-        cmd_restart(args)
     else:
         parser.print_help()
 

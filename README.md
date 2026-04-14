@@ -199,7 +199,6 @@ While the cluster is running, you can also manage it from another terminal:
 ```bash
 ubdcc status                     # show cluster status
 ubdcc stop                       # shut down the cluster
-ubdcc restart g3HcyluSZ5qWarm   # restart a specific pod
 ```
 
 The CLI automatically remembers the mgmt port. If you started with a custom port (`ubdcc start --port 42090`), 

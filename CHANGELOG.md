@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 [How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/readme.html#installation-and-upgrade)
 
 ## 0.3.3.dev (development stage/unreleased/unstable)
+### Removed
+- External `ubdcc restart <name>` CLI subcommand — it didn'''t actually work because the spawn functions live in the interactive shell closure. Restart is still available inside the interactive `ubdcc>` shell.
 
 ## 0.3.3
 ### Added
