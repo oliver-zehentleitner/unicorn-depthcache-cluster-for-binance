@@ -17,7 +17,9 @@
 # Copyright (c) 2024-2026, Oliver Zehentleitner (https://about.me/oliver-zehentleitner)
 # All rights reserved.
 
+import asyncio
 import orjson as json
+import os
 import time
 from fastapi import Request
 from fastapi.responses import JSONResponse
@@ -148,6 +150,12 @@ class RestEndpointsBase:
         event = "SHUTDOWN"
         self.app.stdout_msg(f"Shutdown requested via REST endpoint!", log="info")
         self.app.shutdown(message="Shutdown requested via REST endpoint")
+
+        async def delayed_exit():
+            await asyncio.sleep(0.5)
+            os._exit(0)
+
+        asyncio.get_event_loop().create_task(delayed_exit())
         return self.get_ok_response(event=event, params={"message": f"Shutting down pod '{self.app.id['name']}'..."})
 
     def throw_error_if_mgmt_not_ready(self, request: Request, event: str = None):
