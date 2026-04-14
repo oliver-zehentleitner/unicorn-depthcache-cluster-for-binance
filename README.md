@@ -164,7 +164,9 @@ The REST API (default port **42081** locally, port **80** on Kubernetes) is your
 On Kubernetes, a LoadBalancer service distributes requests across restapi pods automatically. Locally, you connect 
 directly to one restapi instance — it handles all routing to mgmt and DCN processes internally.
 
-### Endpoints
+### Public Endpoints (restapi)
+
+These are the endpoints you use to interact with the cluster. All requests go through the restapi.
 
 | Endpoint | Method | Parameters | Description |
 |----------|--------|------------|-------------|
@@ -177,7 +179,36 @@ directly to one restapi instance — it handles all routing to mgmt and DCN proc
 | `/get_depthcache_info` | GET | `exchange`, `market` | Detailed info for a specific DepthCache |
 | `/stop_depthcache` | GET | `exchange`, `market` | Stop and remove a DepthCache |
 
-All endpoints accept `debug=true` as an additional parameter for timing and routing details.
+All public endpoints accept `debug=true` as an additional parameter for timing and routing details.
+
+### Internal Endpoints (cluster communication)
+
+These endpoints are used by the cluster components to communicate with each other. You don't call these directly, but 
+understanding them helps when debugging or extending the system.
+
+**mgmt** (port 42080):
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/ubdcc_node_registration` | GET | DCN/restapi registers itself with mgmt on startup |
+| `/ubdcc_node_cancellation` | GET | DCN/restapi deregisters on shutdown |
+| `/ubdcc_node_sync` | GET | Periodic heartbeat — DCN/restapi reports status, mgmt pushes DB backup back |
+| `/ubdcc_get_responsible_dcn_addresses` | GET | Returns which DCN holds a specific DepthCache (used by restapi for routing) |
+| `/ubdcc_update_depthcache_distribution` | GET | DCN reports DepthCache status changes (starting, running) |
+
+**All pods** (shared base):
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/test` | GET | Health check — returns pod info, version, status |
+| `/ubdcc_mgmt_backup` | GET/POST | GET: return stored DB backup; POST: receive DB backup from mgmt |
+
+**DCN** (port 42082+):
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/get_asks` | GET | Direct ask query on this DCN (called by restapi after routing) |
+| `/get_bids` | GET | Direct bid query on this DCN (called by restapi after routing) |
 
 ### Examples
 
