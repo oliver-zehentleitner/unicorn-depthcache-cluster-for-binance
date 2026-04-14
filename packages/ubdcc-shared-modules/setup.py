@@ -30,7 +30,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name=name,
-    version="0.3.2",
+    version="0.3.3",
     author="Oliver Zehentleitner",
     author_email='',
     url="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster",
