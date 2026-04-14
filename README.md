@@ -53,7 +53,31 @@ When you create DepthCaches (e.g. 200 markets with `desired_quantity=2`), UBDCC 
 processes. Each DCN downloads order book snapshots using its own network connection. Replicas are created for 
 redundancy — if one DCN goes down, the other copy keeps serving data.
 
-[![Visual overview](https://lucid.app/publicSegments/view/7ba7d734-4bb2-467f-b7b9-74ea0d1deec2/image.png)](https://lucid.app/publicSegments/view/7ba7d734-4bb2-467f-b7b9-74ea0d1deec2/image.png)
+```mermaid
+graph LR
+    Client["Client\n(any language)"]
+    LB["LoadBalancer\n/ Firewall"]
+    
+    subgraph cluster ["Kubernetes Cluster / Local PC"]
+        R1["RESTAPI"]
+        R2["RESTAPI"]
+        R3["RESTAPI"]
+        Mgmt["Mgmt\n:42080"]
+        DB[("DB\n(in-memory,\nsynced to\nall nodes)")]
+        DCN1["DCN 1\n:42082"]
+        DCN2["DCN 2\n:42083"]
+        DCN3["DCN 3\n:42084"]
+        DCN4["DCN 4\n:42085"]
+    end
+
+    Client -->|"HTTP/JSON\n:42081 / :80"| LB
+    LB --> R1 & R2 & R3
+    R1 & R2 & R3 -->|"get_asks\nget_bids"| DCN1 & DCN2 & DCN3 & DCN4
+    R1 & R2 & R3 -->|"create/stop\ncluster_info"| Mgmt
+    Mgmt -->|"distribute\nDepthCaches"| DCN1 & DCN2 & DCN3 & DCN4
+    Mgmt --- DB
+    DB -.->|"backup/recover"| DCN1 & DCN2 & DCN3 & DCN4
+```
 
 ## Key Features
 
