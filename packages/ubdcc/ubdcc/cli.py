@@ -221,10 +221,14 @@ def cmd_start(args):
             print(f"Waiting for registration...")
             time.sleep(3)
         elif cmd in ('remove-dcn', '/remove-dcn'):
-            if arg:
-                remove_dcn(mgmt_port, arg, processes)
+            if not arg:
+                print("Usage: remove-dcn <count|pod-name>")
             else:
-                print("Usage: remove-dcn <pod-name>")
+                try:
+                    count = int(arg)
+                    remove_dcn_by_count(mgmt_port, count, processes)
+                except ValueError:
+                    remove_dcn(mgmt_port, arg, processes)
         elif cmd in ('restart', '/restart'):
             if not arg:
                 print("Usage: restart <pod-name|mgmt|restapi>")
@@ -271,7 +275,7 @@ def cmd_start(args):
             print("Available commands:")
             print("  status            Show cluster status")
             print("  add-dcn [count]   Spawn new DCN process(es)")
-            print("  remove-dcn <name> Stop and remove a DCN")
+            print("  remove-dcn <count|name> Stop and remove DCN(s)")
             print("  restart <name>    Restart a specific pod")
             print("  stop              Shut down the cluster")
             print("  help              Show this help")
@@ -302,6 +306,36 @@ def cmd_stop(args):
 def cmd_restart(args):
     mgmt_port = get_mgmt_port(args)
     restart_pod(mgmt_port, args.name)
+
+
+def remove_dcn_by_count(mgmt_port, count, processes):
+    """Stop N DCN pods."""
+    url = f"http://127.0.0.1:{mgmt_port}/get_cluster_info"
+    try:
+        response = requests.get(url, timeout=5)
+        data = response.json()
+    except requests.exceptions.ConnectionError:
+        print(f"Cannot connect to mgmt on port {mgmt_port}.")
+        return
+
+    pods = data.get('db', {}).get('pods', {})
+    dcns = [(uid, pod) for uid, pod in pods.items() if pod.get('ROLE') == 'ubdcc-dcn']
+    if count > len(dcns):
+        print(f"Only {len(dcns)} DCN(s) running, cannot remove {count}.")
+        return
+
+    removed = 0
+    for uid, pod in dcns:
+        if removed >= count:
+            break
+        port = pod['API_PORT_REST']
+        name = pod['NAME']
+        try:
+            requests.get(f"http://127.0.0.1:{port}/shutdown", timeout=5)
+            print(f"  Removed: {name} (port {port})")
+            removed += 1
+        except requests.exceptions.ConnectionError:
+            print(f"  Warning: Could not reach {name} on port {port}")
 
 
 def remove_dcn(mgmt_port, target, processes):
@@ -450,6 +484,13 @@ def main():
         prog='ubdcc',
         description='UNICORN Binance DepthCache Cluster — Cluster Manager\n'
                     'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster',
+        epilog='Interactive shell commands (available inside "ubdcc start"):\n'
+               '  add-dcn [count]       Spawn new DCN process(es)\n'
+               '  remove-dcn <count|name> Stop and remove DCN(s)\n'
+               '  status                Show cluster status\n'
+               '  restart <name>        Restart a specific pod\n'
+               '  stop                  Shut down the cluster\n'
+               '  help                  Show available shell commands',
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument('-v', '--version', action='version', version=f'ubdcc {__version__}')

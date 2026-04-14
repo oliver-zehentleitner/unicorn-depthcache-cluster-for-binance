@@ -178,7 +178,7 @@ ubdcc>
 |---------|-------------|
 | `status` | Show all pods with role, name, port, status and version |
 | `add-dcn [count]` | Spawn new DCN process(es) for dynamic scaling |
-| `remove-dcn <name>` | Stop and remove a specific DCN |
+| `remove-dcn <count\|name>` | Stop and remove DCN(s) — by count or by name |
 | `restart <name>` | Restart a specific pod (mgmt, restapi or DCN by name) |
 | `stop` | Graceful shutdown of the entire cluster |
 | `help` | Show available commands |
