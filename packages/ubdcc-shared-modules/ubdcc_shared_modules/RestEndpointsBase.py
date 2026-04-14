@@ -119,6 +119,11 @@ class RestEndpointsBase:
         async def test(request: Request):
             return await self.test(request=request)
 
+        if self.app.dev_mode:
+            @self.fastapi.get("/shutdown")
+            async def shutdown(request: Request):
+                return await self.shutdown(request=request)
+
         @self.fastapi.get("/ubdcc_mgmt_backup")
         @self.fastapi.post("/ubdcc_mgmt_backup")
         async def ubdcc_mgmt_backup(request: Request):
@@ -138,6 +143,12 @@ class RestEndpointsBase:
                    "node": self.app.pod_info.spec.node_name}
             response['pod'] = pod
         return self.get_ok_response(event=event, params=response)
+
+    async def shutdown(self, request: Request):
+        event = "SHUTDOWN"
+        self.app.stdout_msg(f"Shutdown requested via REST endpoint!", log="info")
+        self.app.shutdown(message="Shutdown requested via REST endpoint")
+        return self.get_ok_response(event=event, params={"message": f"Shutting down pod '{self.app.id['name']}'..."})
 
     def throw_error_if_mgmt_not_ready(self, request: Request, event: str = None):
         if self.is_ready() is False:

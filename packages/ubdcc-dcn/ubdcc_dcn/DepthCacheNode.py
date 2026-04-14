@@ -24,8 +24,8 @@ from unicorn_binance_local_depth_cache.manager import __version__ as ubldc_versi
 
 
 class DepthCacheNode(ServiceBase):
-    def __init__(self, cwd=None):
-        super().__init__(app_name="ubdcc-dcn", cwd=cwd)
+    def __init__(self, cwd=None, mgmt_port=None):
+        super().__init__(app_name="ubdcc-dcn", cwd=cwd, mgmt_port=mgmt_port)
 
     async def main(self):
         self.app.data['depthcache_instances'] = {}

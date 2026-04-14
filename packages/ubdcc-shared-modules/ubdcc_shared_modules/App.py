@@ -44,7 +44,8 @@ VERSION: str = "0.2.0"
 
 
 class App:
-    def __init__(self, app_name=None, cwd=None, logger=None, service=None, service_call=None, stop_call=None):
+    def __init__(self, app_name=None, cwd=None, mgmt_port=None, logger=None, service=None, service_call=None,
+                 stop_call=None):
         self.app_name = app_name
         self.app_version = VERSION
         self.api_port_rest: int = 0
@@ -62,7 +63,7 @@ class App:
         self.k8s_service_port_mgmt = K8S_SERVICE_PORT_MGMT
         self.rest_server_port = REST_SERVER_PORT
         self.rest_server_port_dev_dcn = REST_SERVER_PORT_DEV_DCN
-        self.rest_server_port_dev_mgmt = REST_SERVER_PORT_DEV_MGMT
+        self.rest_server_port_dev_mgmt = mgmt_port if mgmt_port is not None else REST_SERVER_PORT_DEV_MGMT
         self.rest_server_port_dev_restapi = REST_SERVER_PORT_DEV_RESTAPI
         self.service = service
         self.service_call = service_call
@@ -318,6 +319,8 @@ class App:
     def shutdown(self, message=None) -> None:
         self.sigterm = True
         self.stdout_msg(f"Shutdown is performed: {message}", log="warn")
+        if self.service is not None:
+            self.service.stop()
 
     def sigterm_handler(self, signal, frame) -> None:
         self.sigterm = True

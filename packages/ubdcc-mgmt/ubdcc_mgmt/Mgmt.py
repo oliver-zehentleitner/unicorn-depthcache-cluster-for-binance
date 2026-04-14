@@ -22,8 +22,8 @@ from ubdcc_shared_modules.ServiceBase import ServiceBase
 
 
 class Mgmt(ServiceBase):
-    def __init__(self, cwd=None):
-        super().__init__(app_name="ubdcc-mgmt", cwd=cwd)
+    def __init__(self, cwd=None, mgmt_port=None):
+        super().__init__(app_name="ubdcc-mgmt", cwd=cwd, mgmt_port=mgmt_port)
 
     async def main(self):
         self.db_init()
