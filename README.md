@@ -90,7 +90,7 @@ for sync and async access.
 No need to transfer the full order book when you only need the best prices.
 - **Fully async top to bottom**: Optimized for fast processing of concurrent requests. The entire stack is built on 
 asyncio — from the REST API down to the WebSocket connections. DepthCache management runs directly as a plugin inside 
-the UBWA WebSocket event loop, so order book updates are processed with zero overhead. Cluster management, data queries 
+the [UBWA](https://github.com/oliver-zehentleitner/unicorn-binance-websocket-api) WebSocket event loop, so order book updates are processed with zero overhead. Cluster management, data queries 
 and node communication all run non-blocking, keeping response times consistent even when many clients query 
 simultaneously.
 - **Scales with your resources**: Tested with hundreds of redundant DepthCaches across multiple nodes. Add more 
