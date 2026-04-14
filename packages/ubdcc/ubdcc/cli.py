@@ -103,34 +103,42 @@ def cmd_start(args):
 
     processes = []
     cwd = os.getcwd()
-
-    # Start mgmt
-    mgmt_log = open(os.path.join(logdir, "ubdcc-mgmt.log"), "w")
-    mgmt_proc = subprocess.Popen(
-        [sys.executable, "-c",
-         f"import os; from ubdcc_mgmt.Mgmt import Mgmt; Mgmt(cwd='{cwd}', mgmt_port={mgmt_port})"],
-        stdout=mgmt_log, stderr=subprocess.STDOUT
-    )
-    processes.append(("mgmt", mgmt_proc, mgmt_log))
-    print(f"  mgmt started (PID {mgmt_proc.pid})")
-
-    # Start restapi
-    restapi_log = open(os.path.join(logdir, "ubdcc-restapi.log"), "w")
-    restapi_proc = subprocess.Popen(
-        [sys.executable, "-c",
-         f"import os; from ubdcc_restapi.RestApi import RestApi; RestApi(cwd='{cwd}', mgmt_port={mgmt_port})"],
-        stdout=restapi_log, stderr=subprocess.STDOUT
-    )
-    processes.append(("restapi", restapi_proc, restapi_log))
-    print(f"  restapi started (PID {restapi_proc.pid})")
-
-    # Start DCNs
     dcn_counter = [0]  # mutable for closure access
+
+    def spawn_mgmt():
+        log = open(os.path.join(logdir, "ubdcc-mgmt.log"), "a")
+        proc = subprocess.Popen(
+            [sys.executable, "-c",
+             f"import os; from ubdcc_mgmt.Mgmt import Mgmt; Mgmt(cwd='{cwd}', mgmt_port={mgmt_port})"],
+            stdout=log, stderr=subprocess.STDOUT
+        )
+        # Remove old mgmt from processes list
+        for i, (name, p, l) in enumerate(processes):
+            if name == "mgmt":
+                processes.pop(i)
+                break
+        processes.append(("mgmt", proc, log))
+        return proc.pid
+
+    def spawn_restapi():
+        log = open(os.path.join(logdir, "ubdcc-restapi.log"), "a")
+        proc = subprocess.Popen(
+            [sys.executable, "-c",
+             f"import os; from ubdcc_restapi.RestApi import RestApi; RestApi(cwd='{cwd}', mgmt_port={mgmt_port})"],
+            stdout=log, stderr=subprocess.STDOUT
+        )
+        # Remove old restapi from processes list
+        for i, (name, p, l) in enumerate(processes):
+            if name == "restapi":
+                processes.pop(i)
+                break
+        processes.append(("restapi", proc, log))
+        return proc.pid
 
     def spawn_dcn():
         dcn_counter[0] += 1
         nr = dcn_counter[0]
-        log = open(os.path.join(logdir, f"ubdcc-dcn-{nr}.log"), "w")
+        log = open(os.path.join(logdir, f"ubdcc-dcn-{nr}.log"), "a")
         proc = subprocess.Popen(
             [sys.executable, "-c",
              f"import os; from ubdcc_dcn.DepthCacheNode import DepthCacheNode; "
@@ -140,6 +148,15 @@ def cmd_start(args):
         processes.append((f"dcn-{nr}", proc, log))
         return nr, proc.pid
 
+    # Start mgmt
+    pid = spawn_mgmt()
+    print(f"  mgmt started (PID {pid})")
+
+    # Start restapi
+    pid = spawn_restapi()
+    print(f"  restapi started (PID {pid})")
+
+    # Start DCNs
     for i in range(dcn_count):
         nr, pid = spawn_dcn()
         print(f"  dcn-{nr} started (PID {pid})")
@@ -209,10 +226,38 @@ def cmd_start(args):
             else:
                 print("Usage: remove-dcn <pod-name>")
         elif cmd in ('restart', '/restart'):
-            if arg:
-                restart_pod(mgmt_port, arg)
+            if not arg:
+                print("Usage: restart <pod-name|mgmt|restapi>")
+            elif arg in ('ubdcc-mgmt', 'mgmt'):
+                try:
+                    requests.get(f"http://127.0.0.1:{mgmt_port}/shutdown", timeout=5)
+                except requests.exceptions.ConnectionError:
+                    pass
+                time.sleep(2)
+                pid = spawn_mgmt()
+                print(f"  mgmt restarted (PID {pid})")
+                time.sleep(3)
+            elif arg in ('ubdcc-restapi', 'restapi'):
+                # Find restapi port and shut it down
+                try:
+                    data = requests.get(f"http://127.0.0.1:{mgmt_port}/get_cluster_info", timeout=5).json()
+                    for uid, pod in data.get('db', {}).get('pods', {}).items():
+                        if pod.get('ROLE') == 'ubdcc-restapi':
+                            requests.get(f"http://127.0.0.1:{pod['API_PORT_REST']}/shutdown", timeout=3)
+                            break
+                except requests.exceptions.ConnectionError:
+                    pass
+                time.sleep(2)
+                pid = spawn_restapi()
+                print(f"  restapi restarted (PID {pid})")
+                time.sleep(3)
             else:
-                print("Usage: restart <pod-name>")
+                # DCN or other pod by name
+                restart_pod(mgmt_port, arg)
+                time.sleep(2)
+                nr, pid = spawn_dcn()
+                print(f"  dcn-{nr} respawned (PID {pid})")
+                time.sleep(3)
         elif cmd in ('help', '/help', '?'):
             print()
             print("Available commands:")
