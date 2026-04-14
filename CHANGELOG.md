@@ -16,8 +16,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   - `ubdcc start --dcn 4` — starts mgmt, restapi and DCN processes
   - `ubdcc status` — shows all pods with role, name, port, status
   - `ubdcc stop` — graceful shutdown via REST
-  - `ubdcc restart <name>` — restart a specific pod
+  - `ubdcc restart <name>` — full restart (shutdown + respawn) for mgmt, restapi or DCN
+  - `add-dcn [count]` — spawn new DCN process(es) from the interactive shell
+  - `remove-dcn <count|name>` — stop DCN(s) by count or by name
   - Interactive `ubdcc>` prompt during `start` for live management
+  - `python -m ubdcc` entry point for running from source during development
 - `/shutdown` REST endpoint on all pods (dev-mode only) for graceful process shutdown
 - `/create_depthcaches` now supports both GET (comma-separated markets) and POST (JSON body)
 - `mgmt_port` parameter on all services — allows custom port configuration via CLI
@@ -39,6 +42,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Fix issue templates: correct project name, add Python 3.13/3.14 to dropdown
 - Fix README: wrong port (42080 → 42081), old project name, typos
 - Fix double JSON serialization in UBLDC cluster POST requests
+- `/shutdown` endpoint now force-exits via `os._exit(0)` 0.5s after the response — previously processes could hang if the main loop was stuck in `asyncio.sleep`
+- `is_port_free()` now sets `SO_REUSEADDR` — previously the TIME_WAIT state after a restart caused the new mgmt to land on the next port, breaking restapi/DCN connections
 ### Removed
 - License purchase and commercial support sections from all package READMEs
 - External Lucidchart dependency (replaced with inline Mermaid diagram)
