@@ -27,11 +27,13 @@ jobs:
           sparse-checkout: 'packages/ubdcc-shared-modules/'
 
       - name: Move directory contents
+        shell: bash
         run: |
           mv ubdcc-shared-modules/packages/ubdcc-shared-modules/* ./
           rm -rf ubdcc-shared-modules
 
       - name: ls -l
+        shell: bash
         run: ls -l
 
       - name: Upgrade pip
@@ -74,6 +76,7 @@ jobs:
           sparse-checkout: 'packages/ubdcc-shared-modules/'
 
       - name: Move directory contents
+        shell: bash
         run: |
           mv ubdcc-shared-modules/packages/ubdcc-shared-modules/* ./
           rm -rf ubdcc-shared-modules
