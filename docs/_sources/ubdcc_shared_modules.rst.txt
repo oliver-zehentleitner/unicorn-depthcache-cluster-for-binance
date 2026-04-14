@@ -20,22 +20,6 @@ ubdcc_shared\_modules.Database module
    :undoc-members:
    :show-inheritance:
 
-ubdcc_shared\_modules.LicensingExceptions module
---------------------------------------------------------
-
-.. automodule:: ubdcc_shared_modules.LicensingExceptions
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-ubdcc_shared\_modules.LicensingManager module
------------------------------------------------------
-
-.. automodule:: ubdcc_shared_modules.LicensingManager
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 ubdcc_shared\_modules.RestEndpointsBase module
 ------------------------------------------------------
 
