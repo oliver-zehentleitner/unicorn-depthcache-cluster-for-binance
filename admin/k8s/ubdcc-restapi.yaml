@@ -28,7 +28,7 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
         - name: ubdcc-restapi
-          image: ghcr.io/oliver-zehentleitner/ubdcc-restapi:0.3.3
+          image: ghcr.io/oliver-zehentleitner/ubdcc-restapi:0.4.0.dev
           ports:
             - name: rest-private
               containerPort: 8080

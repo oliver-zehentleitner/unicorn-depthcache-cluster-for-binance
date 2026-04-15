@@ -64,6 +64,26 @@ class RestEndpoints(RestEndpointsBase):
         async def stop_depthcache(request: Request):
             return await self.stop_depthcache(request=request)
 
+        @self.fastapi.post("/ubdcc_add_credentials")
+        async def ubdcc_add_credentials_post(request: Request):
+            return await self.ubdcc_add_credentials(request=request)
+
+        @self.fastapi.get("/ubdcc_add_credentials")
+        async def ubdcc_add_credentials_get(request: Request):
+            return await self.ubdcc_add_credentials(request=request)
+
+        @self.fastapi.post("/ubdcc_remove_credentials")
+        async def ubdcc_remove_credentials_post(request: Request):
+            return await self.ubdcc_remove_credentials(request=request)
+
+        @self.fastapi.get("/ubdcc_remove_credentials")
+        async def ubdcc_remove_credentials_get(request: Request):
+            return await self.ubdcc_remove_credentials(request=request)
+
+        @self.fastapi.get("/ubdcc_get_credentials_list")
+        async def ubdcc_get_credentials_list(request: Request):
+            return await self.ubdcc_get_credentials_list(request=request)
+
     async def _get_depthcache_data(self, request: Request, event=None, endpoint=None):
         process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" \
             else None
@@ -302,6 +322,53 @@ class RestEndpoints(RestEndpointsBase):
                                                        f"'{self.app.id['uid']}'!",
                                                params=response, process_start_time=process_start_time,
                                                url=request_url, used_pods=used_pods)
+
+    async def _proxy_to_mgmt(self, request: Request, event: str = None, endpoint: str = None,
+                             allow_post: bool = False):
+        process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" \
+            else None
+        request_url = str(request.url)
+        used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
+        host = self.app.get_cluster_mgmt_address()
+        post_body = None
+        if allow_post and request.method == "POST":
+            try:
+                body = await request.json()
+            except Exception:
+                body = {}
+            post_body = body
+            url = host + endpoint
+            result = await self.app.request(url=url, method="post", params=body)
+        else:
+            query = str(request.url.query)
+            url = host + endpoint + ("?" + query if query else "")
+            result = await self.app.request(url=url, method="get")
+        if result.get('error') is None and result.get('error_id') is None:
+            if str(request.query_params.get("debug")).lower() == "true":
+                result['debug'] = self.create_debug_response(process_start_time=process_start_time,
+                                                             url=request_url, post_body=post_body,
+                                                             used_pods=used_pods)
+            return result
+        elif result.get('error_id') is not None:
+            return self.get_error_response(event=event, error_id=result.get('error_id'),
+                                           message=result.get('message'), process_start_time=process_start_time,
+                                           url=request_url, post_body=post_body, used_pods=used_pods)
+        else:
+            return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
+                                           params={"error": str(result)}, process_start_time=process_start_time,
+                                           url=request_url, post_body=post_body, used_pods=used_pods)
+
+    async def ubdcc_add_credentials(self, request: Request):
+        return await self._proxy_to_mgmt(request=request, event="UBDCC_ADD_CREDENTIALS",
+                                         endpoint="/ubdcc_add_credentials", allow_post=True)
+
+    async def ubdcc_remove_credentials(self, request: Request):
+        return await self._proxy_to_mgmt(request=request, event="UBDCC_REMOVE_CREDENTIALS",
+                                         endpoint="/ubdcc_remove_credentials", allow_post=True)
+
+    async def ubdcc_get_credentials_list(self, request: Request):
+        return await self._proxy_to_mgmt(request=request, event="UBDCC_GET_CREDENTIALS_LIST",
+                                         endpoint="/ubdcc_get_credentials_list")
 
     async def stop_depthcache(self, request: Request):
         process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" else None

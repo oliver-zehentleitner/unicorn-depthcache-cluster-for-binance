@@ -474,6 +474,57 @@ def print_status_table(data, mgmt_port=42080):
         print(f"Cluster info: http://127.0.0.1:{restapi_port}/get_cluster_info")
 
 
+def cmd_credentials_add(args):
+    port = get_mgmt_port(args)
+    payload = {"account_group": args.account_group,
+               "api_key": args.api_key,
+               "api_secret": args.api_secret}
+    try:
+        r = requests.post(f"http://127.0.0.1:{port}/ubdcc_add_credentials", json=payload, timeout=5)
+        data = r.json()
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+    if data.get('result') == "OK":
+        print(f"Added. id={data.get('id')}")
+    else:
+        print(f"Error: {data.get('message')} ({data.get('error_id')})", file=sys.stderr)
+        sys.exit(1)
+
+
+def cmd_credentials_remove(args):
+    port = get_mgmt_port(args)
+    try:
+        r = requests.get(f"http://127.0.0.1:{port}/ubdcc_remove_credentials",
+                         params={"id": args.id}, timeout=5)
+        data = r.json()
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+    if data.get('result') == "OK":
+        print("Removed.")
+    else:
+        print(f"Error: {data.get('message')} ({data.get('error_id')})", file=sys.stderr)
+        sys.exit(1)
+
+
+def cmd_credentials_list(args):
+    port = get_mgmt_port(args)
+    try:
+        r = requests.get(f"http://127.0.0.1:{port}/ubdcc_get_credentials_list", timeout=5)
+        data = r.json()
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+    credentials = data.get('credentials') or []
+    if not credentials:
+        print("(no credentials configured)")
+        return
+    for c in credentials:
+        assigned = ", ".join(c.get('assigned_dcns') or []) or "-"
+        print(f"{c['id']}  {c['account_group']:<32}  {c.get('api_key_preview','')}  assigned=[{assigned}]")
+
+
 def main():
     parser = argparse.ArgumentParser(
         prog='ubdcc',
@@ -506,6 +557,25 @@ def main():
     stop_parser = subparsers.add_parser('stop', help='Stop the cluster')
     stop_parser.add_argument('--port', type=int, default=None, help='Mgmt port (default: 42080)')
 
+    # credentials
+    cred_parser = subparsers.add_parser('credentials', help='Manage Binance API credentials')
+    cred_sub = cred_parser.add_subparsers(dest='cred_command')
+
+    cred_add = cred_sub.add_parser('add', help='Add an API key/secret')
+    cred_add.add_argument('--account-group', required=True,
+                          help='binance.com | binance.com-testnet | binance.com-futures-testnet | '
+                               'binance.us | binance.tr')
+    cred_add.add_argument('--api-key', required=True)
+    cred_add.add_argument('--api-secret', required=True)
+    cred_add.add_argument('--port', type=int, default=None, help='Mgmt port (default: 42080)')
+
+    cred_remove = cred_sub.add_parser('remove', help='Remove credentials by id')
+    cred_remove.add_argument('id')
+    cred_remove.add_argument('--port', type=int, default=None, help='Mgmt port (default: 42080)')
+
+    cred_list = cred_sub.add_parser('list', help='List configured credentials (keys masked)')
+    cred_list.add_argument('--port', type=int, default=None, help='Mgmt port (default: 42080)')
+
     args = parser.parse_args()
 
     if args.command == 'start':
@@ -514,6 +584,15 @@ def main():
         cmd_status(args)
     elif args.command == 'stop':
         cmd_stop(args)
+    elif args.command == 'credentials':
+        if args.cred_command == 'add':
+            cmd_credentials_add(args)
+        elif args.cred_command == 'remove':
+            cmd_credentials_remove(args)
+        elif args.cred_command == 'list':
+            cmd_credentials_list(args)
+        else:
+            cred_parser.print_help()
     else:
         parser.print_help()
 

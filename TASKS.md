@@ -32,11 +32,16 @@ Open development tasks, ideas, and decisions.
 - No test coverage beyond placeholder exists
 - Start with mocked unit tests for `Database.py` and `App.py` logic
 
-### [ ] Binance API Key support per DCN
-- Currently all DCNs fetch order book snapshots without authentication (public rate limits)
-- With API keys: higher rate limits → faster initialization with many DepthCaches
-- Could pass api_key/api_secret per DCN or cluster-wide via CLI/config
-- UBLDC already supports api_key/api_secret in BinanceLocalDepthCacheManager
+### [ ] Secure the internal mgmt↔DCN API
+- Current state (0.4.0): API credentials live in the cluster DB in cleartext and
+  are served to DCNs over plain HTTP on the internal API. Mitigated only by
+  network isolation (user's responsibility, documented in README).
+- Next layers to consider (from innermost outward):
+  - Mutual authentication between pods (shared cluster secret or mTLS)
+  - Signed/encrypted credential transport on `/ubdcc_assign_credentials`
+  - At-rest encryption for credentials in the DB backup
+  - Optional credential storage backend (env var, file, K8s secret, vault)
+- Design needs its own round — don't bolt on ad-hoc.
 
 ### [ ] Audit and fix all silent except/pass blocks
 - Suite-wide initiative — same task tracked in all unicorn-* repos

@@ -18,6 +18,7 @@
 # All rights reserved.
 
 import orjson as json
+from ubdcc_shared_modules.AccountGroups import ACCOUNT_GROUPS, is_valid_account_group
 from ubdcc_shared_modules.Database import Database
 from ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
 
@@ -77,6 +78,30 @@ class RestEndpoints(RestEndpointsBase):
         @self.fastapi.get("/ubdcc_update_depthcache_distribution")
         async def ubdcc_update_depthcache_distribution(request: Request):
             return await self.ubdcc_update_depthcache_distribution(request=request)
+
+        @self.fastapi.post("/ubdcc_add_credentials")
+        async def ubdcc_add_credentials_post(request: Request):
+            return await self.ubdcc_add_credentials(request=request)
+
+        @self.fastapi.get("/ubdcc_add_credentials")
+        async def ubdcc_add_credentials_get(request: Request):
+            return await self.ubdcc_add_credentials(request=request)
+
+        @self.fastapi.post("/ubdcc_remove_credentials")
+        async def ubdcc_remove_credentials_post(request: Request):
+            return await self.ubdcc_remove_credentials(request=request)
+
+        @self.fastapi.get("/ubdcc_remove_credentials")
+        async def ubdcc_remove_credentials_get(request: Request):
+            return await self.ubdcc_remove_credentials(request=request)
+
+        @self.fastapi.get("/ubdcc_get_credentials_list")
+        async def ubdcc_get_credentials_list(request: Request):
+            return await self.ubdcc_get_credentials_list(request=request)
+
+        @self.fastapi.get("/ubdcc_assign_credentials")
+        async def ubdcc_assign_credentials(request: Request):
+            return await self.ubdcc_assign_credentials(request=request)
 
     async def create_depthcache(self, request: Request):
         event = "CREATE_DEPTHCACHE"
@@ -394,6 +419,96 @@ class RestEndpoints(RestEndpointsBase):
         else:
             return self.get_error_response(event=event, error_id="#1010",
                                            message="An unknown error has occurred!")
+
+    async def ubdcc_add_credentials(self, request: Request):
+        event = "UBDCC_ADD_CREDENTIALS"
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
+        if ready_check is not None:
+            return ready_check
+        if request.method == "POST":
+            try:
+                body = json.loads(await request.body())
+            except Exception:
+                body = {}
+            account_group = body.get("account_group")
+            api_key = body.get("api_key")
+            api_secret = body.get("api_secret")
+        else:
+            account_group = request.query_params.get("account_group")
+            api_key = request.query_params.get("api_key")
+            api_secret = request.query_params.get("api_secret")
+        if account_group == "None":
+            account_group = None
+        if account_group is None or api_key is None or api_secret is None:
+            return self.get_error_response(event=event, error_id="#1030",
+                                           message="Missing required parameter: account_group, api_key, api_secret")
+        if not is_valid_account_group(account_group):
+            return self.get_error_response(event=event, error_id="#1031",
+                                           message=f"Invalid account_group '{account_group}'. "
+                                                   f"Valid groups: {', '.join(ACCOUNT_GROUPS)}")
+        try:
+            credential_id = self.db.add_credentials(account_group=account_group,
+                                                    api_key=api_key, api_secret=api_secret)
+        except ValueError as error_msg:
+            return self.get_error_response(event=event, error_id="#1032", message=str(error_msg))
+        return self.get_ok_response(event=event, params={"id": credential_id})
+
+    async def ubdcc_remove_credentials(self, request: Request):
+        event = "UBDCC_REMOVE_CREDENTIALS"
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
+        if ready_check is not None:
+            return ready_check
+        if request.method == "POST":
+            try:
+                body = json.loads(await request.body())
+            except Exception:
+                body = {}
+            credential_id = body.get("id")
+        else:
+            credential_id = request.query_params.get("id")
+        if credential_id == "None":
+            credential_id = None
+        if credential_id is None:
+            return self.get_error_response(event=event, error_id="#1033",
+                                           message="Missing required parameter: id")
+        if self.db.delete_credentials(credential_id=credential_id):
+            return self.get_ok_response(event=event)
+        return self.get_error_response(event=event, error_id="#1034",
+                                       message=f"Credentials '{credential_id}' not found!")
+
+    async def ubdcc_get_credentials_list(self, request: Request):
+        event = "UBDCC_GET_CREDENTIALS_LIST"
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
+        if ready_check is not None:
+            return ready_check
+        credentials = self.db.get_credentials_list(reveal_secrets=False)
+        return self.get_ok_response(event=event, params={"credentials": credentials})
+
+    async def ubdcc_assign_credentials(self, request: Request):
+        event = "UBDCC_ASSIGN_CREDENTIALS"
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
+        if ready_check is not None:
+            return ready_check
+        uid = request.query_params.get("uid")
+        account_group = request.query_params.get("account_group")
+        if uid == "None":
+            uid = None
+        if account_group == "None":
+            account_group = None
+        if uid is None or account_group is None:
+            return self.get_error_response(event=event, error_id="#1035",
+                                           message="Missing required parameter: uid, account_group")
+        if not is_valid_account_group(account_group):
+            return self.get_error_response(event=event, error_id="#1036",
+                                           message=f"Invalid account_group '{account_group}'")
+        credential = self.db.assign_credentials(uid=uid, account_group=account_group)
+        if credential is None:
+            return self.get_ok_response(event=event, params={"credential": None})
+        return self.get_ok_response(event=event,
+                                    params={"credential": {"id": credential['ID'],
+                                                           "account_group": credential['ACCOUNT_GROUP'],
+                                                           "api_key": credential['API_KEY'],
+                                                           "api_secret": credential['API_SECRET']}})
 
     async def ubdcc_update_depthcache_distribution(self, request: Request):
         event = "UBDCC_UPDATE_DEPTHCACHE_DISTRIBUTION"

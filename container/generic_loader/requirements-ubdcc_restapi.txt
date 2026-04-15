@@ -1,1 +1,1 @@
-ubdcc-restapi==0.3.3
+ubdcc-restapi==0.4.0.dev

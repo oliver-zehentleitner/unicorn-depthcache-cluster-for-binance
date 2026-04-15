@@ -19,6 +19,7 @@
 
 import threading
 import time
+import uuid
 
 
 class Database:
@@ -34,6 +35,7 @@ class Database:
         self.set(key="depthcaches", value={})
         self.set(key="nodes", value={})
         self.set(key="pods", value={})
+        self.set(key="credentials", value={})
         self.set(key="timestamp", value=float())
         if self.app.info['name'] == "ubdcc-mgmt":
             self.update_nodes()
@@ -127,6 +129,116 @@ class Database:
             self.data['pods'][uid] = pod
             self._set_update_timestamp()
         return True
+
+    def add_credentials(self, account_group: str = None, api_key: str = None,
+                        api_secret: str = None) -> str:
+        """Store a Binance API key pair for the given account group. Returns
+        the generated credential id (UUID). Raises ValueError on invalid
+        parameters or unknown account_group."""
+        if account_group is None or api_key is None or api_secret is None:
+            raise ValueError("Missing mandatory parameter: account_group, api_key, api_secret")
+        from .AccountGroups import is_valid_account_group
+        if not is_valid_account_group(account_group):
+            raise ValueError(f"Invalid account_group: {account_group}")
+        credential_id = str(uuid.uuid4())
+        credential = {"ID": credential_id,
+                      "ACCOUNT_GROUP": account_group,
+                      "API_KEY": api_key,
+                      "API_SECRET": api_secret,
+                      "ADDED_TIMESTAMP": self.app.get_unix_timestamp(),
+                      "ASSIGNED_DCNS": []}
+        with self.data_lock:
+            if self.data.get('credentials') is None:
+                self.data['credentials'] = {}
+            self.data['credentials'][credential_id] = credential
+            self._set_update_timestamp()
+        return credential_id
+
+    def assign_credentials(self, uid: str = None, account_group: str = None) -> dict | None:
+        """Assign (or return already-assigned) credential to a DCN uid.
+        Load-balanced: picks credential with fewest ASSIGNED_DCNS.
+        Returns full credential dict (incl. secret) or None if no keys available.
+        """
+        if uid is None or account_group is None:
+            raise ValueError("Missing mandatory parameter: uid, account_group")
+        with self.data_lock:
+            credentials = self.data.get('credentials') or {}
+            candidates = [c for c in credentials.values()
+                          if c['ACCOUNT_GROUP'] == account_group]
+            if not candidates:
+                return None
+            for c in candidates:
+                if uid in c['ASSIGNED_DCNS']:
+                    return dict(c)
+            chosen = min(candidates, key=lambda c: len(c['ASSIGNED_DCNS']))
+            chosen['ASSIGNED_DCNS'].append(uid)
+            self._set_update_timestamp()
+            return dict(chosen)
+
+    def delete_credentials(self, credential_id: str = None) -> bool:
+        """Remove a stored credential. Returns True on success, False when the
+        id was not found."""
+        if credential_id is None:
+            raise ValueError("Missing mandatory parameter: credential_id")
+        with self.data_lock:
+            credentials = self.data.get('credentials') or {}
+            if credential_id not in credentials:
+                return False
+            del credentials[credential_id]
+            self._set_update_timestamp()
+        return True
+
+    def get_credentials(self, credential_id: str = None) -> dict | None:
+        """Return the full credential record (incl. secret) for the given id,
+        or None if not found. Internal use only — do not leak through public
+        endpoints."""
+        with self.data_lock:
+            credentials = self.data.get('credentials') or {}
+            c = credentials.get(credential_id)
+            return dict(c) if c else None
+
+    def get_credentials_list(self, reveal_secrets: bool = False) -> list:
+        """Return list of credentials. With reveal_secrets=False (default)
+        api_key/api_secret are masked for public consumption."""
+        result = []
+        with self.data_lock:
+            credentials = self.data.get('credentials') or {}
+            for c in credentials.values():
+                entry = {"id": c['ID'],
+                         "account_group": c['ACCOUNT_GROUP'],
+                         "added_timestamp": c['ADDED_TIMESTAMP'],
+                         "assigned_dcns": list(c['ASSIGNED_DCNS'])}
+                if reveal_secrets:
+                    entry['api_key'] = c['API_KEY']
+                    entry['api_secret'] = c['API_SECRET']
+                else:
+                    entry['api_key_preview'] = self._mask(c['API_KEY'])
+                result.append(entry)
+        return result
+
+    def release_credentials(self, uid: str = None) -> bool:
+        """Remove uid from ASSIGNED_DCNS of all credentials (called when DCN
+        pod disappears)."""
+        if uid is None:
+            raise ValueError("Missing mandatory parameter: uid")
+        with self.data_lock:
+            credentials = self.data.get('credentials') or {}
+            changed = False
+            for c in credentials.values():
+                if uid in c['ASSIGNED_DCNS']:
+                    c['ASSIGNED_DCNS'].remove(uid)
+                    changed = True
+            if changed:
+                self._set_update_timestamp()
+        return changed
+
+    @staticmethod
+    def _mask(secret: str) -> str:
+        if not secret:
+            return ""
+        if len(secret) <= 6:
+            return "*" * len(secret)
+        return secret[:4] + "*" * (len(secret) - 6) + secret[-2:]
 
     def delete(self, key: str = None) -> bool:
         with self.data_lock:
@@ -325,12 +437,27 @@ class Database:
                 self._set_update_timestamp()
         return True
 
+    def remove_orphaned_credential_assignments(self) -> bool:
+        with self.data_lock:
+            existing_pods = set(self.data.get('pods', {}).keys())
+            credentials = self.data.get('credentials') or {}
+            changed = False
+            for c in credentials.values():
+                new_list = [uid for uid in c['ASSIGNED_DCNS'] if uid in existing_pods]
+                if len(new_list) != len(c['ASSIGNED_DCNS']):
+                    c['ASSIGNED_DCNS'] = new_list
+                    changed = True
+            if changed:
+                self._set_update_timestamp()
+        return True
+
     def revise(self) -> bool:
         start_time = time.time()
         self.app.stdout_msg(f"Revise the Database ...", log="info")
         self.update_nodes()
         self.delete_old_pods()
         self.remove_orphaned_distribution_entries()
+        self.remove_orphaned_credential_assignments()
         self.manage_distribution()
         run_time = time.time() - start_time
         self.app.stdout_msg(f"Database revised in {run_time} seconds!", log="info")

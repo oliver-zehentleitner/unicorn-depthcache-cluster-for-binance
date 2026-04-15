@@ -40,7 +40,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.3.3.dev"
+VERSION: str = "0.4.0.dev.dev"
 
 
 class App:
@@ -526,6 +526,22 @@ class App:
             self.stdout_msg(f"Error during node sync: {result.get('error_id')} - {result.get('message')}",
                             log="error")
             return False
+
+    async def ubdcc_assign_credentials(self, account_group: str = None) -> dict | None:
+        """Ask mgmt for a credential assigned to this DCN uid for the given
+        account_group. Returns {id, account_group, api_key, api_secret} or
+        None when no keys are configured / error."""
+        if account_group is None:
+            return None
+        endpoint = "/ubdcc_assign_credentials"
+        query = f"?uid={self.id['uid']}&account_group={account_group}"
+        host = self.get_cluster_mgmt_address()
+        url = host + endpoint + query
+        result = await self.request(url=url, method="get")
+        if result.get('error_id') is not None or result.get('error') is not None:
+            self.stdout_msg(f"Could not assign credentials for '{account_group}': {result}", log="warn")
+            return None
+        return result.get('credential')
 
     async def ubdcc_update_depthcache_distribution(self,
                                                    exchange: str = None,

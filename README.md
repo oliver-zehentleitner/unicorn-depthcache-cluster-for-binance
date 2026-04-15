@@ -20,7 +20,7 @@
 
 [What](#what-is-ubdcc) | [Architecture](#architecture) | [Features](#key-features) | 
 [Local Setup](#local-setup-without-kubernetes) | [REST API](#rest-api) | [Kubernetes](#kubernetes-setup) | 
-[Python Client](#accessing-from-python) | [Bugs](#how-to-report-bugs-or-suggest-improvements) | 
+[API Credentials](#api-credentials) | [Python Client](#accessing-from-python) | [Bugs](#how-to-report-bugs-or-suggest-improvements) | 
 [Contributing](#contributing) | [Disclaimer](#disclaimer)
 
 Manage hundreds of Binance order book depth caches and access them via REST API — from any programming language, 
@@ -153,7 +153,7 @@ ubdcc start --dcn 4
 This starts 1 mgmt + 1 restapi + 4 DCN processes and drops you into an interactive console:
 
 ```
-UBDCC Cluster Manager v0.3.3
+UBDCC Cluster Manager v0.4.0.dev
 Starting cluster with mgmt port 42080, 4 DCN(s)...
   mgmt started (PID 12345)
   restapi started (PID 12346)
@@ -167,15 +167,15 @@ Cluster is ready!
 
 ROLE             NAME                 PORT     STATUS     VERSION
 ----------------------------------------------------------------------
-ubdcc-mgmt       ubdcc-mgmt           42080    running    0.3.3
-ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.3.3
-ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.3.3
-ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.3.3
-ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.3.3
-ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.3.3
+ubdcc-mgmt       ubdcc-mgmt           42080    running    0.4.0.dev
+ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.4.0.dev
+ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.4.0.dev
+ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.4.0.dev
+ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.4.0.dev
+ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.4.0.dev
 
 DepthCaches: 0
-Version: 0.3.3
+Version: 0.4.0.dev
 
 REST API: http://127.0.0.1:42081/
 Cluster info: http://127.0.0.1:42081/get_cluster_info
@@ -263,6 +263,9 @@ These are the endpoints you use to interact with the cluster. All requests go th
 | `/get_depthcache_list` | GET | — | List all DepthCaches with status and distribution |
 | `/get_depthcache_info` | GET | `exchange`, `market` | Detailed info for a specific DepthCache |
 | `/stop_depthcache` | GET | `exchange`, `market` | Stop and remove a DepthCache |
+| `/ubdcc_add_credentials` | POST/GET | `account_group`, `api_key`, `api_secret` | Store a Binance API key (see [API Credentials](#api-credentials)) |
+| `/ubdcc_remove_credentials` | POST/GET | `id` | Delete a stored API key |
+| `/ubdcc_get_credentials_list` | GET | — | List stored keys (masked) with their assigned DCNs |
 
 All public endpoints accept `debug=true` as an additional parameter for timing and routing details.
 
@@ -280,6 +283,7 @@ understanding them helps when debugging or extending the system.
 | `/ubdcc_node_sync` | GET | Periodic heartbeat — DCN/restapi reports status, mgmt pushes DB backup back |
 | `/ubdcc_get_responsible_dcn_addresses` | GET | Returns which DCN holds a specific DepthCache (used by restapi for routing) |
 | `/ubdcc_update_depthcache_distribution` | GET | DCN reports DepthCache status changes (starting, running) |
+| `/ubdcc_assign_credentials` | GET | DCN requests an API key for a given `account_group` — load-balanced across available keys |
 
 **All pods** (shared base):
 
@@ -394,7 +398,7 @@ helm search repo ubdcc
 - Then
 
 ``` 
-helm install ubdcc ubdcc/ubdcc --version 0.3.3
+helm install ubdcc ubdcc/ubdcc --version 0.4.0.dev
 ```
 
 #### Choose a namespace
@@ -427,6 +431,66 @@ kubectl apply -f ./ubdcc-dcn.yaml
 ```
 kubectl describe services ubdcc-restapi
 ```
+
+## API Credentials
+
+UBDCC can run entirely **without** Binance API keys — DepthCaches are built from public market data
+streams and endpoints. When you run at larger scale you may want to add API keys to raise the REST
+rate-limit ceiling (snapshots for initial sync, refresh cycles). Keys are optional.
+
+### Account groups
+
+Each Binance account has its own keys. UBDCC groups related exchanges under one `account_group`:
+
+| account_group                   | Covers UBLDC exchanges                                                                                       |
+|---------------------------------|--------------------------------------------------------------------------------------------------------------|
+| `binance.com`                   | `binance.com`, `binance.com-futures`, `binance.com-margin`, `binance.com-isolated_margin`                    |
+| `binance.com-testnet`           | `binance.com-testnet` (Spot testnet — separate login on testnet.binance.vision)                              |
+| `binance.com-futures-testnet`   | `binance.com-futures-testnet` (Futures testnet — separate login on testnet.binancefuture.com)                |
+| `binance.us`                    | `binance.us`                                                                                                 |
+| `binance.tr`                    | `trbinance.com`                                                                                              |
+
+### Add / remove / list
+
+```bash
+# Add a key
+ubdcc credentials add --account-group binance.com --api-key <KEY> --api-secret <SECRET>
+
+# List (masked)
+ubdcc credentials list
+
+# Remove
+ubdcc credentials remove <id>
+```
+
+Or over HTTP:
+
+```bash
+curl -X POST 'http://127.0.0.1:42081/ubdcc_add_credentials' \
+  -H 'Content-Type: application/json' \
+  -d '{"account_group":"binance.com","api_key":"...","api_secret":"..."}'
+```
+
+You can register **multiple key pairs per account group**. Mgmt assigns each DCN one key from the
+pool (load-balanced: the key with the fewest assigned DCNs wins). Restart the DCN to pick up a new
+assignment. `get_cluster_info` / `credentials list` show which DCNs each key is assigned to.
+
+### Security caveats
+
+- **Keys are stored in the cluster DB** (the same DB that is replicated to every pod for
+  self-healing). Inside the cluster they are full, cleartext — this is a deliberate trade-off so
+  that the self-healing/backup flow keeps working.
+- Public responses (`get_cluster_info`, `ubdcc_get_credentials_list`) only return **masked
+  previews** of the key and never the secret. Only the internal `/ubdcc_assign_credentials`
+  endpoint returns the full pair, and only to a requesting DCN.
+- It is **your responsibility** to protect the cluster: lock down the network (firewall, private
+  VPC), restrict who can talk to mgmt/restapi, keep node images/backups safe. UBDCC does not yet
+  provide transport encryption or authentication on the internal API — we are building from the
+  core outward.
+- If you don't want to take on that risk, run UBDCC without credentials — everything still works,
+  just with Binance's public rate limits.
+- Give each Binance API key the **minimum** permissions it needs. For DepthCache use, read-only is
+  sufficient. IP-whitelist the key on Binance if you can.
 
 ## Security
 In any case, you should set the firewall in the web interface of the Kubernetes provider so that only your systems 

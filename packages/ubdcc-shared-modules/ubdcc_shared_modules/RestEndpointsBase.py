@@ -34,7 +34,8 @@ class RestEndpointsBase:
         if self.app.data.get('db') is None:
             response = {}
         else:
-            response = {"db": {"depthcaches": self.app.data['db'].get('depthcaches'),
+            response = {"db": {"credentials": self.app.data['db'].get_credentials_list(reveal_secrets=False),
+                               "depthcaches": self.app.data['db'].get('depthcaches'),
                                "nodes": self.app.data['db'].get('nodes'),
                                "pods": self.app.data['db'].get('pods'),
                                "timestamp": self.app.data['db'].get('timestamp')},

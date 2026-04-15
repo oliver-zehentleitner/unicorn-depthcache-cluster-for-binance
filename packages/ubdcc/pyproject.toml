@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ubdcc"
-version = "0.3.3"
+version = "0.4.0.dev"
 description = "UNICORN Binance DepthCache Cluster — cluster manager and meta-package"
 authors = ["Oliver Zehentleitner <>"]
 license = "MIT"

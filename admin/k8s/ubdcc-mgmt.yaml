@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: ubdcc-mgmt
-          image: ghcr.io/oliver-zehentleitner/ubdcc-mgmt:0.3.3
+          image: ghcr.io/oliver-zehentleitner/ubdcc-mgmt:0.4.0.dev
           ports:
             - name: rest-private
               containerPort: 8080
