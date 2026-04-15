@@ -2,13 +2,13 @@
 
 All notable changes to this package will be documented in this file.
 
-## 0.3.0.dev (development stage/unreleased/unstable)
+## 0.4.0.dev (development stage/unreleased/unstable)
+
+## 0.4.0
 ### Changed
 - `get_ok_response()` now accepts optional `error` and `error_id` parameters, matching the existing error-response convention. Enables OK-with-warnings responses (e.g. failover success in restapi).
-
 ### Added
 - `Database`: `LAST_DISTRIBUTION_CHANGE` + `DISTRIBUTION_CHANGES` fields per DepthCache, auto-incremented on add/delete distribution. `RESTARTS` counter per distribution entry, incremented when `update_depthcache_distribution(last_restart_time=...)` advances the timestamp.
-
 
 ## 0.3.0
 ### Added

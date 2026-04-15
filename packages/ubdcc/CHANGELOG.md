@@ -2,7 +2,9 @@
 
 All notable changes to this package will be documented in this file.
 
-## 0.3.0.dev (development stage/unreleased/unstable)
+## 0.4.0.dev (development stage/unreleased/unstable)
+
+## 0.4.0
 ### Removed
 - External `ubdcc restart <name>` CLI subcommand — only worked inside the interactive shell. The shell command is unchanged.
 

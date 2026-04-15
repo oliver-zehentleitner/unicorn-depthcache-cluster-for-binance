@@ -30,7 +30,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name=name,
-    version="0.4.0.dev",
+    version="0.4.0",
     author="Oliver Zehentleitner",
     author_email='',
     url="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster",
@@ -38,7 +38,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license='MIT',
-    install_requires=['ubdcc-shared-modules==0.4.0.dev'],
+    install_requires=['ubdcc-shared-modules==0.4.0'],
     keywords='',
     project_urls={
         'Howto': 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster#howto',

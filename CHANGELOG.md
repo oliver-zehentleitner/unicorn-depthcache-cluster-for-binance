@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 [How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/readme.html#installation-and-upgrade)
 
 ## 0.4.0.dev (development stage/unreleased/unstable)
+
+## 0.4.0
 ### Added
 - Binance API credentials support. Optional: add one or more `(api_key, api_secret)` pairs per account group (`binance.com`, `binance.com-testnet`, `binance.com-futures-testnet`, `binance.us`, `binance.tr`) via new REST endpoints `/ubdcc_add_credentials` (POST/GET), `/ubdcc_remove_credentials`, `/ubdcc_get_credentials_list` and matching `ubdcc credentials add/list/remove` CLI subcommands. Mgmt load-balances credentials across DCN pods (fewest-assigned-first); DCNs fetch their assigned key via the internal `/ubdcc_assign_credentials` endpoint and pass it to UBLDC as a `BinanceRestApiManager`. Lets the cluster use authenticated rate limits without mandating credentials — public-only operation remains unchanged. Keys are part of the self-healing DB sync (full cleartext cluster-internal); public responses only show masked previews and the list of assigned DCN UIDs per key. See README → API Credentials for the security trade-offs.
 - `get_asks` / `get_bids`: when failover recovers from one or more unreachable DCNs, the successful response now includes an `error_id` (`#5001`) and an `error` message listing the pods that failed before success. Gives monitoring a visible signal that failover occurred without changing the OK-with-data semantics. Closes #3.

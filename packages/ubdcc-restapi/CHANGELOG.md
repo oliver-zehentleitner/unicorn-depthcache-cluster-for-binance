@@ -2,10 +2,11 @@
 
 All notable changes to this package will be documented in this file.
 
-## 0.3.0.dev (development stage/unreleased/unstable)
+## 0.4.0dev (development stage/unreleased/unstable)
+
+## 0.4.0
 ### Added
 - Failover visibility: when `/get_asks` or `/get_bids` recovers from one or more DCN failures, the response stays `result: OK` with data as before, but additionally carries `error_id: "#5001"` and an `error` string listing the failed pods. Gives clients a monitoring hook for partial-failure events.
-
 
 ## 0.3.0
 ### Added

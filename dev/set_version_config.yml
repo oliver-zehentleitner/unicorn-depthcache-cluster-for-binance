@@ -14,6 +14,7 @@ files:
 - container/generic_loader/requirements-ubdcc_restapi.txt
 - dev/helm/ubdcc/Chart.yaml
 - dev/sphinx/source/conf.py
+- packages/ubdcc/ubdcc/__init__.py
 - packages/ubdcc/pyproject.toml
 - packages/ubdcc/requirements.txt
 - packages/ubdcc/setup.py
@@ -31,4 +32,4 @@ files:
 - packages/ubdcc-shared-modules/setup.py
 - README.md
 - AGENTS.md
-version: 0.4.0.dev
+version: 0.4.0
