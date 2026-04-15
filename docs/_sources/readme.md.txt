@@ -20,21 +20,33 @@
 
 [What](#what-is-ubdcc) | [Architecture](#architecture) | [Features](#key-features) | 
 [Local Setup](#local-setup-without-kubernetes) | [REST API](#rest-api) | [Kubernetes](#kubernetes-setup) | 
-[Python Client](#accessing-from-python) | [Bugs](#how-to-report-bugs-or-suggest-improvements) | 
+[API Credentials](#api-credentials) | [Python Client](#accessing-from-python) | [Bugs](#how-to-report-bugs-or-suggest-improvements) | 
 [Contributing](#contributing) | [Disclaimer](#disclaimer)
 
 Manage hundreds of Binance order book depth caches and access them via REST API — from any programming language, 
-any number of clients, with load balancing and automatic failover. Simple to set up: `pip install`, start three 
-processes, done.
+any number of clients, with load balancing and automatic failover. Simple to set up:
 
-Built on [UNICORN Binance Local Depth Cache (UBLDC)](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache). 
+```bash
+pip install ubdcc
+ubdcc start
+```
+
 Part of the [UNICORN Binance Suite](https://github.com/oliver-zehentleitner/unicorn-binance-suite).
 
 ## What is UBDCC?
 
-UBDCC turns Binance DepthCaches into a service. Instead of managing WebSocket connections and order book 
+Most trading bots maintain their own local order book. Run several of them on the same machine and you end up with 
+duplicated WebSocket connections to Binance, multiple slightly different views of the market, and no shared mechanism 
+to detect when an individual book has silently drifted out of sync.
+
+UBDCC turns Binance DepthCaches into a shared service. Instead of managing WebSocket connections and order book 
 synchronization inside your trading bot, you run UBDCC as a standalone system and query it over HTTP whenever you need 
-order book data.
+order book data — same consistent data for every client, with redundancy, automatic failover, and explicit out-of-sync 
+handling built in.
+
+The order book engine itself is [UBLDC](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache), 
+which strictly follows Binance's synchronization model — including removal of levels beyond the guaranteed top 1000 
+that would otherwise stay permanently stale in the local state.
 
 It works in two ways:
 
@@ -90,28 +102,37 @@ graph LR
 
 ## Key Features
 
-- **Fast access**: Order book data in ~3ms (cluster-internal) or ~4ms total request time on local networks. Over the 
-internet typically ~60ms. All requests are load-balanced with automatic failover across redundant DepthCache copies.
-- **Any language**: Retrieve DepthCache data via HTTP/JSON from any programming language. Python users can use the 
+- **Deterministic order book state**: built on [UBLDC](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache), 
+which follows Binance's synchronization model strictly — explicit out-of-sync detection, automatic resync, and 
+removal of orphaned levels beyond the guaranteed top 1000. The cluster either serves consistent data or fails 
+loudly; it never silently accumulates stale levels.
+- **Redundancy and automatic failover**: every DepthCache can be replicated across multiple DCN nodes 
+(`desired_quantity`). The restapi load-balances queries across the replicas and falls back to the next node if one 
+becomes unavailable, with the failure surfaced in the response so monitoring sees it.
+- **Self-healing state**: the cluster database is replicated to every node on each sync cycle. If the management 
+pod restarts, it automatically recovers the latest state from the node with the most recent backup — no external 
+database (Redis, etcd) required, zero manual intervention.
+- **Smart rate limiting**: automatically throttles DepthCache initialization when Binance API weight costs would 
+otherwise blow the limits, and supports per-account API credentials so DCNs can use authenticated rate limits 
+when more headroom is needed.
+- **Any language**: retrieve DepthCache data via HTTP/JSON from any programming language. Python users can use the 
 [UBLDC cluster module](https://oliver-zehentleitner.github.io/unicorn-binance-local-depth-cache/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster) 
 for sync and async access.
-- **Flexible filtering**: Trim data at the cluster level — limit to top N Asks/Bids or filter by volume threshold. 
+- **Scales with your resources**: tested with hundreds of redundant DepthCaches across multiple nodes. Add more 
+servers and DCN pods to scale further — there is no hard limit.
+- **Flexible filtering**: trim data at the cluster level — limit to top N Asks/Bids or filter by volume threshold. 
 No need to transfer the full order book when you only need the best prices.
-- **Fully async top to bottom**: Optimized for fast processing of concurrent requests. The entire stack is built on 
-asyncio — from the REST API down to the WebSocket connections. DepthCache management runs directly as a plugin inside 
-the [UBWA](https://github.com/oliver-zehentleitner/unicorn-binance-websocket-api) WebSocket event loop, so order book updates are processed with zero overhead. Cluster management, data queries 
+- **Fast access**: order book data in ~3ms (cluster-internal) or ~4ms total request time on local networks. Over 
+the internet typically ~60ms.
+- **Fully async top to bottom**: the entire stack is built on asyncio — from the REST API down to the WebSocket 
+connections. DepthCache management runs directly as a plugin inside the [UBWA](https://github.com/oliver-zehentleitner/unicorn-binance-websocket-api) 
+WebSocket event loop, so order book updates are processed with zero overhead. Cluster management, data queries 
 and node communication all run non-blocking, keeping response times consistent even when many clients query 
 simultaneously.
-- **Scales with your resources**: Tested with hundreds of redundant DepthCaches across multiple nodes. Add more 
-servers and DCN pods to scale further — there is no hard limit.
-- **Compiled C-Extensions**: The entire cluster runs as Cython-compiled code for maximum performance.
-- **Smart rate limiting**: Automatically throttles initialization when Binance API weight costs get too high.
-- **Self-healing state**: The cluster database is replicated to every node on each sync cycle. If the management pod 
-restarts, it automatically recovers the latest state from the node with the most recent backup — no external database 
-(Redis, etcd) required, zero manual intervention.
-- **Full transparency**: Every request can include `debug=true` to get detailed timing breakdowns 
-(cluster execution time, transmission time, total request time), the internal routing URL, and which pods handled the 
-request.
+- **Compiled C-Extensions**: the entire cluster runs as Cython-compiled code for maximum performance.
+- **Full transparency**: every request can include `debug=true` to get detailed timing breakdowns 
+(cluster execution time, transmission time, total request time), the internal routing URL, and which pods handled 
+the request.
 - **Supported exchanges**:
 
 | Exchange                                                           | Exchange string               | 
@@ -149,7 +170,7 @@ ubdcc start --dcn 4
 This starts 1 mgmt + 1 restapi + 4 DCN processes and drops you into an interactive console:
 
 ```
-UBDCC Cluster Manager v0.3.3
+UBDCC Cluster Manager v0.4.0
 Starting cluster with mgmt port 42080, 4 DCN(s)...
   mgmt started (PID 12345)
   restapi started (PID 12346)
@@ -163,15 +184,15 @@ Cluster is ready!
 
 ROLE             NAME                 PORT     STATUS     VERSION
 ----------------------------------------------------------------------
-ubdcc-mgmt       ubdcc-mgmt           42080    running    0.3.3
-ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.3.3
-ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.3.3
-ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.3.3
-ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.3.3
-ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.3.3
+ubdcc-mgmt       ubdcc-mgmt           42080    running    0.4.0
+ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.4.0
+ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.4.0
+ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.4.0
+ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.4.0
+ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.4.0
 
 DepthCaches: 0
-Version: 0.3.3
+Version: 0.4.0
 
 REST API: http://127.0.0.1:42081/
 Cluster info: http://127.0.0.1:42081/get_cluster_info
@@ -199,7 +220,6 @@ While the cluster is running, you can also manage it from another terminal:
 ```bash
 ubdcc status                     # show cluster status
 ubdcc stop                       # shut down the cluster
-ubdcc restart g3HcyluSZ5qWarm   # restart a specific pod
 ```
 
 The CLI automatically remembers the mgmt port. If you started with a custom port (`ubdcc start --port 42090`), 
@@ -260,6 +280,9 @@ These are the endpoints you use to interact with the cluster. All requests go th
 | `/get_depthcache_list` | GET | — | List all DepthCaches with status and distribution |
 | `/get_depthcache_info` | GET | `exchange`, `market` | Detailed info for a specific DepthCache |
 | `/stop_depthcache` | GET | `exchange`, `market` | Stop and remove a DepthCache |
+| `/ubdcc_add_credentials` | POST/GET | `account_group`, `api_key`, `api_secret` | Store a Binance API key (see [API Credentials](#api-credentials)) |
+| `/ubdcc_remove_credentials` | POST/GET | `id` | Delete a stored API key |
+| `/ubdcc_get_credentials_list` | GET | — | List stored keys (masked) with their assigned DCNs |
 
 All public endpoints accept `debug=true` as an additional parameter for timing and routing details.
 
@@ -277,6 +300,7 @@ understanding them helps when debugging or extending the system.
 | `/ubdcc_node_sync` | GET | Periodic heartbeat — DCN/restapi reports status, mgmt pushes DB backup back |
 | `/ubdcc_get_responsible_dcn_addresses` | GET | Returns which DCN holds a specific DepthCache (used by restapi for routing) |
 | `/ubdcc_update_depthcache_distribution` | GET | DCN reports DepthCache status changes (starting, running) |
+| `/ubdcc_assign_credentials` | GET | DCN requests an API key for a given `account_group` — load-balanced across available keys |
 
 **All pods** (shared base):
 
@@ -391,7 +415,7 @@ helm search repo ubdcc
 - Then
 
 ``` 
-helm install ubdcc ubdcc/ubdcc --version 0.3.3
+helm install ubdcc ubdcc/ubdcc --version 0.4.0
 ```
 
 #### Choose a namespace
@@ -424,6 +448,66 @@ kubectl apply -f ./ubdcc-dcn.yaml
 ```
 kubectl describe services ubdcc-restapi
 ```
+
+## API Credentials
+
+UBDCC can run entirely **without** Binance API keys — DepthCaches are built from public market data
+streams and endpoints. When you run at larger scale you may want to add API keys to raise the REST
+rate-limit ceiling (snapshots for initial sync, refresh cycles). Keys are optional.
+
+### Account groups
+
+Each Binance account has its own keys. UBDCC groups related exchanges under one `account_group`:
+
+| account_group                   | Covers UBLDC exchanges                                                                                       |
+|---------------------------------|--------------------------------------------------------------------------------------------------------------|
+| `binance.com`                   | `binance.com`, `binance.com-futures`, `binance.com-margin`, `binance.com-isolated_margin`                    |
+| `binance.com-testnet`           | `binance.com-testnet` (Spot testnet — separate login on testnet.binance.vision)                              |
+| `binance.com-futures-testnet`   | `binance.com-futures-testnet` (Futures testnet — separate login on testnet.binancefuture.com)                |
+| `binance.us`                    | `binance.us`                                                                                                 |
+| `binance.tr`                    | `trbinance.com`                                                                                              |
+
+### Add / remove / list
+
+```bash
+# Add a key
+ubdcc credentials add --account-group binance.com --api-key <KEY> --api-secret <SECRET>
+
+# List (masked)
+ubdcc credentials list
+
+# Remove
+ubdcc credentials remove <id>
+```
+
+Or over HTTP:
+
+```bash
+curl -X POST 'http://127.0.0.1:42081/ubdcc_add_credentials' \
+  -H 'Content-Type: application/json' \
+  -d '{"account_group":"binance.com","api_key":"...","api_secret":"..."}'
+```
+
+You can register **multiple key pairs per account group**. Mgmt assigns each DCN one key from the
+pool (load-balanced: the key with the fewest assigned DCNs wins). Restart the DCN to pick up a new
+assignment. `get_cluster_info` / `credentials list` show which DCNs each key is assigned to.
+
+### Security caveats
+
+- **Keys are stored in the cluster DB** (the same DB that is replicated to every pod for
+  self-healing). Inside the cluster they are full, cleartext — this is a deliberate trade-off so
+  that the self-healing/backup flow keeps working.
+- Public responses (`get_cluster_info`, `ubdcc_get_credentials_list`) only return **masked
+  previews** of the key and never the secret. Only the internal `/ubdcc_assign_credentials`
+  endpoint returns the full pair, and only to a requesting DCN.
+- It is **your responsibility** to protect the cluster: lock down the network (firewall, private
+  VPC), restrict who can talk to mgmt/restapi, keep node images/backups safe. UBDCC does not yet
+  provide transport encryption or authentication on the internal API — we are building from the
+  core outward.
+- If you don't want to take on that risk, run UBDCC without credentials — everything still works,
+  just with Binance's public rate limits.
+- Give each Binance API key the **minimum** permissions it needs. For DepthCache use, read-only is
+  sufficient. IP-whitelist the key on Binance if you can.
 
 ## Security
 In any case, you should set the firewall in the web interface of the Kubernetes provider so that only your systems 

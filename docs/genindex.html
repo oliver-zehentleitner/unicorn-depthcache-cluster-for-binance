@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; unicorn-binance-depth-cache-cluster 0.3.3 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index &#8212; unicorn-binance-depth-cache-cluster 0.4.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?v=fdf8e9ae" />
@@ -584,6 +584,8 @@ window.runMermaid = runMermaid;</script>
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.add_credentials">add_credentials() (ubdcc_shared_modules.Database.Database method)</a>
+</li>
       <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.add_depthcache">add_depthcache() (ubdcc_shared_modules.Database.Database method)</a>
 </li>
       <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.add_depthcache_distribution">add_depthcache_distribution() (ubdcc_shared_modules.Database.Database method)</a>
@@ -593,6 +595,8 @@ window.runMermaid = runMermaid;</script>
       <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.add_pod">add_pod() (ubdcc_shared_modules.Database.Database method)</a>
 </li>
       <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.App.App">App (class in ubdcc_shared_modules.App)</a>
+</li>
+      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.assign_credentials">assign_credentials() (ubdcc_shared_modules.Database.Database method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -634,10 +638,12 @@ window.runMermaid = runMermaid;</script>
 </li>
       <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.delete">delete() (ubdcc_shared_modules.Database.Database method)</a>
 </li>
-      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.delete_depthcache">delete_depthcache() (ubdcc_shared_modules.Database.Database method)</a>
+      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.delete_credentials">delete_credentials() (ubdcc_shared_modules.Database.Database method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.delete_depthcache">delete_depthcache() (ubdcc_shared_modules.Database.Database method)</a>
+</li>
       <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.delete_depthcache_distribution">delete_depthcache_distribution() (ubdcc_shared_modules.Database.Database method)</a>
 </li>
       <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.delete_old_pods">delete_old_pods() (ubdcc_shared_modules.Database.Database method)</a>
@@ -702,12 +708,16 @@ window.runMermaid = runMermaid;</script>
       </ul></li>
       <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.App.App.get_cluster_mgmt_address">get_cluster_mgmt_address() (ubdcc_shared_modules.App.App method)</a>
 </li>
-      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.get_dcn_responsibilities">get_dcn_responsibilities() (ubdcc_shared_modules.Database.Database method)</a>
+      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.get_credentials">get_credentials() (ubdcc_shared_modules.Database.Database method)</a>
 </li>
-      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.App.App.get_dcn_uid_unused_longest_time">get_dcn_uid_unused_longest_time() (ubdcc_shared_modules.App.App method)</a>
+      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.get_credentials_list">get_credentials_list() (ubdcc_shared_modules.Database.Database method)</a>
+</li>
+      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.get_dcn_responsibilities">get_dcn_responsibilities() (ubdcc_shared_modules.Database.Database method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.App.App.get_dcn_uid_unused_longest_time">get_dcn_uid_unused_longest_time() (ubdcc_shared_modules.App.App method)</a>
+</li>
       <li><a href="ubdcc_mgmt.html#ubdcc_mgmt.RestEndpoints.RestEndpoints.get_depthcache_info">get_depthcache_info() (ubdcc_mgmt.RestEndpoints.RestEndpoints method)</a>
 
       <ul>
@@ -843,14 +853,18 @@ window.runMermaid = runMermaid;</script>
 </li>
       <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.App.App.register_or_restart">register_or_restart() (ubdcc_shared_modules.App.App method)</a>
 </li>
+      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.release_credentials">release_credentials() (ubdcc_shared_modules.Database.Database method)</a>
+</li>
+      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.remove_orphaned_credential_assignments">remove_orphaned_credential_assignments() (ubdcc_shared_modules.Database.Database method)</a>
+</li>
       <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.remove_orphaned_distribution_entries">remove_orphaned_distribution_entries() (ubdcc_shared_modules.Database.Database method)</a>
 </li>
       <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.Database.Database.replace_data">replace_data() (ubdcc_shared_modules.Database.Database method)</a>
 </li>
-      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.App.App.request">request() (ubdcc_shared_modules.App.App static method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.App.App.request">request() (ubdcc_shared_modules.App.App static method)</a>
+</li>
       <li><a href="ubdcc_restapi.html#ubdcc_restapi.RestApi.RestApi">RestApi (class in ubdcc_restapi.RestApi)</a>
 </li>
       <li><a href="ubdcc_dcn.html#ubdcc_dcn.RestEndpoints.RestEndpoints">RestEndpoints (class in ubdcc_dcn.RestEndpoints)</a>
@@ -939,6 +953,18 @@ window.runMermaid = runMermaid;</script>
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ubdcc_mgmt.html#ubdcc_mgmt.RestEndpoints.RestEndpoints.ubdcc_add_credentials">ubdcc_add_credentials() (ubdcc_mgmt.RestEndpoints.RestEndpoints method)</a>
+
+      <ul>
+        <li><a href="ubdcc_restapi.html#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_add_credentials">(ubdcc_restapi.RestEndpoints.RestEndpoints method)</a>
+</li>
+      </ul></li>
+      <li><a href="ubdcc_mgmt.html#ubdcc_mgmt.RestEndpoints.RestEndpoints.ubdcc_assign_credentials">ubdcc_assign_credentials() (ubdcc_mgmt.RestEndpoints.RestEndpoints method)</a>
+
+      <ul>
+        <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.App.App.ubdcc_assign_credentials">(ubdcc_shared_modules.App.App method)</a>
+</li>
+      </ul></li>
       <li>
     ubdcc_dcn
 
@@ -958,6 +984,12 @@ window.runMermaid = runMermaid;</script>
 
       <ul>
         <li><a href="ubdcc_dcn.html#module-ubdcc_dcn.RestEndpoints">module</a>
+</li>
+      </ul></li>
+      <li><a href="ubdcc_mgmt.html#ubdcc_mgmt.RestEndpoints.RestEndpoints.ubdcc_get_credentials_list">ubdcc_get_credentials_list() (ubdcc_mgmt.RestEndpoints.RestEndpoints method)</a>
+
+      <ul>
+        <li><a href="ubdcc_restapi.html#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_get_credentials_list">(ubdcc_restapi.RestEndpoints.RestEndpoints method)</a>
 </li>
       </ul></li>
       <li><a href="ubdcc_mgmt.html#ubdcc_mgmt.RestEndpoints.RestEndpoints.ubdcc_get_responsible_dcn_addresses">ubdcc_get_responsible_dcn_addresses() (ubdcc_mgmt.RestEndpoints.RestEndpoints method)</a>
@@ -1007,6 +1039,14 @@ window.runMermaid = runMermaid;</script>
         <li><a href="ubdcc_shared_modules.html#ubdcc_shared_modules.App.App.ubdcc_node_sync">(ubdcc_shared_modules.App.App method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ubdcc_mgmt.html#ubdcc_mgmt.RestEndpoints.RestEndpoints.ubdcc_remove_credentials">ubdcc_remove_credentials() (ubdcc_mgmt.RestEndpoints.RestEndpoints method)</a>
+
+      <ul>
+        <li><a href="ubdcc_restapi.html#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_remove_credentials">(ubdcc_restapi.RestEndpoints.RestEndpoints method)</a>
+</li>
+      </ul></li>
       <li>
     ubdcc_restapi
 
@@ -1014,8 +1054,6 @@ window.runMermaid = runMermaid;</script>
         <li><a href="ubdcc_restapi.html#module-ubdcc_restapi">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     ubdcc_restapi.RestApi
 
@@ -1185,7 +1223,7 @@ window.runMermaid = runMermaid;</script>
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite#documentation">Index of all docs</a><br />
     &copy; <a href="/license.html">Copyright</a> 2024-2026, Oliver Zehentleitner.
     See <a href="/license.html">License</a> for more information.<br />
-    Last updated on Apr 14 2026 at 21:04 (CET).
+    Last updated on Apr 15 2026 at 19:38 (CET).
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues/new/choose">Found a bug</a>?
     <br />
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
