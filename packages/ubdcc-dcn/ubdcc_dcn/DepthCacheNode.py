@@ -17,6 +17,9 @@
 # Copyright (c) 2024-2026, Oliver Zehentleitner (https://about.me/oliver-zehentleitner)
 # All rights reserved.
 
+import queue
+from functools import partial
+
 from .RestEndpoints import RestEndpoints
 from ubdcc_shared_modules.ServiceBase import ServiceBase
 from unicorn_binance_local_depth_cache import BinanceLocalDepthCacheManager, DepthCacheNotFound
@@ -26,6 +29,14 @@ from unicorn_binance_local_depth_cache.manager import __version__ as ubldc_versi
 class DepthCacheNode(ServiceBase):
     def __init__(self, cwd=None, mgmt_port=None):
         super().__init__(app_name="ubdcc-dcn", cwd=cwd, mgmt_port=mgmt_port)
+        # Thread-safe queue: UBLDC on_restart callbacks fire from their
+        # manager thread; the async main loop drains the queue and forwards
+        # to mgmt. (exchange, market, timestamp) tuples.
+        self._restart_queue: queue.Queue = queue.Queue()
+
+    def _on_stream_restart(self, exchange: str, market: str, timestamp: float) -> None:
+        """Thread-safe: invoked from UBLDC's manager thread on every stream restart."""
+        self._restart_queue.put((exchange, market, timestamp))
 
     async def main(self):
         self.app.data['depthcache_instances'] = {}
@@ -38,6 +49,7 @@ class DepthCacheNode(ServiceBase):
         while self.app.is_shutdown() is False:
             await self.app.sleep()
             await self.app.ubdcc_node_sync()
+            await self._drain_restart_queue()
             self.app.data['responsibilities'] = self.db.get_dcn_responsibilities()
             self.app.stdout_msg(f"Local DepthCaches: {self.app.data['local_depthcaches']}", log="debug", stdout=False)
             self.app.stdout_msg(f"Responsibilities: {self.app.data['responsibilities']}", log="debug", stdout=False)
@@ -50,14 +62,19 @@ class DepthCacheNode(ServiceBase):
                     if self.app.data['depthcache_instances'].get(dc['exchange']) is None:
                         self.app.data['depthcache_instances'][dc['exchange']] = {}
                     if self.app.data['depthcache_instances'][dc['exchange']].get(dc['update_interval']) is None:
+                        on_restart = partial(self._on_stream_restart, dc['exchange'])
                         if dc['update_interval'] is None:
                             self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
-                                BinanceLocalDepthCacheManager(exchange=dc['exchange'])
+                                BinanceLocalDepthCacheManager(
+                                    exchange=dc['exchange'],
+                                    on_restart=on_restart,
+                                )
                         else:
                             self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
                                 BinanceLocalDepthCacheManager(
                                     exchange=dc['exchange'],
-                                    depth_cache_update_interval=dc['update_interval']
+                                    depth_cache_update_interval=dc['update_interval'],
+                                    on_restart=on_restart,
                                 )
                     else:
                         self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']].create_depthcache(
@@ -96,3 +113,19 @@ class DepthCacheNode(ServiceBase):
         for dc in self.app.data['local_depthcaches']:
             for update_interval in self.app.data['depthcache_instances'][dc['exchange']]:
                 self.app.data['depthcache_instances'][dc['exchange']][update_interval].stop_manager()
+
+    async def _drain_restart_queue(self) -> None:
+        """
+        Drain pending stream-restart events from UBLDC's on_restart callback
+        and forward each one to mgmt. Runs once per main-loop iteration.
+        """
+        while True:
+            try:
+                exchange, market, timestamp = self._restart_queue.get_nowait()
+            except queue.Empty:
+                return
+            await self.app.ubdcc_update_depthcache_distribution(
+                exchange=exchange,
+                market=market,
+                last_restart_time=timestamp,
+            )

@@ -3,6 +3,9 @@
 All notable changes to this package will be documented in this file.
 
 ## 0.3.0.dev (development stage/unreleased/unstable)
+### Added
+- `Database`: `LAST_DISTRIBUTION_CHANGE` + `DISTRIBUTION_CHANGES` fields per DepthCache, auto-incremented on add/delete distribution. `RESTARTS` counter per distribution entry, incremented when `update_depthcache_distribution(last_restart_time=...)` advances the timestamp.
+
 
 ## 0.3.0
 ### Added

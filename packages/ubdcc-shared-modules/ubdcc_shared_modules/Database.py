@@ -72,7 +72,9 @@ class Database:
         depthcache = {"CREATED_TIME": self.app.get_unix_timestamp(),
                       "DESIRED_QUANTITY": desired_quantity,
                       "DISTRIBUTION": {},
+                      "DISTRIBUTION_CHANGES": 0,
                       "EXCHANGE": exchange,
+                      "LAST_DISTRIBUTION_CHANGE": 0,
                       "REFRESH_INTERVAL": refresh_interval,
                       "MARKET": market,
                       "UPDATE_INTERVAL": update_interval}
@@ -93,10 +95,15 @@ class Database:
         distribution = {"CREATED_TIME": self.app.get_unix_timestamp(),
                         "LAST_RESTART_TIME": 0,
                         "POD_UID": pod_uid,
+                        "RESTARTS": 0,
                         "SCHEDULED_START_TIME": scheduled_start_time,
                         "STATUS": "starting"}
         with self.data_lock:
             self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid] = distribution
+            self.data['depthcaches'][exchange][market]['DISTRIBUTION_CHANGES'] = \
+                self.data['depthcaches'][exchange][market].get('DISTRIBUTION_CHANGES', 0) + 1
+            self.data['depthcaches'][exchange][market]['LAST_DISTRIBUTION_CHANGE'] = \
+                self.app.get_unix_timestamp()
             self._set_update_timestamp()
         return True
 
@@ -148,6 +155,10 @@ class Database:
             raise ValueError("Missing mandatory parameter: exchange, pod_uid, market")
         with self.data_lock:
             del self.data["depthcaches"][exchange][market]['DISTRIBUTION'][pod_uid]
+            self.data['depthcaches'][exchange][market]['DISTRIBUTION_CHANGES'] = \
+                self.data['depthcaches'][exchange][market].get('DISTRIBUTION_CHANGES', 0) + 1
+            self.data['depthcaches'][exchange][market]['LAST_DISTRIBUTION_CHANGE'] = \
+                self.app.get_unix_timestamp()
             self._set_update_timestamp()
         self.app.stdout_msg(f"DB depthcache distribution deleted: {exchange}, {market}, {pod_uid}", log="debug")
         return True
@@ -432,9 +443,14 @@ class Database:
             raise ValueError("Missing mandatory parameter: exchange, pod_uid, market")
         with self.data_lock:
             if last_restart_time is not None:
-                self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid]['LAST_RESTART_TIME'] = \
-                    last_restart_time
-                self._set_update_timestamp()
+                try:
+                    dist = self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid]
+                except KeyError:
+                    return False
+                if last_restart_time != dist.get('LAST_RESTART_TIME'):
+                    dist['LAST_RESTART_TIME'] = last_restart_time
+                    dist['RESTARTS'] = dist.get('RESTARTS', 0) + 1
+                    self._set_update_timestamp()
             if status is not None:
                 try:
                     self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid]['STATUS'] = status
