@@ -18,6 +18,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - DepthCache distribution tracking: new DB fields `LAST_DISTRIBUTION_CHANGE` + `DISTRIBUTION_CHANGES` (top-level, counts how often a DC has been re-assigned across pods) and `RESTARTS` per distribution entry (counts stream restarts on the currently assigned pod). Visible in `get_depthcache_info` / `get_depthcache_list` — useful for diagnosing upstream stability and cluster rebalancing history. Closes #1.
 ### Removed
 - External `ubdcc restart <name>` CLI subcommand — it didn'''t actually work because the spawn functions live in the interactive shell closure. Restart is still available inside the interactive `ubdcc>` shell.
+### Fixed
+- DCN startup crash: `self._restart_queue` was initialized *after* `super().__init__()`, but `ServiceBase.__init__()` blocks on `self.app.start()` and runs `main()` synchronously — so the assignment was never reached. Every DCN crashed seconds after registering with `AttributeError: '_restart_queue'`, leaving only mgmt and restapi alive. Queue init now runs before `super().__init__()`.
 
 ## 0.3.3
 ### Added
