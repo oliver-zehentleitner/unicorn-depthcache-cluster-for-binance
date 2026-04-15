@@ -120,9 +120,12 @@ class RestEndpoints(RestEndpointsBase):
                 return result
             result_errors.append([address, port, str(result)])
             pod = self.app.data['db'].get_pod_by_address(address=address)
-            pod_name = pod.get('NAME') if pod else address
+            if pod:
+                pod_ref = f"pod={pod.get('NAME')} (uid={pod.get('UID')})"
+            else:
+                pod_ref = f"pod={address}:{port}"
             err_detail = result.get('error') or result.get('message') or str(result)
-            failover_errors.append(f"pod={pod_name} ({err_detail})")
+            failover_errors.append(f"{pod_ref} — {err_detail}")
         self.app.stdout_msg(f"No DCN has responded to the request: {result_errors}")
         return self.get_error_response(event=event, error_id="#5000", message=f"No DCN has responded to the request!",
                                        params={"requests": result_errors}, process_start_time=process_start_time,
