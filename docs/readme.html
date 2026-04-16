@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>UNICORN Binance DepthCache Cluster (UBDCC) &#8212; unicorn-binance-depth-cache-cluster 0.4.1 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNICORN Binance DepthCache Cluster (UBDCC) &#8212; unicorn-binance-depth-cache-cluster 0.5.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?v=fdf8e9ae" />
@@ -865,6 +865,14 @@ the internet typically ~60ms.</p></li>
 <td><code>binance.com-futures-testnet</code></td>
 </tr>
 <tr>
+<td><a href="https://www.binance.com">Binance European Options</a></td>
+<td><code>binance.com-vanilla-options</code></td>
+</tr>
+<tr>
+<td><a href="https://testnet.binancefuture.com">Binance European Options Testnet</a></td>
+<td><code>binance.com-vanilla-options-testnet</code></td>
+</tr>
+<tr>
 <td><a href="https://www.binance.us/">Binance US</a></td>
 <td><code>binance.us</code></td>
 </tr>
@@ -895,7 +903,7 @@ DepthCache data without duplicate WebSocket connections.</p>
 </pre></div>
 </div>
 <p>This starts 1 mgmt + 1 restapi + 4 DCN processes and drops you into an interactive console:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>UBDCC Cluster Manager v0.4.1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>UBDCC Cluster Manager v0.5.0
 Starting cluster with mgmt port 42080, 4 DCN(s)...
   mgmt started (PID 12345)
   restapi started (PID 12346)
@@ -909,16 +917,16 @@ Cluster is ready!
 
 ROLE             NAME                 PORT     STATUS     VERSION
 ----------------------------------------------------------------------
-ubdcc-mgmt       ubdcc-mgmt           42080    running    0.4.1
-ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.4.1
-ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.4.1 (ubldc 2.11.2)
-ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.4.1 (ubldc 2.11.2)
-ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.4.1 (ubldc 2.11.2)
-ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.4.1 (ubldc 2.11.2)
+ubdcc-mgmt       ubdcc-mgmt           42080    running    0.5.0
+ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.5.0
+ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.5.0 (ubldc 2.11.2)
+ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.5.0 (ubldc 2.11.2)
+ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.5.0 (ubldc 2.11.2)
+ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.5.0 (ubldc 2.11.2)
 
 DepthCaches: 0 (0 replicas: 0 running, 0 starting)
 Redundancy: 0 fully redundant, 0 degraded, 0 no redundancy
-Version: 0.4.1
+Version: 0.5.0
 
 REST API: http://127.0.0.1:42081/
 Cluster info: http://127.0.0.1:42081/get_cluster_info
@@ -1316,7 +1324,7 @@ curl<span class="w"> </span><span class="s1">&#39;http://127.0.0.1:42081/stop_de
 <ul class="simple">
 <li><p>Then</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">install</span> <span class="n">ubdcc</span> <span class="n">ubdcc</span><span class="o">/</span><span class="n">ubdcc</span> <span class="o">--</span><span class="n">version</span> <span class="mf">0.4.1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">install</span> <span class="n">ubdcc</span> <span class="n">ubdcc</span><span class="o">/</span><span class="n">ubdcc</span> <span class="o">--</span><span class="n">version</span> <span class="mf">0.5.0</span>
 </pre></div>
 </div>
 </section>
@@ -1375,7 +1383,7 @@ rate-limit ceiling (snapshots for initial sync, refresh cycles). Keys are option
 <tbody>
 <tr>
 <td><code>binance.com</code></td>
-<td><code>binance.com</code>, <code>binance.com-futures</code>, <code>binance.com-margin</code>, <code>binance.com-isolated_margin</code></td>
+<td><code>binance.com</code>, <code>binance.com-futures</code>, <code>binance.com-margin</code>, <code>binance.com-isolated_margin</code>, <code>binance.com-vanilla-options</code></td>
 </tr>
 <tr>
 <td><code>binance.com-testnet</code></td>
@@ -1383,7 +1391,7 @@ rate-limit ceiling (snapshots for initial sync, refresh cycles). Keys are option
 </tr>
 <tr>
 <td><code>binance.com-futures-testnet</code></td>
-<td><code>binance.com-futures-testnet</code> (Futures testnet — separate login on testnet.binancefuture.com)</td>
+<td><code>binance.com-futures-testnet</code>, <code>binance.com-vanilla-options-testnet</code> (shared Futures/Options testnet)</td>
 </tr>
 <tr>
 <td><code>binance.us</code></td>
@@ -1697,7 +1705,7 @@ of any kind, including but not limited to direct or indirect damages for loss of
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite#documentation">Index of all docs</a><br />
     &copy; <a href="/license.html">Copyright</a> 2024-2026, Oliver Zehentleitner.
     See <a href="/license.html">License</a> for more information.<br />
-    Last updated on Apr 16 2026 at 17:12 (CET).
+    Last updated on Apr 16 2026 at 17:31 (CET).
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues/new/choose">Found a bug</a>?
     <br />
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.

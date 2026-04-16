@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>unicorn-binance-depth-cache-cluster Change Log &#8212; unicorn-binance-depth-cache-cluster 0.4.1 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>unicorn-binance-depth-cache-cluster Change Log &#8212; unicorn-binance-depth-cache-cluster 0.5.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?v=fdf8e9ae" />
@@ -52,39 +52,40 @@
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">unicorn-binance-depth-cache-cluster Change Log</a><ul>
-<li><a class="reference internal" href="#dev-development-stage-unreleased-unstable">0.4.1.dev (development stage/unreleased/unstable)</a><ul>
+<li><a class="reference internal" href="#dev-development-stage-unreleased-unstable">0.5.0.dev (development stage/unreleased/unstable)</a></li>
+<li><a class="reference internal" href="#id1">0.5.0</a><ul>
 <li><a class="reference internal" href="#added">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id1">0.4.1</a><ul>
+<li><a class="reference internal" href="#id2">0.4.1</a><ul>
 <li><a class="reference internal" href="#fixed">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">0.4.0</a><ul>
-<li><a class="reference internal" href="#id3">Added</a></li>
+<li><a class="reference internal" href="#id3">0.4.0</a><ul>
+<li><a class="reference internal" href="#id4">Added</a></li>
 <li><a class="reference internal" href="#removed">Removed</a></li>
-<li><a class="reference internal" href="#id4">Fixed</a></li>
+<li><a class="reference internal" href="#id5">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5">0.3.3</a><ul>
-<li><a class="reference internal" href="#id6">Added</a></li>
+<li><a class="reference internal" href="#id6">0.3.3</a><ul>
+<li><a class="reference internal" href="#id7">Added</a></li>
 <li><a class="reference internal" href="#changed">Changed</a></li>
-<li><a class="reference internal" href="#id7">Fixed</a></li>
-<li><a class="reference internal" href="#id8">Removed</a></li>
+<li><a class="reference internal" href="#id8">Fixed</a></li>
+<li><a class="reference internal" href="#id9">Removed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9">0.2.0</a><ul>
-<li><a class="reference internal" href="#id10">Added</a></li>
-<li><a class="reference internal" href="#id11">Changed</a></li>
-<li><a class="reference internal" href="#id12">Fixed</a></li>
-<li><a class="reference internal" href="#id13">Removed</a></li>
+<li><a class="reference internal" href="#id10">0.2.0</a><ul>
+<li><a class="reference internal" href="#id11">Added</a></li>
+<li><a class="reference internal" href="#id12">Changed</a></li>
+<li><a class="reference internal" href="#id13">Fixed</a></li>
+<li><a class="reference internal" href="#id14">Removed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id14">0.1.4</a><ul>
-<li><a class="reference internal" href="#id15">Fixed</a></li>
+<li><a class="reference internal" href="#id15">0.1.4</a><ul>
+<li><a class="reference internal" href="#id16">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id16">0.1.3</a></li>
+<li><a class="reference internal" href="#id17">0.1.3</a></li>
 </ul>
 </li>
 </ul>
@@ -201,17 +202,21 @@
 <p><a class="reference external" href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/discussions/categories/releases">Discussions about unicorn-binance-depth-cache-cluster releases!</a></p>
 <p><a class="reference external" href="https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/readme.html#installation-and-upgrade">How to upgrade to the latest version!</a></p>
 <section id="dev-development-stage-unreleased-unstable">
-<h2>0.4.1.dev (development stage/unreleased/unstable)<a class="headerlink" href="#dev-development-stage-unreleased-unstable" title="Link to this heading">¶</a></h2>
+<h2>0.5.0.dev (development stage/unreleased/unstable)<a class="headerlink" href="#dev-development-stage-unreleased-unstable" title="Link to this heading">¶</a></h2>
+</section>
+<section id="id1">
+<h2>0.5.0<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
 <section id="added">
 <h3>Added<a class="headerlink" href="#added" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>CLI <code class="docutils literal notranslate"><span class="pre">status</span></code>: show UBLDC version in parentheses next to each DCN’s version</p></li>
 <li><p>CLI <code class="docutils literal notranslate"><span class="pre">status</span></code>: DepthCache redundancy summary — replica breakdown (running/starting) and redundancy categories (fully redundant, degraded, no redundancy)</p></li>
+<li><p>AccountGroups: <code class="docutils literal notranslate"><span class="pre">binance.com-vanilla-options</span></code> → <code class="docutils literal notranslate"><span class="pre">binance.com</span></code>, <code class="docutils literal notranslate"><span class="pre">binance.com-vanilla-options-testnet</span></code> → <code class="docutils literal notranslate"><span class="pre">binance.com-futures-testnet</span></code></p></li>
 </ul>
 </section>
 </section>
-<section id="id1">
-<h2>0.4.1<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<section id="id2">
+<h2>0.4.1<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <section id="fixed">
 <h3>Fixed<a class="headerlink" href="#fixed" title="Link to this heading">¶</a></h3>
 <ul class="simple">
@@ -220,10 +225,10 @@
 </ul>
 </section>
 </section>
-<section id="id2">
-<h2>0.4.0<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <section id="id3">
-<h3>Added<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<h2>0.4.0<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<section id="id4">
+<h3>Added<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Binance API credentials support. Optional: add one or more <code class="docutils literal notranslate"><span class="pre">(api_key,</span> <span class="pre">api_secret)</span></code> pairs per account group (<code class="docutils literal notranslate"><span class="pre">binance.com</span></code>, <code class="docutils literal notranslate"><span class="pre">binance.com-testnet</span></code>, <code class="docutils literal notranslate"><span class="pre">binance.com-futures-testnet</span></code>, <code class="docutils literal notranslate"><span class="pre">binance.us</span></code>, <code class="docutils literal notranslate"><span class="pre">binance.tr</span></code>) via new REST endpoints <code class="docutils literal notranslate"><span class="pre">/ubdcc_add_credentials</span></code> (POST/GET), <code class="docutils literal notranslate"><span class="pre">/ubdcc_remove_credentials</span></code>, <code class="docutils literal notranslate"><span class="pre">/ubdcc_get_credentials_list</span></code> and matching <code class="docutils literal notranslate"><span class="pre">ubdcc</span> <span class="pre">credentials</span> <span class="pre">add/list/remove</span></code> CLI subcommands. Mgmt load-balances credentials across DCN pods (fewest-assigned-first); DCNs fetch their assigned key via the internal <code class="docutils literal notranslate"><span class="pre">/ubdcc_assign_credentials</span></code> endpoint and pass it to UBLDC as a <code class="docutils literal notranslate"><span class="pre">BinanceRestApiManager</span></code>. Lets the cluster use authenticated rate limits without mandating credentials — public-only operation remains unchanged. Keys are part of the self-healing DB sync (full cleartext cluster-internal); public responses only show masked previews and the list of assigned DCN UIDs per key. See README → API Credentials for the security trade-offs.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">get_asks</span></code> / <code class="docutils literal notranslate"><span class="pre">get_bids</span></code>: when failover recovers from one or more unreachable DCNs, the successful response now includes an <code class="docutils literal notranslate"><span class="pre">error_id</span></code> (<code class="docutils literal notranslate"><span class="pre">#5001</span></code>) and an <code class="docutils literal notranslate"><span class="pre">error</span></code> message listing the pods that failed before success. Gives monitoring a visible signal that failover occurred without changing the OK-with-data semantics. Closes #3.</p></li>
@@ -236,17 +241,17 @@
 <li><p>External <code class="docutils literal notranslate"><span class="pre">ubdcc</span> <span class="pre">restart</span> <span class="pre">&lt;name&gt;</span></code> CLI subcommand — it didn’’’t actually work because the spawn functions live in the interactive shell closure. Restart is still available inside the interactive <code class="docutils literal notranslate"><span class="pre">ubdcc&gt;</span></code> shell.</p></li>
 </ul>
 </section>
-<section id="id4">
-<h3>Fixed<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<section id="id5">
+<h3>Fixed<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>DCN startup crash: <code class="docutils literal notranslate"><span class="pre">self._restart_queue</span></code> was initialized <em>after</em> <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code>, but <code class="docutils literal notranslate"><span class="pre">ServiceBase.__init__()</span></code> blocks on <code class="docutils literal notranslate"><span class="pre">self.app.start()</span></code> and runs <code class="docutils literal notranslate"><span class="pre">main()</span></code> synchronously — so the assignment was never reached. Every DCN crashed seconds after registering with <code class="docutils literal notranslate"><span class="pre">AttributeError:</span> <span class="pre">'_restart_queue'</span></code>, leaving only mgmt and restapi alive. Queue init now runs before <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code>.</p></li>
 </ul>
 </section>
 </section>
-<section id="id5">
-<h2>0.3.3<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h2>
 <section id="id6">
-<h3>Added<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<h2>0.3.3<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
+<section id="id7">
+<h3>Added<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>New <code class="docutils literal notranslate"><span class="pre">ubdcc</span></code> meta-package and cluster manager (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ubdcc</span></code>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ubdcc</span></code> CLI command with interactive console:</p>
@@ -283,8 +288,8 @@
 <li><p>Aligned <code class="docutils literal notranslate"><span class="pre">project_urls</span></code> across all packages with UBS standard</p></li>
 </ul>
 </section>
-<section id="id7">
-<h3>Fixed<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<section id="id8">
+<h3>Fixed<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Remove remaining LUCIT references in issue templates, PR template, container LICENSE files, container READMEs, dev scripts</p></li>
 <li><p>Fix issue templates: correct project name, add Python 3.13/3.14 to dropdown</p></li>
@@ -294,24 +299,24 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">is_port_free()</span></code> now sets <code class="docutils literal notranslate"><span class="pre">SO_REUSEADDR</span></code> — previously the TIME_WAIT state after a restart caused the new mgmt to land on the next port, breaking restapi/DCN connections</p></li>
 </ul>
 </section>
-<section id="id8">
-<h3>Removed<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<section id="id9">
+<h3>Removed<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>License purchase and commercial support sections from all package READMEs</p></li>
 <li><p>External Lucidchart dependency (replaced with inline Mermaid diagram)</p></li>
 </ul>
 </section>
 </section>
-<section id="id9">
-<h2>0.2.0<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h2>
 <section id="id10">
-<h3>Added<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<h2>0.2.0<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h2>
+<section id="id11">
+<h3>Added<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>AGENTS.md and TASKS.md</p></li>
 </ul>
 </section>
-<section id="id11">
-<h3>Changed<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<section id="id12">
+<h3>Changed<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Rebranded from LUCIT to open source MIT</p></li>
 <li><p>Renamed packages: <code class="docutils literal notranslate"><span class="pre">lucit-ubdcc-*</span></code> → <code class="docutils literal notranslate"><span class="pre">ubdcc-*</span></code>, namespaces: <code class="docutils literal notranslate"><span class="pre">lucit_ubdcc_*</span></code> → <code class="docutils literal notranslate"><span class="pre">ubdcc_*</span></code></p></li>
@@ -322,8 +327,8 @@
 <li><p>Sphinx docs theme: <code class="docutils literal notranslate"><span class="pre">python_docs_theme_lucit</span></code> → <code class="docutils literal notranslate"><span class="pre">alabaster</span></code></p></li>
 </ul>
 </section>
-<section id="id12">
-<h3>Fixed<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<section id="id13">
+<h3>Fixed<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">create_depth_cache()</span></code> → <code class="docutils literal notranslate"><span class="pre">create_depthcache()</span></code> in <code class="docutils literal notranslate"><span class="pre">DepthCacheNode.py</span></code> (deprecated method call)</p></li>
 <li><p>Per-package LICENSE files replaced with correct MIT license</p></li>
@@ -331,8 +336,8 @@
 <li><p>UBLDC dependency pin: <code class="docutils literal notranslate"><span class="pre">unicorn_binance_local_depth_cache==2.6.0</span></code> → <code class="docutils literal notranslate"><span class="pre">unicorn-binance-local-depth-cache&gt;=2.8.1</span></code></p></li>
 </ul>
 </section>
-<section id="id13">
-<h3>Removed<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<section id="id14">
+<h3>Removed<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>LUCIT licensing system (LicensingManager, LicensingExceptions, submit_license endpoints)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lucit-licensing-python</span></code> dependency from all packages</p></li>
@@ -340,18 +345,18 @@
 </ul>
 </section>
 </section>
-<section id="id14">
-<h2>0.1.4<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h2>
 <section id="id15">
-<h3>Fixed<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
+<h2>0.1.4<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h2>
+<section id="id16">
+<h3>Fixed<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues/8 - We don’t overwrite
 the None anymore.</p></li>
 </ul>
 </section>
 </section>
-<section id="id16">
-<h2>0.1.3<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h2>
+<section id="id17">
+<h2>0.1.3<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h2>
 <p>MVP release!</p>
 </section>
 </section>
@@ -372,39 +377,40 @@ the None anymore.</p></li>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">unicorn-binance-depth-cache-cluster Change Log</a><ul>
-<li><a class="reference internal" href="#dev-development-stage-unreleased-unstable">0.4.1.dev (development stage/unreleased/unstable)</a><ul>
+<li><a class="reference internal" href="#dev-development-stage-unreleased-unstable">0.5.0.dev (development stage/unreleased/unstable)</a></li>
+<li><a class="reference internal" href="#id1">0.5.0</a><ul>
 <li><a class="reference internal" href="#added">Added</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id1">0.4.1</a><ul>
+<li><a class="reference internal" href="#id2">0.4.1</a><ul>
 <li><a class="reference internal" href="#fixed">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">0.4.0</a><ul>
-<li><a class="reference internal" href="#id3">Added</a></li>
+<li><a class="reference internal" href="#id3">0.4.0</a><ul>
+<li><a class="reference internal" href="#id4">Added</a></li>
 <li><a class="reference internal" href="#removed">Removed</a></li>
-<li><a class="reference internal" href="#id4">Fixed</a></li>
+<li><a class="reference internal" href="#id5">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5">0.3.3</a><ul>
-<li><a class="reference internal" href="#id6">Added</a></li>
+<li><a class="reference internal" href="#id6">0.3.3</a><ul>
+<li><a class="reference internal" href="#id7">Added</a></li>
 <li><a class="reference internal" href="#changed">Changed</a></li>
-<li><a class="reference internal" href="#id7">Fixed</a></li>
-<li><a class="reference internal" href="#id8">Removed</a></li>
+<li><a class="reference internal" href="#id8">Fixed</a></li>
+<li><a class="reference internal" href="#id9">Removed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9">0.2.0</a><ul>
-<li><a class="reference internal" href="#id10">Added</a></li>
-<li><a class="reference internal" href="#id11">Changed</a></li>
-<li><a class="reference internal" href="#id12">Fixed</a></li>
-<li><a class="reference internal" href="#id13">Removed</a></li>
+<li><a class="reference internal" href="#id10">0.2.0</a><ul>
+<li><a class="reference internal" href="#id11">Added</a></li>
+<li><a class="reference internal" href="#id12">Changed</a></li>
+<li><a class="reference internal" href="#id13">Fixed</a></li>
+<li><a class="reference internal" href="#id14">Removed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id14">0.1.4</a><ul>
-<li><a class="reference internal" href="#id15">Fixed</a></li>
+<li><a class="reference internal" href="#id15">0.1.4</a><ul>
+<li><a class="reference internal" href="#id16">Fixed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id16">0.1.3</a></li>
+<li><a class="reference internal" href="#id17">0.1.3</a></li>
 </ul>
 </li>
 </ul>
@@ -511,7 +517,7 @@ the None anymore.</p></li>
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite#documentation">Index of all docs</a><br />
     &copy; <a href="/license.html">Copyright</a> 2024-2026, Oliver Zehentleitner.
     See <a href="/license.html">License</a> for more information.<br />
-    Last updated on Apr 16 2026 at 17:12 (CET).
+    Last updated on Apr 16 2026 at 17:31 (CET).
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues/new/choose">Found a bug</a>?
     <br />
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.

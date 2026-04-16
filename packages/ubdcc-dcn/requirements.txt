@@ -1,2 +1,2 @@
-ubdcc-shared-modules==0.4.1
+ubdcc-shared-modules==0.5.0
 unicorn-binance-local-depth-cache>=2.11.0

@@ -9,7 +9,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 [How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/readme.html#installation-and-upgrade)
 
-## 0.4.1.dev (development stage/unreleased/unstable)
+## 0.5.0.dev (development stage/unreleased/unstable)
+
+## 0.5.0
 ### Added
 - CLI `status`: show UBLDC version in parentheses next to each DCN's version
 - CLI `status`: DepthCache redundancy summary — replica breakdown (running/starting) and redundancy categories (fully redundant, degraded, no redundancy)
