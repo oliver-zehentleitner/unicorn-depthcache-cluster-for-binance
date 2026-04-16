@@ -36,9 +36,9 @@ setup(
     long_description_content_type="text/markdown",
     license='MIT',
     packages=find_packages(),
-    install_requires=['ubdcc-mgmt',
-                      'ubdcc-restapi',
-                      'ubdcc-dcn'],
+    install_requires=['ubdcc-mgmt==0.4.0',
+                      'ubdcc-restapi==0.4.0',
+                      'ubdcc-dcn==0.4.0'],
     entry_points={
         "console_scripts": [
             "ubdcc=ubdcc.cli:main",
