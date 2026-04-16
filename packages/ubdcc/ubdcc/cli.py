@@ -461,13 +461,40 @@ def print_status_table(data, mgmt_port=42080):
         port = pod.get('API_PORT_REST', '?')
         status = pod.get('STATUS', '?')
         version = pod.get('VERSION', '?')
+        ubldc_version = pod.get('UBLDC_VERSION')
+        if ubldc_version:
+            version = f"{version} (ubldc {ubldc_version})"
         print(f"{role:<16} {name:<20} {port:<8} {status:<10} {version}")
         if role == 'ubdcc-restapi' and restapi_port is None:
             restapi_port = port
 
     depthcaches = data.get('db', {}).get('depthcaches', {})
-    dc_count = sum(len(markets) for markets in depthcaches.values())
-    print(f"\nDepthCaches: {dc_count}")
+    dc_count = 0
+    total_replicas = 0
+    replicas_running = 0
+    replicas_starting = 0
+    fully_redundant = 0
+    degraded = 0
+    no_redundancy = 0
+    for markets in depthcaches.values():
+        for dc in markets.values():
+            dc_count += 1
+            desired = dc.get('DESIRED_QUANTITY', 1)
+            distribution = dc.get('DISTRIBUTION', {})
+            running = sum(1 for d in distribution.values() if d.get('STATUS') == 'running')
+            starting = len(distribution) - running
+            total_replicas += len(distribution)
+            replicas_running += running
+            replicas_starting += starting
+            if desired < 2:
+                no_redundancy += 1
+            elif running >= desired:
+                fully_redundant += 1
+            else:
+                degraded += 1
+
+    print(f"\nDepthCaches: {dc_count} ({total_replicas} replicas: {replicas_running} running, {replicas_starting} starting)")
+    print(f"Redundancy: {fully_redundant} fully redundant, {degraded} degraded, {no_redundancy} no redundancy")
     print(f"Version: {data.get('version', '?')}")
     if restapi_port:
         print(f"\nREST API: http://127.0.0.1:{restapi_port}/")
