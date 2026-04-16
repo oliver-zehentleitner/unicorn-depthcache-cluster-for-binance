@@ -1,1 +1,1 @@
-ubdcc-shared-modules==0.4.0
+ubdcc-shared-modules==0.4.1

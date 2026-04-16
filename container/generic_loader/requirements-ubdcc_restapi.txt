@@ -1,1 +1,1 @@
-ubdcc-restapi==0.4.0
+ubdcc-restapi==0.4.1

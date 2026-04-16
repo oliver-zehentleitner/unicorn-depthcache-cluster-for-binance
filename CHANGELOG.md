@@ -9,7 +9,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 [How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/readme.html#installation-and-upgrade)
 
-## 0.4.0.dev (development stage/unreleased/unstable)
+## 0.4.1.dev (development stage/unreleased/unstable)
+
+## 0.4.1
+### Fixed
+- Compiled file 'ubdcc_shared_modules.AccountGroups' was missing in the wheels
+- Pinning ubdcc versions in ubdcc cli requirements
 
 ## 0.4.0
 ### Added
