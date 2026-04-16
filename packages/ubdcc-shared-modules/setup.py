@@ -51,6 +51,7 @@ setup(
         'Telegram': 'https://t.me/unicorndevs',
     },
     ext_modules=cythonize(['ubdcc_shared_modules/__init__.py',
+                           'ubdcc_shared_modules/AccountGroups.py',
                            'ubdcc_shared_modules/App.py',
                            'ubdcc_shared_modules/Database.py',
                            'ubdcc_shared_modules/RestEndpointsBase.py',
