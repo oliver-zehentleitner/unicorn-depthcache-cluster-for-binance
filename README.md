@@ -62,8 +62,9 @@ What's handled for you behind the scenes:
 
 - **Guaranteed consistency** — built on [UBLDC](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache), 
 which validates every update's sequence numbers, detects gaps, and triggers automatic resync. It also removes 
-orphaned price levels that Binance stops updating beyond the top 1000 — a flaw in Binance's own specification 
-that causes ghost entries in most other libraries. The cluster either serves correct data or tells you explicitly 
+[orphaned price levels](https://blog.technopathy.club/your-binance-order-book-is-wrong-here-s-why) that Binance 
+stops updating beyond the top 1000 — a gap in Binance's own specification that causes ghost entries in most 
+other libraries. The cluster either serves correct data or tells you explicitly 
 that it's re-syncing. It never serves stale data silently.
 - **Redundancy and failover** — every DepthCache can run as multiple replicas across different nodes. If one goes 
 down, the next one takes over automatically.
@@ -142,7 +143,8 @@ graph LR
 
 - **Deterministic order book state**: built on [UBLDC](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache), 
 which follows Binance's synchronization model strictly — explicit out-of-sync detection, automatic resync, and 
-removal of orphaned levels beyond the guaranteed top 1000. The cluster either serves consistent data or fails 
+removal of [orphaned levels](https://blog.technopathy.club/your-binance-order-book-is-wrong-here-s-why) beyond 
+the guaranteed top 1000. The cluster either serves consistent data or fails 
 loudly; it never silently accumulates stale levels.
 - **Redundancy and automatic failover**: every DepthCache can be replicated across multiple DCN nodes 
 (`desired_quantity`). The restapi load-balances queries across the replicas and falls back to the next node if one 
