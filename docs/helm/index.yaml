@@ -2,8 +2,19 @@ apiVersion: v1
 entries:
   ubdcc:
   - apiVersion: v2
+    appVersion: 0.5.0
+    created: "2026-04-16T16:03:22.5853958Z"
+    description: 'Manage multiple and redundant UNICORN Binance Local Depth Cache
+      Instances for high-frequency access to Binance''s  DepthCache data (order books). '
+    digest: 63d089627f59d0eb7adc779f2195db0955856896fe1d57163500fbf9a5e9993f
+    name: ubdcc
+    type: application
+    urls:
+    - https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/helm/ubdcc-0.5.0.tgz
+    version: 0.5.0
+  - apiVersion: v2
     appVersion: 0.4.1
-    created: "2026-04-16T07:22:58.162754133Z"
+    created: "2026-04-16T16:03:22.585137293Z"
     description: 'Manage multiple and redundant UNICORN Binance Local Depth Cache
       Instances for high-frequency access to Binance''s  DepthCache data (order books). '
     digest: 3448b4460c93bab28c0d15f8e3ee662f59a8484b250a6e387d9606c69d980eb5
@@ -14,7 +25,7 @@ entries:
     version: 0.4.1
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-16T07:22:58.162555021Z"
+    created: "2026-04-16T16:03:22.584902059Z"
     description: 'Manage multiple and redundant UNICORN Binance Local Depth Cache
       Instances for high-frequency access to Binance''s  DepthCache data (order books). '
     digest: ece0f17329411da6c8f15e0d9a3d2e4ec2d24b7a68bd5c28d0f464ab066cf35d
@@ -25,7 +36,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 0.3.3
-    created: "2026-04-16T07:22:58.162303823Z"
+    created: "2026-04-16T16:03:22.584633286Z"
     description: 'Manage multiple and redundant UNICORN Binance Local Depth Cache
       Instances for high-frequency access to Binance''s  DepthCache data (order books). '
     digest: 49d896ab0e03df254acdfea938ccbaf6793093a1702ecc58741206965321c899
@@ -34,4 +45,4 @@ entries:
     urls:
     - https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/helm/ubdcc-0.3.3.tgz
     version: 0.3.3
-generated: "2026-04-16T07:22:58.161924426Z"
+generated: "2026-04-16T16:03:22.584280361Z"
