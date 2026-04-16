@@ -181,6 +181,8 @@ the internet typically ~60ms.
 | [Binance Testnet](https://testnet.binance.vision/)                 | `binance.com-testnet`         |
 | [Binance USD-M Futures](https://www.binance.com)                   | `binance.com-futures`         |
 | [Binance USD-M Futures Testnet](https://testnet.binancefuture.com) | `binance.com-futures-testnet` |
+| [Binance European Options](https://www.binance.com)                | `binance.com-vanilla-options`         |
+| [Binance European Options Testnet](https://testnet.binancefuture.com) | `binance.com-vanilla-options-testnet` |
 | [Binance US](https://www.binance.us/)                              | `binance.us`                  |
 | [Binance TR](https://www.trbinance.com)                            | `trbinance.com`               |
 
@@ -502,9 +504,9 @@ Each Binance account has its own keys. UBDCC groups related exchanges under one 
 
 | account_group                   | Covers UBLDC exchanges                                                                                       |
 |---------------------------------|--------------------------------------------------------------------------------------------------------------|
-| `binance.com`                   | `binance.com`, `binance.com-futures`, `binance.com-margin`, `binance.com-isolated_margin`                    |
+| `binance.com`                   | `binance.com`, `binance.com-futures`, `binance.com-margin`, `binance.com-isolated_margin`, `binance.com-vanilla-options` |
 | `binance.com-testnet`           | `binance.com-testnet` (Spot testnet — separate login on testnet.binance.vision)                              |
-| `binance.com-futures-testnet`   | `binance.com-futures-testnet` (Futures testnet — separate login on testnet.binancefuture.com)                |
+| `binance.com-futures-testnet`   | `binance.com-futures-testnet`, `binance.com-vanilla-options-testnet` (shared Futures/Options testnet)        |
 | `binance.us`                    | `binance.us`                                                                                                 |
 | `binance.tr`                    | `trbinance.com`                                                                                              |
 
