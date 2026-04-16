@@ -186,10 +186,10 @@ ROLE             NAME                 PORT     STATUS     VERSION
 ----------------------------------------------------------------------
 ubdcc-mgmt       ubdcc-mgmt           42080    running    0.4.1
 ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.4.1
-ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.4.1 (ubldc 2.8.1)
-ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.4.1 (ubldc 2.8.1)
-ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.4.1 (ubldc 2.8.1)
-ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.4.1 (ubldc 2.8.1)
+ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.4.1 (ubldc 2.11.2)
+ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.4.1 (ubldc 2.11.2)
+ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.4.1 (ubldc 2.11.2)
+ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.4.1 (ubldc 2.11.2)
 
 DepthCaches: 0 (0 replicas: 0 running, 0 starting)
 Redundancy: 0 fully redundant, 0 degraded, 0 no redundancy
