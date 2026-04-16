@@ -18,35 +18,73 @@
 
 # UNICORN Binance DepthCache Cluster (UBDCC)
 
-[What](#what-is-ubdcc) | [Architecture](#architecture) | [Features](#key-features) | 
+[Why](#why) | [How it works](#how-it-works) | [Who is this for](#who-is-this-for) | [Architecture](#architecture) | [Features](#key-features) | 
 [Local Setup](#local-setup-without-kubernetes) | [REST API](#rest-api) | [Kubernetes](#kubernetes-setup) | 
 [API Credentials](#api-credentials) | [Python Client](#accessing-from-python) | [Bugs](#how-to-report-bugs-or-suggest-improvements) | 
 [Contributing](#contributing) | [Disclaimer](#disclaimer)
 
-Manage hundreds of Binance order book depth caches and access them via REST API — from any programming language, 
-any number of clients, with load balancing and automatic failover. Simple to set up:
+**Stop dealing with broken Binance order books.**
+
+Install one package, run one command — and every script, bot, or service on your machine gets reliable, 
+synchronized order book data via REST API. Any programming language. Any number of clients.
 
 ```bash
 pip install ubdcc
 ubdcc start
 ```
 
+Tested with 600+ redundant DepthCaches on a single machine. Scales to Kubernetes when you need more.
+
 Part of the [UNICORN Binance Suite](https://github.com/oliver-zehentleitner/unicorn-binance-suite).
 
-## What is UBDCC?
+## Why
 
-Most trading bots maintain their own local order book. Run several of them on the same machine and you end up with 
-duplicated WebSocket connections to Binance, multiple slightly different views of the market, and no shared mechanism 
-to detect when an individual book has silently drifted out of sync.
+If you've built trading bots on Binance, you know the pain:
+
+- **Restart penalty** — your script manages 100 DepthCaches. Every restart means minutes of waiting until all 
+order books are re-initialized. During development, you restart constantly.
+- **Duplicated connections** — three bots on the same machine, each maintaining their own WebSocket streams and 
+order book copies. Triple the connections, triple the API weight, three slightly different views of the market.
+- **Silent corruption** — your order book drifts out of sync and you don't notice. No error, no exception. 
+You just trade on stale data until you lose money.
+- **Python-only** — your depth cache lives inside a Python process. Your monitoring dashboard in Node.js, 
+your execution engine in Go, your analysis tool in Rust — none of them can access it.
+
+UBDCC solves all of this. Your DepthCaches run as a background service, independent of your scripts. 
+They stay alive across restarts, serve consistent data to any language over HTTP, and never silently go stale.
+
+## How it works
 
 UBDCC turns Binance DepthCaches into a shared service. Instead of managing WebSocket connections and order book 
-synchronization inside your trading bot, you run UBDCC as a standalone system and query it over HTTP whenever you need 
-order book data — same consistent data for every client, with redundancy, automatic failover, and explicit out-of-sync 
-handling built in.
+synchronization inside your trading bot, you run UBDCC once and query it over HTTP whenever you need order book data.
 
-The order book engine itself is [UBLDC](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache), 
-which strictly follows Binance's synchronization model — including removal of levels beyond the guaranteed top 1000 
-that would otherwise stay permanently stale in the local state.
+What's handled for you behind the scenes:
+
+- **Guaranteed consistency** — built on [UBLDC](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache), 
+which validates every update's sequence numbers, detects gaps, and triggers automatic resync. It also removes 
+orphaned price levels that Binance stops updating beyond the top 1000 — a flaw in Binance's own specification 
+that causes ghost entries in most other libraries. The cluster either serves correct data or tells you explicitly 
+that it's re-syncing. It never serves stale data silently.
+- **Redundancy and failover** — every DepthCache can run as multiple replicas across different nodes. If one goes 
+down, the next one takes over automatically.
+- **Smart rate limiting** — DepthCache initialization is throttled automatically so you never hit Binance's API 
+limits. Optional per-account API credentials for higher throughput.
+- **Self-healing** — cluster state is replicated to every node. If the management process restarts, it recovers 
+from the latest backup automatically. No Redis, no etcd, no external database.
+- **No hard limits** — more CPU cores or servers means more capacity. Scales from a laptop to a Kubernetes cluster.
+
+Think of it as Redis for Binance order books — a shared infrastructure layer that any process can query, 
+instead of every bot building its own.
+
+### Who is this for
+
+- **Multi-bot setups** — multiple trading bots sharing one consistent order book source instead of each 
+maintaining their own
+- **Arbitrage** — compare order books across markets with guaranteed consistency. No divergence between copies.
+- **Market making** — reliable spread and liquidity data without silent drift
+- **Rapid development** — restart your script 50 times a day without waiting for order books to re-initialize
+- **Polyglot stacks** — Python bot, Node.js dashboard, Go execution engine — all reading from the same source 
+via REST
 
 It works in two ways:
 
@@ -112,27 +150,27 @@ becomes unavailable, with the failure surfaced in the response so monitoring see
 - **Self-healing state**: the cluster database is replicated to every node on each sync cycle. If the management 
 pod restarts, it automatically recovers the latest state from the node with the most recent backup — no external 
 database (Redis, etcd) required, zero manual intervention.
-- **Smart rate limiting**: automatically throttles DepthCache initialization when Binance API weight costs would 
-otherwise blow the limits, and supports per-account API credentials so DCNs can use authenticated rate limits 
-when more headroom is needed.
 - **Any language**: retrieve DepthCache data via HTTP/JSON from any programming language. Python users can use the 
 [UBLDC cluster module](https://oliver-zehentleitner.github.io/unicorn-binance-local-depth-cache/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster) 
 for sync and async access.
+- **Smart rate limiting**: automatically throttles DepthCache initialization when Binance API weight costs would 
+otherwise blow the limits, and supports per-account API credentials so DCNs can use authenticated rate limits 
+when more headroom is needed.
 - **Scales with your resources**: tested with hundreds of redundant DepthCaches across multiple nodes. Add more 
 servers and DCN pods to scale further — there is no hard limit.
 - **Flexible filtering**: trim data at the cluster level — limit to top N Asks/Bids or filter by volume threshold. 
 No need to transfer the full order book when you only need the best prices.
-- **Fast access**: order book data in ~3ms (cluster-internal) or ~4ms total request time on local networks. Over 
-the internet typically ~60ms.
+- **Full transparency**: every request can include `debug=true` to get detailed timing breakdowns 
+(cluster execution time, transmission time, total request time), the internal routing URL, and which pods handled 
+the request.
 - **Fully async top to bottom**: the entire stack is built on asyncio — from the REST API down to the WebSocket 
 connections. DepthCache management runs directly as a plugin inside the [UBWA](https://github.com/oliver-zehentleitner/unicorn-binance-websocket-api) 
 WebSocket event loop, so order book updates are processed with zero overhead. Cluster management, data queries 
 and node communication all run non-blocking, keeping response times consistent even when many clients query 
 simultaneously.
 - **Compiled C-Extensions**: the entire cluster runs as Cython-compiled code for maximum performance.
-- **Full transparency**: every request can include `debug=true` to get detailed timing breakdowns 
-(cluster execution time, transmission time, total request time), the internal routing URL, and which pods handled 
-the request.
+- **Fast access**: order book data in ~3ms (cluster-internal) or ~4ms total request time on local networks. Over 
+the internet typically ~60ms.
 - **Supported exchanges**:
 
 | Exchange                                                           | Exchange string               | 
