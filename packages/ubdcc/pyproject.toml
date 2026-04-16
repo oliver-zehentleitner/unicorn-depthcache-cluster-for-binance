@@ -21,9 +21,9 @@ repository = "https://github.com/oliver-zehentleitner/unicorn-binance-depth-cach
 
 [tool.poetry.dependencies]
 python = ">=3.9.0"
-ubdcc-mgmt = "*"
-ubdcc-restapi = "*"
-ubdcc-dcn = "*"
+ubdcc-mgmt = "==0.4.0"
+ubdcc-restapi = "==0.4.0"
+ubdcc-dcn = "==0.4.0"
 
 [tool.poetry.scripts]
 ubdcc = "ubdcc.cli:main"
