@@ -40,6 +40,9 @@ body:
         - Python3.14
         - Python3.13
         - Python3.12
+        - Python3.11
+        - Python3.10
+        - Python3.9
     validations:
       required: true
 
