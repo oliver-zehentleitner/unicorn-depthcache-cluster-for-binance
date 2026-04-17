@@ -24,16 +24,21 @@ import socket
 import subprocess
 import sys
 import time
+from pathlib import Path
 
 import requests
 
 from ubdcc import __version__
 
-STATE_FILE = ".ubdcc"
+UBS_BASE = os.path.join(str(Path.home()), ".unicorn-binance-suite")
+UBS_CONFIG = os.path.join(UBS_BASE, "config")
+UBS_LOGS = os.path.join(UBS_BASE, "logs")
+STATE_FILE = os.path.join(UBS_CONFIG, "ubdcc.state")
 DEFAULT_MGMT_PORT = 42080
 
 
 def save_port(port):
+    os.makedirs(UBS_CONFIG, exist_ok=True)
     with open(STATE_FILE, "w") as f:
         f.write(str(port))
 
@@ -42,6 +47,15 @@ def load_port():
     try:
         with open(STATE_FILE, "r") as f:
             return int(f.read().strip())
+    except (FileNotFoundError, ValueError):
+        pass
+    # Legacy fallback: check CWD
+    try:
+        with open(".ubdcc", "r") as f:
+            port = int(f.read().strip())
+            print(f"WARNING: Loading state from deprecated path `.ubdcc` in CWD. "
+                  f"State is now stored in `{STATE_FILE}`.")
+            return port
     except (FileNotFoundError, ValueError):
         return None
 
@@ -93,7 +107,7 @@ def wait_for_cluster(mgmt_port, expected_pods, timeout=120):
 def cmd_start(args):
     mgmt_port = args.port if args.port else find_free_port(DEFAULT_MGMT_PORT)
     dcn_count = args.dcn
-    logdir = args.logdir if args.logdir else os.getcwd()
+    logdir = args.logdir if args.logdir else UBS_LOGS
     os.makedirs(logdir, exist_ok=True)
     save_port(mgmt_port)
 
