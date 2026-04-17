@@ -31,6 +31,8 @@ import sys
 import kubernetes
 import time
 import traceback
+from pathlib import Path
+
 from fastapi import FastAPI
 
 
@@ -351,8 +353,10 @@ class App:
         # Logging
         if self.logger is None:
             self.logger = logging.getLogger("unicorn_binance_depthcache_cluster")
+            ubs_logs = os.path.join(str(Path.home()), ".unicorn-binance-suite", "logs")
+            os.makedirs(ubs_logs, exist_ok=True)
             logging.basicConfig(level=logging.DEBUG,
-                                filename=f"{socket.gethostname()}.log",
+                                filename=os.path.join(ubs_logs, f"ubdcc-{socket.gethostname()}.log"),
                                 format="{asctime} [{levelname:8}] {process} {thread} {module}: {message}",
                                 style="{")
 
