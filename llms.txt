@@ -3,6 +3,8 @@
 > Production-scale depth cache management with load balancing, failover and self-healing.
 > Part of [UNICORN Binance Suite](https://github.com/oliver-zehentleitner/unicorn-binance-suite).
 
+Version: 0.5.x. Python 3.9 – 3.14.
+
 Install: `pip install ubdcc`
 
 ## Quick Start — Local
@@ -42,6 +44,12 @@ ubdcc credentials list
 ubdcc credentials remove ID
 ```
 
+Credentials are Binance API key/secret pairs. UBDCC needs them to
+authenticate REST snapshot requests beyond the anonymous rate limit
+(higher per-IP quotas for large cache sets) and to access account-scoped
+endpoints. The mgmt pod load-balances credentials across DCNs
+(fewest-assigned-first).
+
 Interactive commands while running: `status`, `add-dcn`, `remove-dcn`, `restart`, `stop`, `help`
 
 ## REST API
@@ -67,3 +75,18 @@ Accessible from any programming language via HTTP.
 - **DCN (DepthCache Node)**: runs actual UBLDC instances, managed by mgmt
 
 Runs as processes on a single machine or as pods on Kubernetes.
+
+## Related Modules
+
+- [UBLDC](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache) — the Python client library for UBDCC; the engine that runs on each DCN.
+- [UBWA](https://github.com/oliver-zehentleitner/unicorn-binance-websocket-api) — WebSocket streams used by UBLDC under the hood.
+- [UBRA](https://github.com/oliver-zehentleitner/unicorn-binance-rest-api) — REST API client used for depth snapshots.
+
+## Docs
+
+- Repo: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster
+- Docs: https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster
+- PyPI: https://pypi.org/project/ubdcc/ (meta package; also `ubdcc-mgmt`, `ubdcc-dcn`, `ubdcc-restapi`, `ubdcc-shared-modules`)
+- Changelog: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/CHANGELOG.md
+
+Note: UBDCC is distributed via PyPI and Docker (`ghcr.io/oliver-zehentleitner/ubdcc-{dcn,mgmt,restapi}`). No conda-forge package.
