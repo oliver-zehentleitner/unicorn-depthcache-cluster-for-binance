@@ -311,6 +311,16 @@ The REST API (default port **42081** locally, port **80** on Kubernetes) is your
 On Kubernetes, a LoadBalancer service distributes requests across restapi pods automatically. Locally, you connect 
 directly to one restapi instance — it handles all routing to mgmt and DCN processes internally.
 
+### Interactive API docs
+
+When running locally (dev mode), the restapi exposes FastAPI's built-in interactive documentation:
+
+- Swagger UI: [http://127.0.0.1:42081/docs](http://127.0.0.1:42081/docs)
+- ReDoc: [http://127.0.0.1:42081/redoc](http://127.0.0.1:42081/redoc)
+- OpenAPI schema: [http://127.0.0.1:42081/openapi.json](http://127.0.0.1:42081/openapi.json)
+
+These endpoints are disabled in productive mode (Kubernetes).
+
 ### Public Endpoints (restapi)
 
 These are the endpoints you use to interact with the cluster. All requests go through the restapi.
