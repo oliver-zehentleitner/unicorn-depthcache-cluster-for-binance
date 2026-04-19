@@ -85,6 +85,7 @@ Runs as processes on a single machine or as pods on Kubernetes.
 ## Docs
 
 - Repo: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster
+- AGENTS.md (for AI agents working on this repo): https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/AGENTS.md
 - Docs: https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster
 - PyPI: https://pypi.org/project/ubdcc/ (meta package; also `ubdcc-mgmt`, `ubdcc-dcn`, `ubdcc-restapi`, `ubdcc-shared-modules`)
 - Changelog: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/blob/master/CHANGELOG.md
