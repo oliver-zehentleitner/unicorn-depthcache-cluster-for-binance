@@ -152,7 +152,39 @@ class Database:
                 self.data['credentials'] = {}
             self.data['credentials'][credential_id] = credential
             self._set_update_timestamp()
+        self.rebalance_account_group(account_group)
         return credential_id
+
+    def rebalance_account_group(self, account_group: str = None) -> bool:
+        """Redistribute all active DCN uids evenly (round-robin) over the
+        credentials available for this account_group. Called whenever the
+        credential set or the DCN population for this group changes. Returns
+        True when the assignment actually changed."""
+        if account_group is None:
+            raise ValueError("Missing mandatory parameter: account_group")
+        with self.data_lock:
+            credentials = self.data.get('credentials') or {}
+            candidates = [c for c in credentials.values()
+                          if c['ACCOUNT_GROUP'] == account_group]
+            dcn_uids = sorted(uid for uid, pod in self.data.get('pods', {}).items()
+                              if pod.get('ROLE') == "ubdcc-dcn")
+            before = {c['ID']: list(c['ASSIGNED_DCNS']) for c in candidates}
+            if not candidates:
+                # no keys for this group — nothing to do (the credentials dict
+                # is empty for this group anyway)
+                return False
+            for c in candidates:
+                c['ASSIGNED_DCNS'] = []
+            for i, uid in enumerate(dcn_uids):
+                candidates[i % len(candidates)]['ASSIGNED_DCNS'].append(uid)
+            after = {c['ID']: list(c['ASSIGNED_DCNS']) for c in candidates}
+            if before != after:
+                self._set_update_timestamp()
+                self.app.stdout_msg(f"Rebalanced credentials for '{account_group}': "
+                                    f"{len(dcn_uids)} DCN(s) over {len(candidates)} key(s)",
+                                    log="info")
+                return True
+            return False
 
     def assign_credentials(self, uid: str = None, account_group: str = None) -> dict | None:
         """Assign (or return already-assigned) credential to a DCN uid.
@@ -184,8 +216,10 @@ class Database:
             credentials = self.data.get('credentials') or {}
             if credential_id not in credentials:
                 return False
+            account_group = credentials[credential_id]['ACCOUNT_GROUP']
             del credentials[credential_id]
             self._set_update_timestamp()
+        self.rebalance_account_group(account_group)
         return True
 
     def get_credentials(self, credential_id: str = None) -> dict | None:
@@ -458,10 +492,30 @@ class Database:
         self.delete_old_pods()
         self.remove_orphaned_distribution_entries()
         self.remove_orphaned_credential_assignments()
+        self.rebalance_credential_assignments_if_needed()
         self.manage_distribution()
         run_time = time.time() - start_time
         self.app.stdout_msg(f"Database revised in {run_time} seconds!", log="info")
         return True
+
+    def rebalance_credential_assignments_if_needed(self) -> bool:
+        """Detect DCN-population changes since the last revise() and rebalance
+        affected account_groups. Keeps every active DCN exactly one assigned
+        credential per account_group (or none if no key is configured)."""
+        with self.data_lock:
+            credentials = self.data.get('credentials') or {}
+            current_dcns = {uid for uid, pod in self.data.get('pods', {}).items()
+                            if pod.get('ROLE') == "ubdcc-dcn"}
+            groups_with_creds = {c['ACCOUNT_GROUP'] for c in credentials.values()}
+            assigned_by_group: dict[str, set[str]] = {g: set() for g in groups_with_creds}
+            for c in credentials.values():
+                assigned_by_group[c['ACCOUNT_GROUP']].update(c['ASSIGNED_DCNS'])
+        changed = False
+        for group in groups_with_creds:
+            if assigned_by_group[group] != current_dcns:
+                if self.rebalance_account_group(account_group=group):
+                    changed = True
+        return changed
 
     def manage_distribution(self) -> bool:
         add_distributions = []

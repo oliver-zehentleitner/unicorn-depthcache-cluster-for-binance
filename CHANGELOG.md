@@ -19,6 +19,26 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   subcommands (`add`, `remove`, `list`) in the epilog alongside the
   interactive shell commands, so users no longer need to run
   `ubdcc credentials --help` to discover them.
+### Changed
+- Credential assignment is now **event-driven and self-healing**.
+  Previously, a DCN pulled its API key exactly once (on the first
+  depth cache it created for a given exchange) and cached the result —
+  including a sticky `None` after any transient failure, leaving
+  `assigned_dcns: []` forever across cluster restarts. Now:
+  - `Database.rebalance_account_group()` redistributes every active DCN
+    round-robin across the credentials available for that account
+    group. It runs on `add_credentials()` / `delete_credentials()` and
+    as part of `revise()` when the DCN population changes.
+  - DCNs cache only the `credential_id` per account group as a
+    comparison reference. On every main-loop tick they ask mgmt for
+    their current assignment and, when the id differs, hot-swap the
+    UBRA in every affected `BinanceLocalDepthCacheManager` via the
+    new `set_credentials()` public API (requires UBLDC ≥ 2.13.0).
+    WebSocket streams keep running; new credentials take effect from
+    the next REST call (snapshot / resync).
+- `packages/ubdcc-dcn`: bumped `unicorn-binance-local-depth-cache`
+  minimum to `>=2.13.0` across `setup.py`, `requirements.txt` and
+  `pyproject.toml` for the `set_credentials()` method.
 ### Fixed
 - mgmt `/ubdcc_update_depthcache_distribution`: `last_restart_time`
   was parsed from the query string but never forwarded to
