@@ -58,7 +58,7 @@ setup(
     package_data={'': ['ubdcc_mgmt/*.so']},
     exclude_package_data={'': ['ubdcc_mgmt/*.py']},
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
