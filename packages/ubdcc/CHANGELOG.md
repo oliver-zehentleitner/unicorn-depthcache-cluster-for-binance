@@ -4,6 +4,25 @@ All notable changes to this package will be documented in this file.
 
 ## 0.6.0.dev (development stage/unreleased/unstable)
 
+## 0.6.0
+### Added
+- CLI `status`: new "DC restarts" section lists every depth cache whose
+  WebSocket stream has been restarted at least once, sorted by restart
+  count descending, with a human-readable "last restart" timestamp
+  (e.g. `45s ago`, `2h ago`). Hidden when no DC has restarted.
+- CLI `--help`: the top-level help now lists the `credentials`
+  subcommands (`add`, `remove`, `list`) in the epilog alongside the
+  interactive shell commands, so users no longer need to run
+  `ubdcc credentials --help` to discover them.
+
+## 0.5.0
+### Added
+- CLI `status`: UBLDC version shown in parentheses next to each DCN's
+  version.
+- CLI `status`: DepthCache redundancy summary — replica breakdown
+  (running/starting) and redundancy categories (fully redundant,
+  degraded, no redundancy).
+
 ## 0.4.0
 ### Removed
 - External `ubdcc restart <name>` CLI subcommand — only worked inside the interactive shell. The shell command is unchanged.

@@ -5,6 +5,16 @@ All notable changes to this package will be documented in this file.
 ## 0.6.0.dev (development stage/unreleased/unstable)
 
 ## 0.6.0
+### Fixed
+- `/ubdcc_update_depthcache_distribution` read `last_restart_time`
+  from the query string but never forwarded it to
+  `Database.update_depthcache_distribution()`, so the `RESTARTS`
+  counter per distribution entry stayed at `0` forever regardless
+  of how many stream restarts the DCNs reported. The handler also
+  did not cast the query value from `str` to `float`, which would
+  have caused a silent string-vs-float comparison in the DB layer.
+  Both fixed: value is cast (with error response `#1024` on
+  malformed input) and passed through to the DB call.
 
 ## 0.5.0
 

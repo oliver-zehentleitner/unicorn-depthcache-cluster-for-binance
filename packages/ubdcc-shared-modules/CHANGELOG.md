@@ -5,8 +5,22 @@ All notable changes to this package will be documented in this file.
 ## 0.6.0.dev (development stage/unreleased/unstable)
 
 ## 0.6.0
+### Added
+- `Database.rebalance_account_group(account_group)`: redistributes every
+  active DCN uid (`ROLE=ubdcc-dcn`) round-robin across the credentials
+  available for the given account group. Called from
+  `add_credentials()`, `delete_credentials()`, and from `revise()` via
+  the new `rebalance_credential_assignments_if_needed()` whenever the
+  DCN population changes. Replaces the previous lazy "first caller gets
+  assigned on request" semantics that left `assigned_dcns: []` after
+  any transient `None` return.
 
 ## 0.5.0
+### Changed
+- `AccountGroups`: `binance.com-vanilla-options` now resolves to the
+  `binance.com` account group; `binance.com-vanilla-options-testnet`
+  resolves to `binance.com-futures-testnet`. Vanilla-options depth
+  caches share the same credential pool as their underlying exchange.
 
 ## 0.4.0
 ### Changed

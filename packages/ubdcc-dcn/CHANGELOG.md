@@ -5,6 +5,23 @@ All notable changes to this package will be documented in this file.
 ## 0.6.0.dev (development stage/unreleased/unstable)
 
 ## 0.6.0
+### Changed
+- Credential handling moved from DCN-controlled to UBLDC-controlled.
+  The DCN no longer constructs a `BinanceRestApiManager` itself —
+  it only keeps a `credential_id_by_account_group` cache as a
+  comparison reference. On every main-loop tick (and immediately
+  after creating a fresh `BinanceLocalDepthCacheManager`),
+  `_sync_credentials()` asks mgmt for the current assignment per
+  used account group and, on an id diff, hot-swaps the UBRA inside
+  every affected `BinanceLocalDepthCacheManager` via
+  `ldc.set_credentials(api_key, api_secret)`. WebSocket streams keep
+  running; new credentials take effect from the next REST call
+  (initial snapshot / resync). Eliminates the previous "sticky `None`"
+  cache bug that could leave `assigned_dcns: []` forever across DCN
+  restarts.
+- UBLDC dependency bumped: `>=2.11.0` → `>=2.13.0` in `setup.py`,
+  `requirements.txt` and `pyproject.toml` (requires
+  `BinanceLocalDepthCacheManager.set_credentials()`).
 
 ## 0.4.0
 ### Added
