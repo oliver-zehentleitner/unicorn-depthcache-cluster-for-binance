@@ -19,6 +19,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
   subcommands (`add`, `remove`, `list`) in the epilog alongside the
   interactive shell commands, so users no longer need to run
   `ubdcc credentials --help` to discover them.
+### Fixed
+- mgmt `/ubdcc_update_depthcache_distribution`: `last_restart_time`
+  was parsed from the query string but never forwarded to
+  `Database.update_depthcache_distribution()` — so the `RESTARTS`
+  counter per DC distribution entry stayed at 0 forever, no matter how
+  often a UBLDC stream restarted. Also: the query param arrived as a
+  string but the DB expected a float, so the subsequent `!=` compare
+  against the stored value would have been string-vs-float. Both are
+  fixed now: cast to `float` with an explicit error response (`#1024`)
+  on malformed input, and pass the value through to the DB call.
 
 ## 0.5.0
 ### Added

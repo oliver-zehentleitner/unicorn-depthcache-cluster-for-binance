@@ -528,6 +528,13 @@ class RestEndpoints(RestEndpointsBase):
             pod_uid = None
         if last_restart_time == "None":
             last_restart_time = None
+        elif last_restart_time is not None:
+            try:
+                last_restart_time = float(last_restart_time)
+            except (TypeError, ValueError):
+                return self.get_error_response(event=event, error_id="#1024",
+                                               message=f"Invalid last_restart_time value: "
+                                                       f"{last_restart_time!r}")
         if status == "None":
             status = None
         if exchange is None or market is None or pod_uid is None:
@@ -537,7 +544,9 @@ class RestEndpoints(RestEndpointsBase):
             return self.get_error_response(event=event, error_id="#1022",
                                            message="Nothing to update! Missing parameter: last_restart_time, status")
         result = self.db.update_depthcache_distribution(exchange=exchange, market=market,
-                                                        pod_uid=pod_uid, status=status)
+                                                        pod_uid=pod_uid,
+                                                        last_restart_time=last_restart_time,
+                                                        status=status)
         if result is True:
             return self.get_ok_response(event=event)
         else:
