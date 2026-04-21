@@ -510,6 +510,34 @@ def print_status_table(data, mgmt_port=42080):
     print(f"\nDepthCaches: {dc_count} ({total_replicas} replicas: {replicas_running} running, {replicas_starting} starting)")
     print(f"Redundancy: {fully_redundant} fully redundant, {degraded} degraded, {no_redundancy} no redundancy")
     print(f"Version: {data.get('version', '?')}")
+
+    dc_restarts = []
+    for exchange, markets in depthcaches.items():
+        for market, dc in markets.items():
+            distribution = dc.get('DISTRIBUTION', {}).values()
+            restarts = sum(d.get('RESTARTS', 0) for d in distribution)
+            last = max((d.get('LAST_RESTART_TIME', 0) for d in distribution), default=0)
+            if restarts > 0:
+                dc_restarts.append((exchange, market, restarts, last))
+    if dc_restarts:
+        now = time.time()
+        print(f"\n{'EXCHANGE':<28} {'MARKET':<16} {'RESTARTS':>8}  LAST RESTART")
+        print("-" * 70)
+        for exchange, market, restarts, last in sorted(dc_restarts, key=lambda x: -x[2]):
+            if last > 0:
+                delta = max(0, int(now - last))
+                if delta < 60:
+                    ago = f"{delta}s ago"
+                elif delta < 3600:
+                    ago = f"{delta // 60}min ago"
+                elif delta < 86400:
+                    ago = f"{delta // 3600}h ago"
+                else:
+                    ago = f"{delta // 86400}d ago"
+            else:
+                ago = "-"
+            print(f"{exchange:<28} {market:<16} {restarts:>8}  {ago}")
+
     if restapi_port:
         print(f"\nREST API: http://127.0.0.1:{restapi_port}/")
         print(f"Cluster info: http://127.0.0.1:{restapi_port}/get_cluster_info")
@@ -574,7 +602,12 @@ def build_parser():
         prog='ubdcc',
         description='UNICORN Binance DepthCache Cluster — Cluster Manager\n'
                     'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster',
-        epilog='Interactive shell commands (available inside "ubdcc start"):\n'
+        epilog='Credentials subcommands (use "ubdcc credentials <cmd> --help" for details):\n'
+               '  credentials add       Add a Binance API key/secret\n'
+               '  credentials remove    Remove credentials by id\n'
+               '  credentials list      List configured credentials (keys masked)\n'
+               '\n'
+               'Interactive shell commands (available inside "ubdcc start"):\n'
                '  add-dcn [count]       Spawn new DCN process(es)\n'
                '  remove-dcn <count|name> Stop and remove DCN(s)\n'
                '  status                Show cluster status\n'

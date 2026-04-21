@@ -10,6 +10,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 [How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/readme.html#installation-and-upgrade)
 
 ## 0.5.0.dev (development stage/unreleased/unstable)
+### Added
+- CLI `status`: new "DC restarts" section lists every depth cache whose
+  WebSocket stream has been restarted at least once, sorted by restart
+  count descending, with a human-readable "last restart" timestamp
+  (e.g. `45s ago`, `2h ago`). Hidden when no DC has restarted.
+- CLI `--help`: the top-level help now lists the `credentials`
+  subcommands (`add`, `remove`, `list`) in the epilog alongside the
+  interactive shell commands, so users no longer need to run
+  `ubdcc credentials --help` to discover them.
 
 ## 0.5.0
 ### Added
