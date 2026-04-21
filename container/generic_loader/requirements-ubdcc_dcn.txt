@@ -1,1 +1,1 @@
-ubdcc-dcn==0.5.0
+ubdcc-dcn==0.6.0

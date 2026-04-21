@@ -7,7 +7,7 @@ on:
         description: 'Version tag (must match an existing PyPI release)'
         required: true
         type: string
-        default: '0.5.0'
+        default: '0.6.0'
 
 jobs:
   build:

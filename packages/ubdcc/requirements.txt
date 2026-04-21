@@ -1,3 +1,3 @@
-ubdcc-mgmt==0.5.0
-ubdcc-restapi==0.5.0
-ubdcc-dcn==0.5.0
+ubdcc-mgmt==0.6.0
+ubdcc-restapi==0.6.0
+ubdcc-dcn==0.6.0
