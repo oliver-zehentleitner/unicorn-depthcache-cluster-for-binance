@@ -16,6 +16,7 @@
 import os
 import sys
 
+sys.path.insert(0, os.path.abspath('../../../packages/ubdcc/'))
 sys.path.insert(0, os.path.abspath('../../../packages/ubdcc-dcn/'))
 sys.path.insert(0, os.path.abspath('../../../packages/ubdcc-mgmt/'))
 sys.path.insert(0, os.path.abspath('../../../packages/ubdcc-restapi/'))
@@ -52,7 +53,10 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
     'sphinxcontrib.mermaid',
+    'sphinxcontrib.autoprogram',
 ]
+
+autodoc_mock_imports = ['requests']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

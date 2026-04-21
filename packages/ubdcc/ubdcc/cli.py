@@ -569,7 +569,7 @@ def cmd_credentials_list(args):
         print(f"{c['id']}  {c['account_group']:<32}  {preview}  assigned=[{assigned}]")  # lgtm[py/clear-text-logging-sensitive-data]
 
 
-def main():
+def build_parser():
     parser = argparse.ArgumentParser(
         prog='ubdcc',
         description='UNICORN Binance DepthCache Cluster — Cluster Manager\n'
@@ -620,6 +620,11 @@ def main():
     cred_list = cred_sub.add_parser('list', help='List configured credentials (keys masked)')
     cred_list.add_argument('--port', type=int, default=None, help='Mgmt port (default: 42080)')
 
+    return parser
+
+
+def main():
+    parser = build_parser()
     args = parser.parse_args()
 
     if args.command == 'start':
@@ -636,7 +641,7 @@ def main():
         elif args.cred_command == 'list':
             cmd_credentials_list(args)
         else:
-            cred_parser.print_help()
+            parser.parse_args(['credentials', '--help'])
     else:
         parser.print_help()
 
