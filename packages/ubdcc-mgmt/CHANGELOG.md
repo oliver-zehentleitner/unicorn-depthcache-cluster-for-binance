@@ -2,7 +2,11 @@
 
 All notable changes to this package will be documented in this file.
 
-## 0.4.0.dev (development stage/unreleased/unstable)
+## 0.6.0.dev (development stage/unreleased/unstable)
+
+## 0.6.0
+
+## 0.5.0
 
 ## 0.4.0
 

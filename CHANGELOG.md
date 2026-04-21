@@ -9,7 +9,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 [How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/readme.html#installation-and-upgrade)
 
-## 0.5.0.dev (development stage/unreleased/unstable)
+## 0.6.0.dev (development stage/unreleased/unstable)
+
+## 0.6.0
 ### Added
 - CLI `status`: new "DC restarts" section lists every depth cache whose
   WebSocket stream has been restarted at least once, sorted by restart
