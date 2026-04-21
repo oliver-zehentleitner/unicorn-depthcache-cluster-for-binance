@@ -506,6 +506,7 @@ window.runMermaid = runMermaid;</script>
 </ul>
 </li>
 <li><a class="reference internal" href="#rest-api">REST API</a><ul>
+<li><a class="reference internal" href="#interactive-api-docs">Interactive API docs</a></li>
 <li><a class="reference internal" href="#public-endpoints-restapi">Public Endpoints (restapi)</a></li>
 <li><a class="reference internal" href="#internal-endpoints-cluster-communication">Internal Endpoints (cluster communication)</a></li>
 <li><a class="reference internal" href="#examples">Examples</a><ul>
@@ -659,7 +660,7 @@ window.runMermaid = runMermaid;</script>
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <p><a class="reference external" href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/releases"><img alt="GitHub Release" src="https://img.shields.io/github/release/oliver-zehentleitner/unicorn-binance-depth-cache-cluster.svg?label=github" /></a>
+  <p><a class="reference external" href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/releases"><img alt="GitHub Release" src="https://img.shields.io/github/release/oliver-zehentleitner/unicorn-binance-depth-cache-cluster.svg?label=github&amp;color=blue&amp;label=github" /></a>
 <a class="reference external" href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/releases"><img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/total?color=blue" /></a>
 <a class="reference external" href="https://pypi.org/project/ubdcc-mgmt/"><img alt="PyPi Release" src="https://img.shields.io/pypi/v/ubdcc-mgmt?color=blue" /></a>
 <a class="reference external" href="https://pepy.tech/project/ubdcc-mgmt"><img alt="PyPi Downloads" src="https://pepy.tech/badge/ubdcc-mgmt" /></a>
@@ -1053,6 +1054,16 @@ noticeable in production because at least one copy is always running.</p></li>
 <p>The REST API (default port <strong>42081</strong> locally, port <strong>80</strong> on Kubernetes) is your single access point to the cluster.
 On Kubernetes, a LoadBalancer service distributes requests across restapi pods automatically. Locally, you connect
 directly to one restapi instance — it handles all routing to mgmt and DCN processes internally.</p>
+<section id="interactive-api-docs">
+<h3>Interactive API docs<a class="headerlink" href="#interactive-api-docs" title="Link to this heading">¶</a></h3>
+<p>When running locally (dev mode), the restapi exposes FastAPI’s built-in interactive documentation:</p>
+<ul class="simple">
+<li><p>Swagger UI: <a class="reference external" href="http://127.0.0.1:42081/docs">http://127.0.0.1:42081/docs</a></p></li>
+<li><p>ReDoc: <a class="reference external" href="http://127.0.0.1:42081/redoc">http://127.0.0.1:42081/redoc</a></p></li>
+<li><p>OpenAPI schema: <a class="reference external" href="http://127.0.0.1:42081/openapi.json">http://127.0.0.1:42081/openapi.json</a></p></li>
+</ul>
+<p>These endpoints are disabled in productive mode (Kubernetes).</p>
+</section>
 <section id="public-endpoints-restapi">
 <h3>Public Endpoints (restapi)<a class="headerlink" href="#public-endpoints-restapi" title="Link to this heading">¶</a></h3>
 <p>These are the endpoints you use to interact with the cluster. All requests go through the restapi.</p>
@@ -1578,6 +1589,7 @@ of any kind, including but not limited to direct or indirect damages for loss of
 </ul>
 </li>
 <li><a class="reference internal" href="#rest-api">REST API</a><ul>
+<li><a class="reference internal" href="#interactive-api-docs">Interactive API docs</a></li>
 <li><a class="reference internal" href="#public-endpoints-restapi">Public Endpoints (restapi)</a></li>
 <li><a class="reference internal" href="#internal-endpoints-cluster-communication">Internal Endpoints (cluster communication)</a></li>
 <li><a class="reference internal" href="#examples">Examples</a><ul>
@@ -1729,7 +1741,7 @@ of any kind, including but not limited to direct or indirect damages for loss of
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite#documentation">Index of all docs</a><br />
     &copy; <a href="/license.html">Copyright</a> 2024-2026, Oliver Zehentleitner.
     See <a href="/license.html">License</a> for more information.<br />
-    Last updated on Apr 21 2026 at 12:27 (CET).
+    Last updated on Apr 21 2026 at 12:31 (CET).
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues/new/choose">Found a bug</a>?
     <br />
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.

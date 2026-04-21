@@ -1,4 +1,4 @@
-[![GitHub Release](https://img.shields.io/github/release/oliver-zehentleitner/unicorn-binance-depth-cache-cluster.svg?label=github)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/releases)
+[![GitHub Release](https://img.shields.io/github/release/oliver-zehentleitner/unicorn-binance-depth-cache-cluster.svg?label=github&color=blue&label=github)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/releases)
 [![GitHub Downloads](https://img.shields.io/github/downloads/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/total?color=blue)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/releases)
 [![PyPi Release](https://img.shields.io/pypi/v/ubdcc-restapi?color=blue)](https://pypi.org/project/ubdcc-restapi/)
 [![PyPi Downloads](https://pepy.tech/badge/ubdcc-restapi)](https://pepy.tech/project/ubdcc-restapi)
