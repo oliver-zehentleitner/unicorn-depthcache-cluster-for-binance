@@ -273,6 +273,9 @@ ubdcc stop                       # shut down the cluster
 The CLI automatically remembers the mgmt port. If you started with a custom port (`ubdcc start --port 42090`), 
 `status` and `stop` will use it automatically.
 
+Full CLI reference (all subcommands and flags): 
+[ubdcc CLI docs](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/ubdcc.html).
+
 ### Start manually (without cluster manager)
 
 If you prefer to manage processes yourself, start each component in a separate terminal:
@@ -608,6 +611,7 @@ See the [examples](https://github.com/oliver-zehentleitner/unicorn-binance-local
 ## Documentation
 - [General](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster)
 - [Modules](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/modules.html)
+- [ubdcc CLI reference](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/ubdcc.html)
 
 ## Related Articles
 - [How to create a Binance API Key and API Secret?](https://blog.technopathy.club/how-to-create-a-binance-api-key-and-api-secret)
