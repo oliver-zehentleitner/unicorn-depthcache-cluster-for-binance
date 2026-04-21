@@ -39,7 +39,7 @@ setup(
     long_description_content_type="text/markdown",
     license='MIT',
     install_requires=['ubdcc-shared-modules==0.5.0',
-                      'unicorn-binance-local-depth-cache>=2.12.0'],
+                      'unicorn-binance-local-depth-cache>=2.13.0'],
     keywords='',
     project_urls={
         'Howto': 'https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster#howto',

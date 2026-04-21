@@ -26,11 +26,6 @@ from ubdcc_shared_modules.ServiceBase import ServiceBase
 from unicorn_binance_local_depth_cache import BinanceLocalDepthCacheManager, DepthCacheNotFound
 from unicorn_binance_local_depth_cache.manager import __version__ as ubldc_version
 
-try:
-    from unicorn_binance_rest_api import BinanceRestApiManager
-except ImportError:
-    BinanceRestApiManager = None
-
 
 class DepthCacheNode(ServiceBase):
     def __init__(self, cwd=None, mgmt_port=None):
@@ -47,43 +42,53 @@ class DepthCacheNode(ServiceBase):
         """Thread-safe: invoked from UBLDC's manager thread on every stream restart."""
         self._restart_queue.put((exchange, market, timestamp))
 
-    async def _get_ubra_manager(self, exchange: str):
-        """Return a BinanceRestApiManager for `exchange` with assigned API
-        credentials, or None when no credentials are configured for that
-        account_group (UBLDC then falls back to public rate limits)."""
-        if BinanceRestApiManager is None:
-            return None
-        account_group = get_account_group(exchange)
-        if account_group is None:
-            return None
-        cache = self.app.data.setdefault('ubra_by_account_group', {})
-        if account_group in cache:
-            return cache[account_group]
-        credential = await self.app.ubdcc_assign_credentials(account_group=account_group)
-        if credential is None:
-            cache[account_group] = None
-            return None
-        try:
-            ubra = BinanceRestApiManager(api_key=credential['api_key'],
-                                         api_secret=credential['api_secret'],
-                                         exchange=exchange,
-                                         disable_colorama=True,
-                                         warn_on_update=False)
-        except Exception as error_msg:
-            self.app.stdout_msg(f"Could not create BinanceRestApiManager for '{account_group}': {error_msg}",
-                                log="error")
-            cache[account_group] = None
-            return None
-        self.app.stdout_msg(f"Assigned credential '{credential['id']}' for account_group "
-                            f"'{account_group}'.", log="info")
-        cache[account_group] = ubra
-        return ubra
+    def _ldcs_for_account_group(self, account_group: str):
+        """Yield every running BinanceLocalDepthCacheManager whose exchange maps
+        to the given account_group."""
+        for exchange, by_interval in self.app.data.get('depthcache_instances', {}).items():
+            if get_account_group(exchange) != account_group:
+                continue
+            for ldc in by_interval.values():
+                if ldc is not None:
+                    yield ldc
+
+    async def _sync_credentials(self) -> None:
+        """For every account_group currently used by this DCN, pull the assigned
+        credential from mgmt. If the credential id differs from the one we last
+        propagated, hot-swap the UBRA in all affected UBLDCs via
+        `set_credentials()`. Runs once per main-loop iteration after the
+        mgmt sync."""
+        cache = self.app.data['credential_id_by_account_group']
+        used_account_groups = {get_account_group(exch)
+                               for exch in self.app.data.get('depthcache_instances', {})}
+        used_account_groups.discard(None)
+        for account_group in used_account_groups:
+            credential = await self.app.ubdcc_assign_credentials(account_group=account_group)
+            new_id = credential.get('id') if credential else None
+            if cache.get(account_group) == new_id:
+                continue
+            api_key = credential.get('api_key') if credential else None
+            api_secret = credential.get('api_secret') if credential else None
+            for ldc in self._ldcs_for_account_group(account_group):
+                try:
+                    ldc.set_credentials(api_key=api_key, api_secret=api_secret)
+                except Exception as error_msg:
+                    self.app.stdout_msg(f"set_credentials() failed for '{account_group}': "
+                                        f"{error_msg}", log="error")
+            cache[account_group] = new_id
+            if new_id is not None:
+                self.app.stdout_msg(f"Assigned credential '{new_id}' for account_group "
+                                    f"'{account_group}'.", log="info")
+            else:
+                self.app.stdout_msg(f"No credential available for account_group "
+                                    f"'{account_group}' — using public rate limits.",
+                                    log="info")
 
     async def main(self):
         self.app.data['depthcache_instances'] = {}
         self.app.data['local_depthcaches'] = []
         self.app.data['responsibilities'] = []
-        self.app.data['ubra_by_account_group'] = {}
+        self.app.data['credential_id_by_account_group'] = {}
         await self.start_rest_server(endpoints=RestEndpoints)
         self.app.set_status_running()
         await self.app.register_or_restart(ubldc_version=ubldc_version)
@@ -92,6 +97,7 @@ class DepthCacheNode(ServiceBase):
             await self.app.sleep()
             await self.app.ubdcc_node_sync()
             await self._drain_restart_queue()
+            await self._sync_credentials()
             self.app.data['responsibilities'] = self.db.get_dcn_responsibilities()
             self.app.stdout_msg(f"Local DepthCaches: {self.app.data['local_depthcaches']}", log="debug", stdout=False)
             self.app.stdout_msg(f"Responsibilities: {self.app.data['responsibilities']}", log="debug", stdout=False)
@@ -105,14 +111,16 @@ class DepthCacheNode(ServiceBase):
                         self.app.data['depthcache_instances'][dc['exchange']] = {}
                     if self.app.data['depthcache_instances'][dc['exchange']].get(dc['update_interval']) is None:
                         on_restart = partial(self._on_stream_restart, dc['exchange'])
-                        ubra_manager = await self._get_ubra_manager(exchange=dc['exchange'])
                         kwargs = {"exchange": dc['exchange'], "on_restart": on_restart}
                         if dc['update_interval'] is not None:
                             kwargs['depth_cache_update_interval'] = dc['update_interval']
-                        if ubra_manager is not None:
-                            kwargs['ubra_manager'] = ubra_manager
+                        # The UBRA is managed by UBLDC itself (no ubra_manager
+                        # kwarg); credentials are propagated immediately below
+                        # so the initial snapshot already runs with an
+                        # authenticated key when one is assigned.
                         self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
                             BinanceLocalDepthCacheManager(**kwargs)
+                        await self._sync_credentials()
                     else:
                         self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']].create_depthcache(
                             markets=dc['market'],
