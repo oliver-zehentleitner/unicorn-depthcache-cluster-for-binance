@@ -490,6 +490,8 @@ def print_status_table(data, mgmt_port=42080):
     fully_redundant = 0
     degraded = 0
     no_redundancy = 0
+    unavailable = 0
+    inactive = 0
     for markets in depthcaches.values():
         for dc in markets.values():
             dc_count += 1
@@ -500,7 +502,11 @@ def print_status_table(data, mgmt_port=42080):
             total_replicas += len(distribution)
             replicas_running += running
             replicas_starting += starting
-            if desired < 2:
+            if desired == 0:
+                inactive += 1
+            elif running == 0:
+                unavailable += 1
+            elif desired == 1:
                 no_redundancy += 1
             elif running >= desired:
                 fully_redundant += 1
@@ -508,7 +514,15 @@ def print_status_table(data, mgmt_port=42080):
                 degraded += 1
 
     print(f"\nDepthCaches: {dc_count} ({total_replicas} replicas: {replicas_running} running, {replicas_starting} starting)")
-    print(f"Redundancy: {fully_redundant} fully redundant, {degraded} degraded, {no_redundancy} no redundancy")
+    parts = [
+        f"{fully_redundant} fully redundant",
+        f"{degraded} degraded",
+        f"{no_redundancy} no redundancy",
+        f"{unavailable} unavailable",
+    ]
+    if inactive:
+        parts.append(f"{inactive} inactive")
+    print(f"Redundancy: {', '.join(parts)}")
     print(f"Version: {data.get('version', '?')}")
 
     dc_restarts = []

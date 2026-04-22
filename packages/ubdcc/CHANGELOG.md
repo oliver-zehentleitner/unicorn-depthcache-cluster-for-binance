@@ -3,6 +3,16 @@
 All notable changes to this package will be documented in this file.
 
 ## 0.6.0.dev (development stage/unreleased/unstable)
+### Changed
+- CLI `status`: redundancy summary split into clearer categories.
+  Previously a DepthCache with `desired=1, running=0` was reported as
+  "no redundancy" and `desired>=2, running=0` as "degraded", hiding the
+  fact that the cache was completely down. Now:
+  - `unavailable` — desired > 0 but nothing running
+  - `no redundancy` — desired = 1, running = 1
+  - `degraded` — desired >= 2, 0 < running < desired
+  - `fully redundant` — desired >= 2, running >= desired
+  - `inactive` — desired = 0 (only shown when non-zero)
 
 ## 0.6.0
 ### Added
