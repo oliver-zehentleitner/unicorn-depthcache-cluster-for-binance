@@ -93,7 +93,7 @@ Runs as processes on a single machine or as pods on Kubernetes.
 - [UBLDC](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache) — the Python client library for UBDCC; the engine that runs on each DCN.
 - [UBWA](https://github.com/oliver-zehentleitner/unicorn-binance-websocket-api) — WebSocket streams used by UBLDC under the hood.
 - [UBRA](https://github.com/oliver-zehentleitner/unicorn-binance-rest-api) — REST API client used for depth snapshots.
-- [UBDCC Dashboard](https://github.com/oliver-zehentleitner/ubdcc-dashboard) — optional browser UI for live monitoring of a running UBDCC cluster (`pip install ubdcc-dashboard` → `ubdcc-dashboard start`).
+- [UBDCC Dashboard](https://github.com/oliver-zehentleitner/ubdcc-dashboard) — optional browser UI for live monitoring and management of a running UBDCC cluster: view status, spot desync, add/remove caches on the fly (`pip install ubdcc-dashboard` → `ubdcc-dashboard start`).
 
 ## Docs
 
