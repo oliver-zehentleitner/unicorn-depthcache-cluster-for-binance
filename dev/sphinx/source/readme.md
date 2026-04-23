@@ -608,10 +608,25 @@ for a native experience with sync and async support, automatic connection handli
 
 See the [examples](https://github.com/oliver-zehentleitner/unicorn-binance-local-depth-cache/tree/master/examples/unicorn_binance_depth_cache_cluster).
 
+## Monitoring with the UBDCC Dashboard
+
+For a browser-based live view of every depth cache in the cluster — compact mini-orderbook tiles, desync and error 
+highlighting, add and remove caches on the fly — use the [UBDCC Dashboard](https://github.com/oliver-zehentleitner/ubdcc-dashboard):
+
+```sh
+pip install ubdcc-dashboard
+ubdcc-dashboard start
+```
+
+Binds to `127.0.0.1:8080` by default and opens the UI in your browser; enter the REST API URL of your cluster 
+(typical: `http://<cluster-host>:42081`) and click `Connect`. See the 
+[dashboard README](https://github.com/oliver-zehentleitner/ubdcc-dashboard#readme) for CLI flags and network exposure.
+
 ## Documentation
 - [General](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster)
 - [Modules](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/modules.html)
 - [ubdcc CLI reference](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/ubdcc.html)
+- [UBDCC Dashboard](https://github.com/oliver-zehentleitner/ubdcc-dashboard)
 
 ## Related Articles
 - [How to create a Binance API Key and API Secret?](https://blog.technopathy.club/how-to-create-a-binance-api-key-and-api-secret)
