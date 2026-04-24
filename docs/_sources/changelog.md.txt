@@ -9,7 +9,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 [How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/readme.html#installation-and-upgrade)
 
-## 0.6.0.dev (development stage/unreleased/unstable)
+## 0.6.1.dev (development stage/unreleased/unstable)
+### Fixed
+- `AccountGroups.py`: `binance.com-margin-testnet` and
+  `binance.com-isolated_margin-testnet` are now mapped to the
+  `binance.com-testnet` account group. Without this, credential
+  assignment (`get_account_group()`) returned `None` for testnet-margin
+  DCNs, so no API keys could be dispatched to them. Spot-testnet and
+  margin-testnet share the same `testnet.binance.vision` credentials,
+  so they belong in the same account group.
 
 ## 0.6.0
 ### Added
