@@ -351,7 +351,7 @@ pip install ubdcc-dashboard
 ubdcc-dashboard start
 ```
 
-[![UBDCC-DASHBOARD](https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-suite/master/images/ubdcc-dashboard/ubdcc-dashboard-screenshot.png)](https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/refs/heads/master/images/ubdcc-dashboard/ubdcc-dashboard-screenshot.png)
+[![UBDCC-DASHBOARD](https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-suite/master/images/ubdcc-dashboard/ubdcc-dashboard-screenshot.png)](https://github.com/oliver-zehentleitner/ubdcc-dashboard)
 
 ### Public Endpoints (restapi)
 
