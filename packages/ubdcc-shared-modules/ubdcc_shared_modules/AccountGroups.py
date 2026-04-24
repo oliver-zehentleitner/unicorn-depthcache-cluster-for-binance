@@ -27,6 +27,8 @@ EXCHANGE_TO_ACCOUNT_GROUP = {
     "binance.com-isolated_margin": "binance.com",
     "binance.com-vanilla-options": "binance.com",
     "binance.com-testnet": "binance.com-testnet",
+    "binance.com-margin-testnet": "binance.com-testnet",
+    "binance.com-isolated_margin-testnet": "binance.com-testnet",
     "binance.com-futures-testnet": "binance.com-futures-testnet",
     "binance.com-vanilla-options-testnet": "binance.com-futures-testnet",
     "binance.us": "binance.us",
