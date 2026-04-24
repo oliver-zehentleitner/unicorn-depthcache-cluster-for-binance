@@ -2,7 +2,14 @@
 
 All notable changes to this package will be documented in this file.
 
-## 0.6.0.dev (development stage/unreleased/unstable)
+## 0.7.1.dev (development stage/unreleased/unstable)
+
+## 0.7.0
+### Changed
+- Bumped `unicorn-binance-local-depth-cache` minimum to `>=2.14.0`
+  across `setup.py`, `requirements.txt` and `pyproject.toml`. The
+  renamed cluster client credential methods live there (UBLDC 2.14.0
+  also brings Binance Cross / Isolated Margin support end-to-end).
 
 ## 0.6.0
 ### Changed
