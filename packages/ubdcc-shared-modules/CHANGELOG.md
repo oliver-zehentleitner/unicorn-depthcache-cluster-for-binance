@@ -2,7 +2,16 @@
 
 All notable changes to this package will be documented in this file.
 
-## 0.6.0.dev (development stage/unreleased/unstable)
+## 0.7.1.dev (development stage/unreleased/unstable)
+
+## 0.7.0
+### Fixed
+- `AccountGroups.py`: added `binance.com-margin-testnet` and
+  `binance.com-isolated_margin-testnet` to the
+  `EXCHANGE_TO_ACCOUNT_GROUP` map, both routed to
+  `binance.com-testnet` (they share the `testnet.binance.vision`
+  account). Without this, `get_account_group()` returned `None` for
+  testnet-margin DCNs.
 
 ## 0.6.0
 ### Added

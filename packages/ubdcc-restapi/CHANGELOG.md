@@ -2,7 +2,16 @@
 
 All notable changes to this package will be documented in this file.
 
-## 0.6.0.dev (development stage/unreleased/unstable)
+## 0.7.1.dev (development stage/unreleased/unstable)
+
+## 0.7.0
+### Changed
+- **Breaking**: renamed the three user-facing credential endpoints —
+  `/ubdcc_add_credentials` → `/add_credentials`,
+  `/ubdcc_remove_credentials` → `/remove_credentials`,
+  `/ubdcc_get_credentials_list` → `/get_credentials_list`.
+  restapi proxies them to mgmt as before; proxy target paths on mgmt
+  renamed in sync.
 
 ## 0.6.0
 

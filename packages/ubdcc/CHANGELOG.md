@@ -2,8 +2,13 @@
 
 All notable changes to this package will be documented in this file.
 
-## 0.6.0.dev (development stage/unreleased/unstable)
+## 0.7.1.dev (development stage/unreleased/unstable)
+
+## 0.7.0
 ### Changed
+- CLI `credentials add/list/remove` now hits the renamed REST endpoints
+  (`/add_credentials`, `/remove_credentials`, `/get_credentials_list`).
+  Requires mgmt/restapi on UBDCC ≥ 0.7.0; no user-visible CLI change.
 - CLI `status`: redundancy summary split into clearer categories.
   Previously a DepthCache with `desired=1, running=0` was reported as
   "no redundancy" and `desired>=2, running=0` as "degraded", hiding the
