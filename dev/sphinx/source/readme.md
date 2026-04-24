@@ -348,9 +348,9 @@ These are the endpoints you use to interact with the cluster. All requests go th
 | `/get_depthcache_list` | GET | — | List all DepthCaches with status and distribution                                                                                                 |
 | `/get_depthcache_info` | GET | `exchange`, `market` | Detailed info for a specific DepthCache                                                                                                           |
 | `/stop_depthcache` | GET | `exchange`, `market` | Stop and remove a DepthCache                                                                                                                      |
-| `/ubdcc_add_credentials` | POST/GET | `account_group`, `api_key`, `api_secret` | Store a Binance [API key](https://blog.technopathy.club/how-to-create-a-binance-api-key-and-api-secret) (see [API Credentials](#api-credentials)) |
-| `/ubdcc_remove_credentials` | POST/GET | `id` | Delete a stored API key                                                                                                                           |
-| `/ubdcc_get_credentials_list` | GET | — | List stored keys (masked) with their assigned DCNs                                                                                                |
+| `/add_credentials` | POST/GET | `account_group`, `api_key`, `api_secret` | Store a Binance [API key](https://blog.technopathy.club/how-to-create-a-binance-api-key-and-api-secret) (see [API Credentials](#api-credentials)) |
+| `/remove_credentials` | POST/GET | `id` | Delete a stored API key                                                                                                                           |
+| `/get_credentials_list` | GET | — | List stored keys (masked) with their assigned DCNs                                                                                                |
 
 All public endpoints accept `debug=true` as an additional parameter for timing and routing details.
 
@@ -551,7 +551,7 @@ ubdcc credentials remove <id>
 Or over HTTP:
 
 ```bash
-curl -X POST 'http://127.0.0.1:42081/ubdcc_add_credentials' \
+curl -X POST 'http://127.0.0.1:42081/add_credentials' \
   -H 'Content-Type: application/json' \
   -d '{"account_group":"binance.com","api_key":"...","api_secret":"..."}'
 ```
@@ -565,7 +565,7 @@ assignment. `get_cluster_info` / `credentials list` show which DCNs each key is 
 - **Keys are stored in the cluster DB** (the same DB that is replicated to every pod for
   self-healing). Inside the cluster they are full, cleartext — this is a deliberate trade-off so
   that the self-healing/backup flow keeps working.
-- Public responses (`get_cluster_info`, `ubdcc_get_credentials_list`) only return **masked
+- Public responses (`get_cluster_info`, `get_credentials_list`) only return **masked
   previews** of the key and never the secret. Only the internal `/ubdcc_assign_credentials`
   endpoint returns the full pair, and only to a requesting DCN.
 - It is **your responsibility** to protect the cluster: lock down the network (firewall, private

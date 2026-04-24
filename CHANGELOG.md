@@ -9,7 +9,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 [How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/readme.html#installation-and-upgrade)
 
-## 0.6.1.dev (development stage/unreleased/unstable)
+## 0.7.0.dev (development stage/unreleased/unstable)
+### Changed
+- **Breaking**: dropped the redundant `ubdcc_` prefix from the three
+  user-facing credential endpoints to align with the rest of the REST
+  API (`/create_depthcache`, `/get_asks`, ...):
+  - `/ubdcc_add_credentials` → `/add_credentials`
+  - `/ubdcc_remove_credentials` → `/remove_credentials`
+  - `/ubdcc_get_credentials_list` → `/get_credentials_list`
+  Renamed on both the public restapi and the internal mgmt service.
+  Internal cluster endpoints (`/ubdcc_assign_credentials`,
+  `/ubdcc_node_*`, `/ubdcc_update_depthcache_distribution`, ...) keep
+  their prefix — it signals "not a public API".
+  The matching UBLDC cluster client methods were renamed too (requires
+  UBLDC ≥ 2.14.0): use `cluster.add_credentials()` /
+  `cluster.remove_credentials()` / `cluster.get_credentials_list()`.
+  The `ubdcc credentials add/list/remove` CLI continues to work unchanged
+  (it now hits the new endpoints internally).
 ### Fixed
 - `AccountGroups.py`: `binance.com-margin-testnet` and
   `binance.com-isolated_margin-testnet` are now mapped to the

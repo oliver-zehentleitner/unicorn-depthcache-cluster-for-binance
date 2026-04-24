@@ -64,25 +64,25 @@ class RestEndpoints(RestEndpointsBase):
         async def stop_depthcache(request: Request):
             return await self.stop_depthcache(request=request)
 
-        @self.fastapi.post("/ubdcc_add_credentials")
-        async def ubdcc_add_credentials_post(request: Request):
-            return await self.ubdcc_add_credentials(request=request)
+        @self.fastapi.post("/add_credentials")
+        async def add_credentials_post(request: Request):
+            return await self.add_credentials(request=request)
 
-        @self.fastapi.get("/ubdcc_add_credentials")
-        async def ubdcc_add_credentials_get(request: Request):
-            return await self.ubdcc_add_credentials(request=request)
+        @self.fastapi.get("/add_credentials")
+        async def add_credentials_get(request: Request):
+            return await self.add_credentials(request=request)
 
-        @self.fastapi.post("/ubdcc_remove_credentials")
-        async def ubdcc_remove_credentials_post(request: Request):
-            return await self.ubdcc_remove_credentials(request=request)
+        @self.fastapi.post("/remove_credentials")
+        async def remove_credentials_post(request: Request):
+            return await self.remove_credentials(request=request)
 
-        @self.fastapi.get("/ubdcc_remove_credentials")
-        async def ubdcc_remove_credentials_get(request: Request):
-            return await self.ubdcc_remove_credentials(request=request)
+        @self.fastapi.get("/remove_credentials")
+        async def remove_credentials_get(request: Request):
+            return await self.remove_credentials(request=request)
 
-        @self.fastapi.get("/ubdcc_get_credentials_list")
-        async def ubdcc_get_credentials_list(request: Request):
-            return await self.ubdcc_get_credentials_list(request=request)
+        @self.fastapi.get("/get_credentials_list")
+        async def get_credentials_list(request: Request):
+            return await self.get_credentials_list(request=request)
 
     async def _get_depthcache_data(self, request: Request, event=None, endpoint=None):
         process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" \
@@ -358,17 +358,17 @@ class RestEndpoints(RestEndpointsBase):
                                            params={"error": str(result)}, process_start_time=process_start_time,
                                            url=request_url, post_body=post_body, used_pods=used_pods)
 
-    async def ubdcc_add_credentials(self, request: Request):
-        return await self._proxy_to_mgmt(request=request, event="UBDCC_ADD_CREDENTIALS",
-                                         endpoint="/ubdcc_add_credentials", allow_post=True)
+    async def add_credentials(self, request: Request):
+        return await self._proxy_to_mgmt(request=request, event="ADD_CREDENTIALS",
+                                         endpoint="/add_credentials", allow_post=True)
 
-    async def ubdcc_remove_credentials(self, request: Request):
-        return await self._proxy_to_mgmt(request=request, event="UBDCC_REMOVE_CREDENTIALS",
-                                         endpoint="/ubdcc_remove_credentials", allow_post=True)
+    async def remove_credentials(self, request: Request):
+        return await self._proxy_to_mgmt(request=request, event="REMOVE_CREDENTIALS",
+                                         endpoint="/remove_credentials", allow_post=True)
 
-    async def ubdcc_get_credentials_list(self, request: Request):
-        return await self._proxy_to_mgmt(request=request, event="UBDCC_GET_CREDENTIALS_LIST",
-                                         endpoint="/ubdcc_get_credentials_list")
+    async def get_credentials_list(self, request: Request):
+        return await self._proxy_to_mgmt(request=request, event="GET_CREDENTIALS_LIST",
+                                         endpoint="/get_credentials_list")
 
     async def stop_depthcache(self, request: Request):
         process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" else None

@@ -563,7 +563,7 @@ def cmd_credentials_add(args):
                "api_key": args.api_key,
                "api_secret": args.api_secret}
     try:
-        r = requests.post(f"http://127.0.0.1:{port}/ubdcc_add_credentials", json=payload, timeout=5)
+        r = requests.post(f"http://127.0.0.1:{port}/add_credentials", json=payload, timeout=5)
         data = r.json()
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
@@ -578,7 +578,7 @@ def cmd_credentials_add(args):
 def cmd_credentials_remove(args):
     port = get_mgmt_port(args)
     try:
-        r = requests.get(f"http://127.0.0.1:{port}/ubdcc_remove_credentials",
+        r = requests.get(f"http://127.0.0.1:{port}/remove_credentials",
                          params={"id": args.id}, timeout=5)
         data = r.json()
     except Exception as e:
@@ -594,7 +594,7 @@ def cmd_credentials_remove(args):
 def cmd_credentials_list(args):
     port = get_mgmt_port(args)
     try:
-        r = requests.get(f"http://127.0.0.1:{port}/ubdcc_get_credentials_list", timeout=5)
+        r = requests.get(f"http://127.0.0.1:{port}/get_credentials_list", timeout=5)
         data = r.json()
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)

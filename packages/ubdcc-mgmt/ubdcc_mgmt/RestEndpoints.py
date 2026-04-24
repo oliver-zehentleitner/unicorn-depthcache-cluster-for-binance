@@ -79,25 +79,25 @@ class RestEndpoints(RestEndpointsBase):
         async def ubdcc_update_depthcache_distribution(request: Request):
             return await self.ubdcc_update_depthcache_distribution(request=request)
 
-        @self.fastapi.post("/ubdcc_add_credentials")
-        async def ubdcc_add_credentials_post(request: Request):
-            return await self.ubdcc_add_credentials(request=request)
+        @self.fastapi.post("/add_credentials")
+        async def add_credentials_post(request: Request):
+            return await self.add_credentials(request=request)
 
-        @self.fastapi.get("/ubdcc_add_credentials")
-        async def ubdcc_add_credentials_get(request: Request):
-            return await self.ubdcc_add_credentials(request=request)
+        @self.fastapi.get("/add_credentials")
+        async def add_credentials_get(request: Request):
+            return await self.add_credentials(request=request)
 
-        @self.fastapi.post("/ubdcc_remove_credentials")
-        async def ubdcc_remove_credentials_post(request: Request):
-            return await self.ubdcc_remove_credentials(request=request)
+        @self.fastapi.post("/remove_credentials")
+        async def remove_credentials_post(request: Request):
+            return await self.remove_credentials(request=request)
 
-        @self.fastapi.get("/ubdcc_remove_credentials")
-        async def ubdcc_remove_credentials_get(request: Request):
-            return await self.ubdcc_remove_credentials(request=request)
+        @self.fastapi.get("/remove_credentials")
+        async def remove_credentials_get(request: Request):
+            return await self.remove_credentials(request=request)
 
-        @self.fastapi.get("/ubdcc_get_credentials_list")
-        async def ubdcc_get_credentials_list(request: Request):
-            return await self.ubdcc_get_credentials_list(request=request)
+        @self.fastapi.get("/get_credentials_list")
+        async def get_credentials_list(request: Request):
+            return await self.get_credentials_list(request=request)
 
         @self.fastapi.get("/ubdcc_assign_credentials")
         async def ubdcc_assign_credentials(request: Request):
@@ -420,8 +420,8 @@ class RestEndpoints(RestEndpointsBase):
             return self.get_error_response(event=event, error_id="#1010",
                                            message="An unknown error has occurred!")
 
-    async def ubdcc_add_credentials(self, request: Request):
-        event = "UBDCC_ADD_CREDENTIALS"
+    async def add_credentials(self, request: Request):
+        event = "ADD_CREDENTIALS"
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
@@ -453,8 +453,8 @@ class RestEndpoints(RestEndpointsBase):
             return self.get_error_response(event=event, error_id="#1032", message=str(error_msg))
         return self.get_ok_response(event=event, params={"id": credential_id})
 
-    async def ubdcc_remove_credentials(self, request: Request):
-        event = "UBDCC_REMOVE_CREDENTIALS"
+    async def remove_credentials(self, request: Request):
+        event = "REMOVE_CREDENTIALS"
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
@@ -476,8 +476,8 @@ class RestEndpoints(RestEndpointsBase):
         return self.get_error_response(event=event, error_id="#1034",
                                        message=f"Credentials '{credential_id}' not found!")
 
-    async def ubdcc_get_credentials_list(self, request: Request):
-        event = "UBDCC_GET_CREDENTIALS_LIST"
+    async def get_credentials_list(self, request: Request):
+        event = "GET_CREDENTIALS_LIST"
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
