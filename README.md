@@ -370,6 +370,11 @@ understanding them helps when debugging or extending the system.
 | `/ubdcc_update_depthcache_distribution` | GET | DCN reports DepthCache status changes (starting, running)                                                                                                                 |
 | `/ubdcc_assign_credentials` | GET | DCN requests an [API key](https://blog.technopathy.club/how-to-create-a-binance-api-key-and-api-secret) for a given `account_group` — load-balanced across available keys |
 
+mgmt also serves every public endpoint listed above — restapi proxies
+write-ops (`/create_depthcache`, `/stop_depthcache`, `/add_credentials`, …)
+and metadata reads (`/get_cluster_info`, `/get_depthcache_list`, …) to mgmt
+since mgmt owns the authoritative DB.
+
 **All pods** (shared base):
 
 | Endpoint | Method | Description |
@@ -377,12 +382,10 @@ understanding them helps when debugging or extending the system.
 | `/test` | GET | Health check — returns pod info, version, status |
 | `/ubdcc_mgmt_backup` | GET/POST | GET: return stored DB backup; POST: receive DB backup from mgmt |
 
-**DCN** (port 42082+):
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/get_asks` | GET | Direct ask query on this DCN (called by restapi after routing) |
-| `/get_bids` | GET | Direct bid query on this DCN (called by restapi after routing) |
+**DCN** (port 42082+) — serves `/get_asks` and `/get_bids` directly.
+restapi looks up the responsible DCN for a given `(exchange, market)` via
+`/ubdcc_get_responsible_dcn_addresses` on mgmt, then routes the read to the
+DCN that actually holds that cache. You call restapi, not the DCN.
 
 ### Examples
 
