@@ -224,7 +224,7 @@ ubdcc start --dcn 4
 This starts 1 mgmt + 1 restapi + 4 DCN processes and drops you into an interactive console:
 
 ```
-UBDCC Cluster Manager v0.6.0
+UBDCC Cluster Manager v0.7.0
 Starting cluster with mgmt port 42080, 4 DCN(s)...
   mgmt started (PID 12345)
   restapi started (PID 12346)
@@ -238,16 +238,16 @@ Cluster is ready!
 
 ROLE             NAME                 PORT     STATUS     VERSION
 ----------------------------------------------------------------------
-ubdcc-mgmt       ubdcc-mgmt           42080    running    0.6.0
-ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.6.0
-ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.6.0 (ubldc 2.11.2)
-ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.6.0 (ubldc 2.11.2)
-ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.6.0 (ubldc 2.11.2)
-ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.6.0 (ubldc 2.11.2)
+ubdcc-mgmt       ubdcc-mgmt           42080    running    0.7.0
+ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.7.0
+ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.7.0 (ubldc 2.11.2)
+ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.7.0 (ubldc 2.11.2)
+ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.7.0 (ubldc 2.11.2)
+ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.7.0 (ubldc 2.11.2)
 
 DepthCaches: 0 (0 replicas: 0 running, 0 starting)
 Redundancy: 0 fully redundant, 0 degraded, 0 no redundancy
-Version: 0.6.0
+Version: 0.7.0
 
 REST API: http://127.0.0.1:42081/
 Cluster info: http://127.0.0.1:42081/get_cluster_info
@@ -334,6 +334,23 @@ When running locally (dev mode), the restapi exposes FastAPI's built-in interact
 
 These endpoints are disabled in productive mode (Kubernetes).
 
+### API Builder (dashboard)
+
+For onboarding and day-to-day exploration the
+[UBDCC Dashboard](https://github.com/oliver-zehentleitner/ubdcc-dashboard)
+ships an **API Builder** — pick a task (create a DepthCache, query asks/bids,
+add credentials, stop a cache, …), fill in a form, and copy a ready-to-paste
+REST-API snippet in your language of choice (curl, HTTPie, Python (using the
+official UBLDC `Cluster` client), JavaScript, Go, C#, Java, Rust). A
+`Try it →` button runs GET-safe calls against the connected cluster and
+pretty-prints the response — useful for learning the endpoints without
+writing code first.
+
+```bash
+pip install ubdcc-dashboard
+ubdcc-dashboard start
+```
+
 ### Public Endpoints (restapi)
 
 These are the endpoints you use to interact with the cluster. All requests go through the restapi.
@@ -348,9 +365,9 @@ These are the endpoints you use to interact with the cluster. All requests go th
 | `/get_depthcache_list` | GET | — | List all DepthCaches with status and distribution                                                                                                 |
 | `/get_depthcache_info` | GET | `exchange`, `market` | Detailed info for a specific DepthCache                                                                                                           |
 | `/stop_depthcache` | GET | `exchange`, `market` | Stop and remove a DepthCache                                                                                                                      |
-| `/ubdcc_add_credentials` | POST/GET | `account_group`, `api_key`, `api_secret` | Store a Binance [API key](https://blog.technopathy.club/how-to-create-a-binance-api-key-and-api-secret) (see [API Credentials](#api-credentials)) |
-| `/ubdcc_remove_credentials` | POST/GET | `id` | Delete a stored API key                                                                                                                           |
-| `/ubdcc_get_credentials_list` | GET | — | List stored keys (masked) with their assigned DCNs                                                                                                |
+| `/add_credentials` | POST/GET | `account_group`, `api_key`, `api_secret` | Store a Binance [API key](https://blog.technopathy.club/how-to-create-a-binance-api-key-and-api-secret) (see [API Credentials](#api-credentials)) |
+| `/remove_credentials` | POST/GET | `id` | Delete a stored API key                                                                                                                           |
+| `/get_credentials_list` | GET | — | List stored keys (masked) with their assigned DCNs                                                                                                |
 
 All public endpoints accept `debug=true` as an additional parameter for timing and routing details.
 
@@ -370,6 +387,11 @@ understanding them helps when debugging or extending the system.
 | `/ubdcc_update_depthcache_distribution` | GET | DCN reports DepthCache status changes (starting, running)                                                                                                                 |
 | `/ubdcc_assign_credentials` | GET | DCN requests an [API key](https://blog.technopathy.club/how-to-create-a-binance-api-key-and-api-secret) for a given `account_group` — load-balanced across available keys |
 
+mgmt also serves every public endpoint listed above — restapi proxies
+write-ops (`/create_depthcache`, `/stop_depthcache`, `/add_credentials`, …)
+and metadata reads (`/get_cluster_info`, `/get_depthcache_list`, …) to mgmt
+since mgmt owns the authoritative DB.
+
 **All pods** (shared base):
 
 | Endpoint | Method | Description |
@@ -377,12 +399,10 @@ understanding them helps when debugging or extending the system.
 | `/test` | GET | Health check — returns pod info, version, status |
 | `/ubdcc_mgmt_backup` | GET/POST | GET: return stored DB backup; POST: receive DB backup from mgmt |
 
-**DCN** (port 42082+):
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/get_asks` | GET | Direct ask query on this DCN (called by restapi after routing) |
-| `/get_bids` | GET | Direct bid query on this DCN (called by restapi after routing) |
+**DCN** (port 42082+) — serves `/get_asks` and `/get_bids` directly.
+restapi looks up the responsible DCN for a given `(exchange, market)` via
+`/ubdcc_get_responsible_dcn_addresses` on mgmt, then routes the read to the
+DCN that actually holds that cache. You call restapi, not the DCN.
 
 ### Examples
 
@@ -483,7 +503,7 @@ helm search repo ubdcc
 - Then
 
 ``` 
-helm install ubdcc ubdcc/ubdcc --version 0.6.0
+helm install ubdcc ubdcc/ubdcc --version 0.7.0
 ```
 
 #### Choose a namespace
@@ -551,7 +571,7 @@ ubdcc credentials remove <id>
 Or over HTTP:
 
 ```bash
-curl -X POST 'http://127.0.0.1:42081/ubdcc_add_credentials' \
+curl -X POST 'http://127.0.0.1:42081/add_credentials' \
   -H 'Content-Type: application/json' \
   -d '{"account_group":"binance.com","api_key":"...","api_secret":"..."}'
 ```
@@ -565,7 +585,7 @@ assignment. `get_cluster_info` / `credentials list` show which DCNs each key is 
 - **Keys are stored in the cluster DB** (the same DB that is replicated to every pod for
   self-healing). Inside the cluster they are full, cleartext — this is a deliberate trade-off so
   that the self-healing/backup flow keeps working.
-- Public responses (`get_cluster_info`, `ubdcc_get_credentials_list`) only return **masked
+- Public responses (`get_cluster_info`, `get_credentials_list`) only return **masked
   previews** of the key and never the secret. Only the internal `/ubdcc_assign_credentials`
   endpoint returns the full pair, and only to a requesting DCN.
 - It is **your responsibility** to protect the cluster: lock down the network (firewall, private

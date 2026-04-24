@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>UNICORN Binance DepthCache Cluster (UBDCC) &#8212; unicorn-binance-depth-cache-cluster 0.6.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNICORN Binance DepthCache Cluster (UBDCC) &#8212; unicorn-binance-depth-cache-cluster 0.7.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?v=fdf8e9ae" />
@@ -507,6 +507,7 @@ window.runMermaid = runMermaid;</script>
 </li>
 <li><a class="reference internal" href="#rest-api">REST API</a><ul>
 <li><a class="reference internal" href="#interactive-api-docs">Interactive API docs</a></li>
+<li><a class="reference internal" href="#api-builder-dashboard">API Builder (dashboard)</a></li>
 <li><a class="reference internal" href="#public-endpoints-restapi">Public Endpoints (restapi)</a></li>
 <li><a class="reference internal" href="#internal-endpoints-cluster-communication">Internal Endpoints (cluster communication)</a></li>
 <li><a class="reference internal" href="#examples">Examples</a><ul>
@@ -932,7 +933,7 @@ DepthCache data without duplicate WebSocket connections.</p>
 </pre></div>
 </div>
 <p>This starts 1 mgmt + 1 restapi + 4 DCN processes and drops you into an interactive console:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>UBDCC Cluster Manager v0.6.0
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>UBDCC Cluster Manager v0.7.0
 Starting cluster with mgmt port 42080, 4 DCN(s)...
   mgmt started (PID 12345)
   restapi started (PID 12346)
@@ -946,16 +947,16 @@ Cluster is ready!
 
 ROLE             NAME                 PORT     STATUS     VERSION
 ----------------------------------------------------------------------
-ubdcc-mgmt       ubdcc-mgmt           42080    running    0.6.0
-ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.6.0
-ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.6.0 (ubldc 2.11.2)
-ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.6.0 (ubldc 2.11.2)
-ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.6.0 (ubldc 2.11.2)
-ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.6.0 (ubldc 2.11.2)
+ubdcc-mgmt       ubdcc-mgmt           42080    running    0.7.0
+ubdcc-restapi    TDMKiCnT6jZ39N       42081    running    0.7.0
+ubdcc-dcn        g3HcyluSZ5qWarm      42082    running    0.7.0 (ubldc 2.11.2)
+ubdcc-dcn        gpU3hkiU9Ei          42083    running    0.7.0 (ubldc 2.11.2)
+ubdcc-dcn        tDuu9mOXrt445XU      42084    running    0.7.0 (ubldc 2.11.2)
+ubdcc-dcn        xg6RZRf1APErfh1      42085    running    0.7.0 (ubldc 2.11.2)
 
 DepthCaches: 0 (0 replicas: 0 running, 0 starting)
 Redundancy: 0 fully redundant, 0 degraded, 0 no redundancy
-Version: 0.6.0
+Version: 0.7.0
 
 REST API: http://127.0.0.1:42081/
 Cluster info: http://127.0.0.1:42081/get_cluster_info
@@ -1088,6 +1089,22 @@ directly to one restapi instance — it handles all routing to mgmt and DCN proc
 </ul>
 <p>These endpoints are disabled in productive mode (Kubernetes).</p>
 </section>
+<section id="api-builder-dashboard">
+<h3>API Builder (dashboard)<a class="headerlink" href="#api-builder-dashboard" title="Link to this heading">¶</a></h3>
+<p>For onboarding and day-to-day exploration the
+<a class="reference external" href="https://github.com/oliver-zehentleitner/ubdcc-dashboard">UBDCC Dashboard</a>
+ships an <strong>API Builder</strong> — pick a task (create a DepthCache, query asks/bids,
+add credentials, stop a cache, …), fill in a form, and copy a ready-to-paste
+REST-API snippet in your language of choice (curl, HTTPie, Python (using the
+official UBLDC <code class="docutils literal notranslate"><span class="pre">Cluster</span></code> client), JavaScript, Go, C#, Java, Rust). A
+<code class="docutils literal notranslate"><span class="pre">Try</span> <span class="pre">it</span> <span class="pre">→</span></code> button runs GET-safe calls against the connected cluster and
+pretty-prints the response — useful for learning the endpoints without
+writing code first.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ubdcc-dashboard
+ubdcc-dashboard<span class="w"> </span>start
+</pre></div>
+</div>
+</section>
 <section id="public-endpoints-restapi">
 <h3>Public Endpoints (restapi)<a class="headerlink" href="#public-endpoints-restapi" title="Link to this heading">¶</a></h3>
 <p>These are the endpoints you use to interact with the cluster. All requests go through the restapi.</p>
@@ -1150,19 +1167,19 @@ directly to one restapi instance — it handles all routing to mgmt and DCN proc
 <td>Stop and remove a DepthCache</td>
 </tr>
 <tr>
-<td><code>/ubdcc_add_credentials</code></td>
+<td><code>/add_credentials</code></td>
 <td>POST/GET</td>
 <td><code>account_group</code>, <code>api_key</code>, <code>api_secret</code></td>
 <td>Store a Binance <a href="https://blog.technopathy.club/how-to-create-a-binance-api-key-and-api-secret">API key</a> (see <a href="#api-credentials">API Credentials</a>)</td>
 </tr>
 <tr>
-<td><code>/ubdcc_remove_credentials</code></td>
+<td><code>/remove_credentials</code></td>
 <td>POST/GET</td>
 <td><code>id</code></td>
 <td>Delete a stored API key</td>
 </tr>
 <tr>
-<td><code>/ubdcc_get_credentials_list</code></td>
+<td><code>/get_credentials_list</code></td>
 <td>GET</td>
 <td>—</td>
 <td>List stored keys (masked) with their assigned DCNs</td>
@@ -1217,6 +1234,10 @@ understanding them helps when debugging or extending the system.</p>
 </tr>
 </tbody>
 </table>
+<p>mgmt also serves every public endpoint listed above — restapi proxies
+write-ops (<code class="docutils literal notranslate"><span class="pre">/create_depthcache</span></code>, <code class="docutils literal notranslate"><span class="pre">/stop_depthcache</span></code>, <code class="docutils literal notranslate"><span class="pre">/add_credentials</span></code>, …)
+and metadata reads (<code class="docutils literal notranslate"><span class="pre">/get_cluster_info</span></code>, <code class="docutils literal notranslate"><span class="pre">/get_depthcache_list</span></code>, …) to mgmt
+since mgmt owns the authoritative DB.</p>
 <p><strong>All pods</strong> (shared base):</p>
 <table border="1" class="docutils">
 <thead>
@@ -1239,28 +1260,10 @@ understanding them helps when debugging or extending the system.</p>
 </tr>
 </tbody>
 </table>
-<p><strong>DCN</strong> (port 42082+):</p>
-<table border="1" class="docutils">
-<thead>
-<tr>
-<th>Endpoint</th>
-<th>Method</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>/get_asks</code></td>
-<td>GET</td>
-<td>Direct ask query on this DCN (called by restapi after routing)</td>
-</tr>
-<tr>
-<td><code>/get_bids</code></td>
-<td>GET</td>
-<td>Direct bid query on this DCN (called by restapi after routing)</td>
-</tr>
-</tbody>
-</table>
+<p><strong>DCN</strong> (port 42082+) — serves <code class="docutils literal notranslate"><span class="pre">/get_asks</span></code> and <code class="docutils literal notranslate"><span class="pre">/get_bids</span></code> directly.
+restapi looks up the responsible DCN for a given <code class="docutils literal notranslate"><span class="pre">(exchange,</span> <span class="pre">market)</span></code> via
+<code class="docutils literal notranslate"><span class="pre">/ubdcc_get_responsible_dcn_addresses</span></code> on mgmt, then routes the read to the
+DCN that actually holds that cache. You call restapi, not the DCN.</p>
 </section>
 <section id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h3>
@@ -1365,7 +1368,7 @@ curl<span class="w"> </span><span class="s1">&#39;http://127.0.0.1:42081/stop_de
 <ul class="simple">
 <li><p>Then</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">install</span> <span class="n">ubdcc</span> <span class="n">ubdcc</span><span class="o">/</span><span class="n">ubdcc</span> <span class="o">--</span><span class="n">version</span> <span class="mf">0.6.0</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">install</span> <span class="n">ubdcc</span> <span class="n">ubdcc</span><span class="o">/</span><span class="n">ubdcc</span> <span class="o">--</span><span class="n">version</span> <span class="mf">0.7.0</span>
 </pre></div>
 </div>
 </section>
@@ -1458,7 +1461,7 @@ ubdcc<span class="w"> </span>credentials<span class="w"> </span>remove<span clas
 </pre></div>
 </div>
 <p>Or over HTTP:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s1">&#39;http://127.0.0.1:42081/ubdcc_add_credentials&#39;</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s1">&#39;http://127.0.0.1:42081/add_credentials&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;account_group&quot;:&quot;binance.com&quot;,&quot;api_key&quot;:&quot;...&quot;,&quot;api_secret&quot;:&quot;...&quot;}&#39;</span>
 </pre></div>
@@ -1473,7 +1476,7 @@ assignment. <code class="docutils literal notranslate"><span class="pre">get_clu
 <li><p><strong>Keys are stored in the cluster DB</strong> (the same DB that is replicated to every pod for
 self-healing). Inside the cluster they are full, cleartext — this is a deliberate trade-off so
 that the self-healing/backup flow keeps working.</p></li>
-<li><p>Public responses (<code class="docutils literal notranslate"><span class="pre">get_cluster_info</span></code>, <code class="docutils literal notranslate"><span class="pre">ubdcc_get_credentials_list</span></code>) only return <strong>masked
+<li><p>Public responses (<code class="docutils literal notranslate"><span class="pre">get_cluster_info</span></code>, <code class="docutils literal notranslate"><span class="pre">get_credentials_list</span></code>) only return <strong>masked
 previews</strong> of the key and never the secret. Only the internal <code class="docutils literal notranslate"><span class="pre">/ubdcc_assign_credentials</span></code>
 endpoint returns the full pair, and only to a requesting DCN.</p></li>
 <li><p>It is <strong>your responsibility</strong> to protect the cluster: lock down the network (firewall, private
@@ -1635,6 +1638,7 @@ of any kind, including but not limited to direct or indirect damages for loss of
 </li>
 <li><a class="reference internal" href="#rest-api">REST API</a><ul>
 <li><a class="reference internal" href="#interactive-api-docs">Interactive API docs</a></li>
+<li><a class="reference internal" href="#api-builder-dashboard">API Builder (dashboard)</a></li>
 <li><a class="reference internal" href="#public-endpoints-restapi">Public Endpoints (restapi)</a></li>
 <li><a class="reference internal" href="#internal-endpoints-cluster-communication">Internal Endpoints (cluster communication)</a></li>
 <li><a class="reference internal" href="#examples">Examples</a><ul>
@@ -1788,7 +1792,7 @@ of any kind, including but not limited to direct or indirect damages for loss of
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite#documentation">Index of all docs</a><br />
     &copy; <a href="/license.html">Copyright</a> 2024-2026, Oliver Zehentleitner.
     See <a href="/license.html">License</a> for more information.<br />
-    Last updated on Apr 24 2026 at 12:29 (CET).
+    Last updated on Apr 24 2026 at 18:25 (CET).
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues/new/choose">Found a bug</a>?
     <br />
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.

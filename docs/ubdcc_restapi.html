@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ubdcc_restapi package &#8212; unicorn-binance-depth-cache-cluster 0.6.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ubdcc_restapi package &#8212; unicorn-binance-depth-cache-cluster 0.7.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?v=fdf8e9ae" />
@@ -62,18 +62,18 @@
 </li>
 <li><a class="reference internal" href="#module-ubdcc_restapi.RestEndpoints">ubdcc_restapi.RestEndpoints module</a><ul>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints"><code class="docutils literal notranslate"><span class="pre">RestEndpoints</span></code></a><ul>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.add_credentials"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.add_credentials()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcache"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.create_depthcache()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcaches"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.create_depthcaches()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_asks"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_asks()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_bids"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_bids()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_cluster_info"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_cluster_info()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_credentials_list"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_credentials_list()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_info"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_depthcache_info()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_list"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_depthcache_list()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.register"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.register()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.remove_credentials"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.remove_credentials()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.stop_depthcache"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.stop_depthcache()</span></code></a></li>
-<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_add_credentials"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.ubdcc_add_credentials()</span></code></a></li>
-<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_get_credentials_list"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.ubdcc_get_credentials_list()</span></code></a></li>
-<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_remove_credentials"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.ubdcc_remove_credentials()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -214,6 +214,11 @@
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ubdcc_restapi.RestEndpoints.</span></span><span class="sig-name descname"><span class="pre">RestEndpoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ubdcc_shared_modules.html#ubdcc_shared_modules.RestEndpointsBase.RestEndpointsBase" title="ubdcc_shared_modules.RestEndpointsBase.RestEndpointsBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">RestEndpointsBase</span></code></a></p>
 <dl class="py method">
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.add_credentials">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">add_credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.add_credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.add_credentials" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcache">
 <span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">create_depthcache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.create_depthcache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcache" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -239,6 +244,11 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.get_credentials_list">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_credentials_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.get_credentials_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_credentials_list" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_info">
 <span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_depthcache_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.get_depthcache_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_info" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -254,23 +264,13 @@
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.remove_credentials">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">remove_credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.remove_credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.remove_credentials" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.stop_depthcache">
 <span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">stop_depthcache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.stop_depthcache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.stop_depthcache" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_add_credentials">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ubdcc_add_credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.ubdcc_add_credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_add_credentials" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_get_credentials_list">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ubdcc_get_credentials_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.ubdcc_get_credentials_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_get_credentials_list" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_remove_credentials">
-<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ubdcc_remove_credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ubdcc_restapi/RestEndpoints.html#RestEndpoints.ubdcc_remove_credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_remove_credentials" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -307,18 +307,18 @@
 </li>
 <li><a class="reference internal" href="#module-ubdcc_restapi.RestEndpoints">ubdcc_restapi.RestEndpoints module</a><ul>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints"><code class="docutils literal notranslate"><span class="pre">RestEndpoints</span></code></a><ul>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.add_credentials"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.add_credentials()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcache"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.create_depthcache()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.create_depthcaches"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.create_depthcaches()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_asks"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_asks()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_bids"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_bids()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_cluster_info"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_cluster_info()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_credentials_list"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_credentials_list()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_info"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_depthcache_info()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.get_depthcache_list"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.get_depthcache_list()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.register"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.register()</span></code></a></li>
+<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.remove_credentials"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.remove_credentials()</span></code></a></li>
 <li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.stop_depthcache"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.stop_depthcache()</span></code></a></li>
-<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_add_credentials"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.ubdcc_add_credentials()</span></code></a></li>
-<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_get_credentials_list"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.ubdcc_get_credentials_list()</span></code></a></li>
-<li><a class="reference internal" href="#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_remove_credentials"><code class="docutils literal notranslate"><span class="pre">RestEndpoints.ubdcc_remove_credentials()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -431,7 +431,7 @@
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite#documentation">Index of all docs</a><br />
     &copy; <a href="/license.html">Copyright</a> 2024-2026, Oliver Zehentleitner.
     See <a href="/license.html">License</a> for more information.<br />
-    Last updated on Apr 21 2026 at 15:01 (CET).
+    Last updated on Apr 24 2026 at 18:25 (CET).
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues/new/choose">Found a bug</a>?
     <br />
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.

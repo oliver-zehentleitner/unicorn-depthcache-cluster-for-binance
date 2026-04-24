@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ubdcc_restapi.RestEndpoints &#8212; unicorn-binance-depth-cache-cluster 0.4.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ubdcc_restapi.RestEndpoints &#8212; unicorn-binance-depth-cache-cluster 0.7.0 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css?v=fdf8e9ae" />
@@ -476,8 +476,9 @@ window.runMermaid = runMermaid;</script>
         <nav class="menu" role="navigation" aria-label="main navigation">
             <p class="logo">
                 <div style="text-align: center;">
-                    <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite"><img src="https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-suite/refs/heads/master/images/logo/LUCIT-UBS-Logo.png"></a>
-                    <br>
+                    <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite">
+                        <img src="https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-suite/refs/heads/master/images/logo/UBS-Logo.png">
+                    </a>
                 </div>
             </p>
 <div id="searchbox" style="display: block" role="search">
@@ -530,13 +531,9 @@ window.runMermaid = runMermaid;</script>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
               
-                  
-                  
-              <li><img src="../../_static/py.png" alt="Python"
-                       style="vertical-align: middle; margin-top: -1px"/></li>
-              <li><a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite#documentation">Docs Index</a> | </li>
+              <li><a href="https://oliver-zehentleitner.github.io/unicorn-binance-suite/docs_index.html">Docs Index</a> | </li>
+              <li><img src="../../_static/github-logo.png" alt="GitHub Logo" style="vertical-align: middle; margin-top: -1px"/></li>
               <li><a href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster">unicorn-binance-depth-cache-cluster</a> &#187;</li>
-                  
               
               
               <a href="../../index.html">Docs</a> &#187;
@@ -636,25 +633,25 @@ window.runMermaid = runMermaid;</script>
         <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">stop_depthcache</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
             <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_depthcache</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
 
-        <span class="nd">@self</span><span class="o">.</span><span class="n">fastapi</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/ubdcc_add_credentials&quot;</span><span class="p">)</span>
-        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ubdcc_add_credentials_post</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
-            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_add_credentials</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
+        <span class="nd">@self</span><span class="o">.</span><span class="n">fastapi</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/add_credentials&quot;</span><span class="p">)</span>
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">add_credentials_post</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_credentials</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
 
-        <span class="nd">@self</span><span class="o">.</span><span class="n">fastapi</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/ubdcc_add_credentials&quot;</span><span class="p">)</span>
-        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ubdcc_add_credentials_get</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
-            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_add_credentials</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
+        <span class="nd">@self</span><span class="o">.</span><span class="n">fastapi</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/add_credentials&quot;</span><span class="p">)</span>
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">add_credentials_get</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_credentials</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
 
-        <span class="nd">@self</span><span class="o">.</span><span class="n">fastapi</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/ubdcc_remove_credentials&quot;</span><span class="p">)</span>
-        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ubdcc_remove_credentials_post</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
-            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_remove_credentials</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
+        <span class="nd">@self</span><span class="o">.</span><span class="n">fastapi</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/remove_credentials&quot;</span><span class="p">)</span>
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">remove_credentials_post</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_credentials</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
 
-        <span class="nd">@self</span><span class="o">.</span><span class="n">fastapi</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/ubdcc_remove_credentials&quot;</span><span class="p">)</span>
-        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ubdcc_remove_credentials_get</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
-            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_remove_credentials</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
+        <span class="nd">@self</span><span class="o">.</span><span class="n">fastapi</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/remove_credentials&quot;</span><span class="p">)</span>
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">remove_credentials_get</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_credentials</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
 
-        <span class="nd">@self</span><span class="o">.</span><span class="n">fastapi</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/ubdcc_get_credentials_list&quot;</span><span class="p">)</span>
-        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ubdcc_get_credentials_list</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
-            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_get_credentials_list</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span></div>
+        <span class="nd">@self</span><span class="o">.</span><span class="n">fastapi</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/get_credentials_list&quot;</span><span class="p">)</span>
+        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_credentials_list</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_credentials_list</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span></div>
 
 
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_get_depthcache_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -952,25 +949,25 @@ window.runMermaid = runMermaid;</script>
                                            <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)},</span> <span class="n">process_start_time</span><span class="o">=</span><span class="n">process_start_time</span><span class="p">,</span>
                                            <span class="n">url</span><span class="o">=</span><span class="n">request_url</span><span class="p">,</span> <span class="n">post_body</span><span class="o">=</span><span class="n">post_body</span><span class="p">,</span> <span class="n">used_pods</span><span class="o">=</span><span class="n">used_pods</span><span class="p">)</span>
 
-<div class="viewcode-block" id="RestEndpoints.ubdcc_add_credentials">
-<a class="viewcode-back" href="../../ubdcc_restapi.html#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_add_credentials">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ubdcc_add_credentials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
-        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy_to_mgmt</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s2">&quot;UBDCC_ADD_CREDENTIALS&quot;</span><span class="p">,</span>
-                                         <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/ubdcc_add_credentials&quot;</span><span class="p">,</span> <span class="n">allow_post</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+<div class="viewcode-block" id="RestEndpoints.add_credentials">
+<a class="viewcode-back" href="../../ubdcc_restapi.html#ubdcc_restapi.RestEndpoints.RestEndpoints.add_credentials">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">add_credentials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy_to_mgmt</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s2">&quot;ADD_CREDENTIALS&quot;</span><span class="p">,</span>
+                                         <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/add_credentials&quot;</span><span class="p">,</span> <span class="n">allow_post</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="RestEndpoints.ubdcc_remove_credentials">
-<a class="viewcode-back" href="../../ubdcc_restapi.html#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_remove_credentials">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ubdcc_remove_credentials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
-        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy_to_mgmt</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s2">&quot;UBDCC_REMOVE_CREDENTIALS&quot;</span><span class="p">,</span>
-                                         <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/ubdcc_remove_credentials&quot;</span><span class="p">,</span> <span class="n">allow_post</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+<div class="viewcode-block" id="RestEndpoints.remove_credentials">
+<a class="viewcode-back" href="../../ubdcc_restapi.html#ubdcc_restapi.RestEndpoints.RestEndpoints.remove_credentials">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">remove_credentials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy_to_mgmt</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s2">&quot;REMOVE_CREDENTIALS&quot;</span><span class="p">,</span>
+                                         <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/remove_credentials&quot;</span><span class="p">,</span> <span class="n">allow_post</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="RestEndpoints.ubdcc_get_credentials_list">
-<a class="viewcode-back" href="../../ubdcc_restapi.html#ubdcc_restapi.RestEndpoints.RestEndpoints.ubdcc_get_credentials_list">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">ubdcc_get_credentials_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
-        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy_to_mgmt</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s2">&quot;UBDCC_GET_CREDENTIALS_LIST&quot;</span><span class="p">,</span>
-                                         <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/ubdcc_get_credentials_list&quot;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="RestEndpoints.get_credentials_list">
+<a class="viewcode-back" href="../../ubdcc_restapi.html#ubdcc_restapi.RestEndpoints.RestEndpoints.get_credentials_list">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_credentials_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy_to_mgmt</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s2">&quot;GET_CREDENTIALS_LIST&quot;</span><span class="p">,</span>
+                                         <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/get_credentials_list&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="RestEndpoints.stop_depthcache">
@@ -1012,8 +1009,7 @@ window.runMermaid = runMermaid;</script>
         <div class="sphinxsidebarwrapper">
             <p class="logo">
                 <div style="text-align: center;">
-                    <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite"><img src="https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-suite/refs/heads/master/images/logo/LUCIT-UBS-Logo.png"></a>
-                    <br>
+                    <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite"><img src="https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-suite/refs/heads/master/images/logo/UBS-Logo.png"></a><br>
                 </div>
             </p>
 <div id="searchbox" style="display: block" role="search">
@@ -1066,13 +1062,9 @@ window.runMermaid = runMermaid;</script>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
               
-                  
-                  
-              <li><img src="../../_static/py.png" alt="Python"
-                       style="vertical-align: middle; margin-top: -1px"/></li>
-              <li><a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite#documentation">Docs Index</a> | </li>
+              <li><a href="https://oliver-zehentleitner.github.io/unicorn-binance-suite/docs_index.html">Docs Index</a> | </li>
+              <li><img src="../../_static/github-logo.png" alt="GitHub Logo" style="vertical-align: middle; margin-top: -1px"/></li>
               <li><a href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster">unicorn-binance-depth-cache-cluster</a> &#187;</li>
-                  
               
               
               <a href="../../index.html">Docs</a> &#187;
@@ -1099,11 +1091,11 @@ window.runMermaid = runMermaid;</script>
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-suite#documentation">Index of all docs</a><br />
     &copy; <a href="/license.html">Copyright</a> 2024-2026, Oliver Zehentleitner.
     See <a href="/license.html">License</a> for more information.<br />
-    Last updated on Apr 15 2026 at 19:38 (CET).
+    Last updated on Apr 24 2026 at 18:25 (CET).
     <a href="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/issues/new/choose">Found a bug</a>?
     <br />
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
-        with <a href="https://github.com/LUCIT-Systems-and-Development/python-docs-theme-lucit">python-docs-theme-lucit</a>.
+        with <a href="https://github.com/oliver-zehentleitner/python-docs-theme-ubs">python-docs-theme-ubs</a>.
     </div>
 
   </body>
