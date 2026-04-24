@@ -351,6 +351,8 @@ pip install ubdcc-dashboard
 ubdcc-dashboard start
 ```
 
+[![UBDCC-DASHBOARD](https://raw.githubusercontent.com/oliver-zehentleitner/unicorn-binance-suite/master/images/logo/UBS-Banner-Readme.png)](https://github.com/oliver-zehentleitner/unicorn-binance-suite)
+
 ### Public Endpoints (restapi)
 
 These are the endpoints you use to interact with the cluster. All requests go through the restapi.
