@@ -334,6 +334,23 @@ When running locally (dev mode), the restapi exposes FastAPI's built-in interact
 
 These endpoints are disabled in productive mode (Kubernetes).
 
+### API Builder (dashboard)
+
+For onboarding and day-to-day exploration the
+[UBDCC Dashboard](https://github.com/oliver-zehentleitner/ubdcc-dashboard)
+ships an **API Builder** — pick a task (create a DepthCache, query asks/bids,
+add credentials, stop a cache, …), fill in a form, and copy a ready-to-paste
+REST-API snippet in your language of choice (curl, HTTPie, Python (using the
+official UBLDC `Cluster` client), JavaScript, Go, C#, Java, Rust). A
+`Try it →` button runs GET-safe calls against the connected cluster and
+pretty-prints the response — useful for learning the endpoints without
+writing code first.
+
+```bash
+pip install ubdcc-dashboard
+ubdcc-dashboard start
+```
+
 ### Public Endpoints (restapi)
 
 These are the endpoints you use to interact with the cluster. All requests go through the restapi.
