@@ -27,7 +27,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name=name,
-    version="0.7.0",
+    version="0.8.0",
     author="Oliver Zehentleitner",
     author_email='',
     url="https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster",
@@ -36,9 +36,9 @@ setup(
     long_description_content_type="text/markdown",
     license='MIT',
     packages=find_packages(),
-    install_requires=['ubdcc-mgmt==0.7.0',
-                      'ubdcc-restapi==0.7.0',
-                      'ubdcc-dcn==0.7.0',
+    install_requires=['ubdcc-mgmt==0.8.0',
+                      'ubdcc-restapi==0.8.0',
+                      'ubdcc-dcn==0.8.0',
                       'ubdcc-dashboard>=0.2.0'],
     entry_points={
         "console_scripts": [

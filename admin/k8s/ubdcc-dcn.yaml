@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: ubdcc-dcn
-          image: ghcr.io/oliver-zehentleitner/ubdcc-dcn:0.7.0
+          image: ghcr.io/oliver-zehentleitner/ubdcc-dcn:0.8.0

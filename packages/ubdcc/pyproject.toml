@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ubdcc"
-version = "0.7.0"
+version = "0.8.0"
 description = "UNICORN Binance DepthCache Cluster — cluster manager and meta-package"
 authors = ["Oliver Zehentleitner <>"]
 license = "MIT"
@@ -21,9 +21,9 @@ repository = "https://github.com/oliver-zehentleitner/unicorn-binance-depth-cach
 
 [tool.poetry.dependencies]
 python = ">=3.9.0"
-ubdcc-mgmt = "==0.7.0"
-ubdcc-restapi = "==0.7.0"
-ubdcc-dcn = "==0.7.0"
+ubdcc-mgmt = "==0.8.0"
+ubdcc-restapi = "==0.8.0"
+ubdcc-dcn = "==0.8.0"
 ubdcc-dashboard = ">=0.2.0"
 
 [tool.poetry.scripts]

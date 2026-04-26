@@ -14,7 +14,7 @@ Open development tasks and decisions are tracked in **[TASKS.md](TASKS.md)**.
 Distributed microservice cluster (MIT License) that manages multiple local Binance order book depth caches. Runs on Kubernetes OR locally via `pip install ubdcc`. Clients interact via a public REST API — no local Binance connection required on the client side.
 
 **Abbreviation:** UBDCC
-**Current Version:** 0.7.0
+**Current Version:** 0.8.0
 **Author:** Oliver Zehentleitner
 **Python:** 3.9-3.14 on Linux, macOS, Windows
 **Runtime:** Kubernetes, Docker, or local processes
@@ -133,7 +133,7 @@ Interactive shell commands: `status`, `add-dcn [count]`, `remove-dcn <count|name
 
 - `dev/set_version.py <new_version>` — updates the version across all listed files
 - Config: `dev/set_version_config.yml`
-- Current version: `0.7.0`
+- Current version: `0.8.0`
 
 ---
 

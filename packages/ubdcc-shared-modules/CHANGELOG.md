@@ -2,9 +2,9 @@
 
 All notable changes to this package will be documented in this file.
 
-## 0.7.1.dev (development stage/unreleased/unstable)
+## 0.8.0.dev (development stage/unreleased/unstable)
 
-## 0.7.1
+## 0.8.0
 ### Changed
 - **`App.py`: default log level is now `ERROR` (was `DEBUG`).** Cuts
   per-tick disk noise so production deployments don't fill the log

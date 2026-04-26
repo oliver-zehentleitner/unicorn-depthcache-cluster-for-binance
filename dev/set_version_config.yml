@@ -32,4 +32,4 @@ files:
 - packages/ubdcc-shared-modules/setup.py
 - README.md
 - AGENTS.md
-version: 0.7.0
+version: 0.8.0

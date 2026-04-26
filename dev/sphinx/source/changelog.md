@@ -9,9 +9,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 [How to upgrade to the latest version!](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/readme.html#installation-and-upgrade)
 
-## 0.7.1.dev (development stage/unreleased/unstable)
+## 0.8.0.dev (development stage/unreleased/unstable)
 
-## 0.7.1
+## 0.8.0
 ### Changed
 - **Default service log level lowered from `DEBUG` to `ERROR`** in
   `packages/ubdcc-shared-modules/ubdcc_shared_modules/App.py`. Cuts

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ubdcc-shared-modules"
-version = "0.7.0"
+version = "0.8.0"
 description = "UBDCC Shared Modules — core library for all UBDCC services"
 authors = ["Oliver Zehentleitner <>"]
 license = "MIT"

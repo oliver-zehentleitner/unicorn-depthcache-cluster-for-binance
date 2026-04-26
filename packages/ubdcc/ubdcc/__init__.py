@@ -17,4 +17,4 @@
 # Copyright (c) 2024-2026, Oliver Zehentleitner (https://about.me/oliver-zehentleitner)
 # All rights reserved.
 
-__version__ = "0.7.0"
+__version__ = "0.8.0"
