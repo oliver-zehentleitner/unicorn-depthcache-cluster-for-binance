@@ -348,7 +348,7 @@ A `Try it →` button runs GET-safe calls against the connected cluster and
 pretty-prints the response — useful for learning the endpoints without
 writing code first.
 
-The dashboard ships as a dependency of `ubdcc` (since 0.7.1) — `pip install ubdcc`
+The dashboard ships as a dependency of `ubdcc` — `pip install ubdcc`
 already pulls it in. Launch it with:
 
 ```bash
