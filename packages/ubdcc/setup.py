@@ -38,7 +38,8 @@ setup(
     packages=find_packages(),
     install_requires=['ubdcc-mgmt==0.7.0',
                       'ubdcc-restapi==0.7.0',
-                      'ubdcc-dcn==0.7.0'],
+                      'ubdcc-dcn==0.7.0',
+                      'ubdcc-dashboard>=0.2.0'],
     entry_points={
         "console_scripts": [
             "ubdcc=ubdcc.cli:main",

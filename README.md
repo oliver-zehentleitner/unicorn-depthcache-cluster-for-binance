@@ -213,7 +213,9 @@ DepthCache data without duplicate WebSocket connections.
 pip install ubdcc
 ```
 
-This installs all components (mgmt, restapi, dcn) and the `ubdcc` cluster manager.
+This installs all components (mgmt, restapi, dcn), the `ubdcc` cluster manager and the
+[UBDCC Dashboard](https://github.com/oliver-zehentleitner/ubdcc-dashboard) (browser UI,
+launched via `ubdcc-dashboard start`).
 
 ### Start with the cluster manager
 
@@ -341,13 +343,15 @@ For onboarding and day-to-day exploration the
 ships an **API Builder** — pick a task (create a DepthCache, query asks/bids,
 add credentials, stop a cache, …), fill in a form, and copy a ready-to-paste
 REST-API snippet in your language of choice (curl, HTTPie, Python (using the
-official UBLDC `Cluster` client), JavaScript, Go, C#, Java, Rust). A
-`Try it →` button runs GET-safe calls against the connected cluster and
+official UBLDC `Cluster` client), JavaScript, Go, C#, Java, Rust, PHP, C/C++).
+A `Try it →` button runs GET-safe calls against the connected cluster and
 pretty-prints the response — useful for learning the endpoints without
 writing code first.
 
+The dashboard ships as a dependency of `ubdcc` (since 0.7.1) — `pip install ubdcc`
+already pulls it in. Launch it with:
+
 ```bash
-pip install ubdcc-dashboard
 ubdcc-dashboard start
 ```
 

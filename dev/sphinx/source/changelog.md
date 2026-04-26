@@ -11,6 +11,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## 0.7.1.dev (development stage/unreleased/unstable)
 
+## 0.7.1
+### Added
+- `packages/ubdcc`: ships `ubdcc-dashboard >= 0.2.0` as a runtime
+  dependency (`setup.py`, `requirements.txt`, `pyproject.toml`).
+  `pip install ubdcc` now also installs the browser-based UBDCC
+  Dashboard — launch it with `ubdcc-dashboard start`. README updated
+  accordingly.
+
 ## 0.7.0
 ### Changed
 - **Breaking**: dropped the redundant `ubdcc_` prefix from the three

@@ -24,6 +24,7 @@ python = ">=3.9.0"
 ubdcc-mgmt = "==0.7.0"
 ubdcc-restapi = "==0.7.0"
 ubdcc-dcn = "==0.7.0"
+ubdcc-dashboard = ">=0.2.0"
 
 [tool.poetry.scripts]
 ubdcc = "ubdcc.cli:main"
