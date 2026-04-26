@@ -9,6 +9,10 @@ All notable changes to this package will be documented in this file.
 - Bundled `ubdcc-dashboard >= 0.2.0` as a runtime dependency. `pip
   install ubdcc` now also installs the browser-based UBDCC Dashboard —
   launch it from a separate terminal with `ubdcc-dashboard start`.
+- `ubdcc start --log-level DEBUG|INFO|WARNING|ERROR|CRITICAL` selects
+  the log level for the spawned mgmt / restapi / dcn services. Default
+  is `ERROR` (changed from `DEBUG` in shared-modules) to keep
+  production logs from filling the disk.
 
 ## 0.7.0
 ### Changed

@@ -25,7 +25,7 @@ from .Database import Database
 
 
 class ServiceBase:
-    def __init__(self, app_name=None, cwd=None, mgmt_port=None):
+    def __init__(self, app_name=None, cwd=None, mgmt_port=None, log_level=None):
         self.db: Database | None = None
         self.rest_server = None
         self.app = App(app_name=app_name,
@@ -33,7 +33,8 @@ class ServiceBase:
                        mgmt_port=mgmt_port,
                        service=self,
                        service_call=self.run,
-                       stop_call=self.stop)
+                       stop_call=self.stop,
+                       log_level=log_level)
         self.app.start()
         # Never gets executed ;)
 

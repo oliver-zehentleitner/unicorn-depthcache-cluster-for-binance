@@ -4,6 +4,17 @@ All notable changes to this package will be documented in this file.
 
 ## 0.7.1.dev (development stage/unreleased/unstable)
 
+## 0.7.1
+### Changed
+- **`App.py`: default log level is now `ERROR` (was `DEBUG`).** Cuts
+  per-tick disk noise so production deployments don't fill the log
+  directory. Override with the new `log_level` kwarg on `App()` or via
+  `ServiceBase` subclasses (`Mgmt`, `RestApi`, `DepthCacheNode`).
+### Added
+- `App.__init__` and `ServiceBase.__init__` accept a `log_level` kwarg
+  (str: `DEBUG|INFO|WARNING|ERROR|CRITICAL`, or any `logging.*` int).
+  When `None`, falls back to the new `ERROR` default.
+
 ## 0.7.0
 ### Fixed
 - `AccountGroups.py`: added `binance.com-margin-testnet` and

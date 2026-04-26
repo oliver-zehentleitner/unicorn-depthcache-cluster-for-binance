@@ -22,8 +22,8 @@ from ubdcc_shared_modules.ServiceBase import ServiceBase
 
 
 class RestApi(ServiceBase):
-    def __init__(self, cwd=None, mgmt_port=None):
-        super().__init__(app_name="ubdcc-restapi", cwd=cwd, mgmt_port=mgmt_port)
+    def __init__(self, cwd=None, mgmt_port=None, log_level=None):
+        super().__init__(app_name="ubdcc-restapi", cwd=cwd, mgmt_port=mgmt_port, log_level=log_level)
 
     async def main(self):
         await self.start_rest_server(endpoints=RestEndpoints)

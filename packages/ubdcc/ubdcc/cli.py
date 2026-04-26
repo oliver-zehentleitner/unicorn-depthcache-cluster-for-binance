@@ -108,6 +108,8 @@ def cmd_start(args):
     mgmt_port = args.port if args.port else find_free_port(DEFAULT_MGMT_PORT)
     dcn_count = args.dcn
     logdir = args.logdir if args.logdir else UBS_LOGS
+    log_level = args.log_level
+    log_level_kwarg = f", log_level='{log_level}'" if log_level else ""
     os.makedirs(logdir, exist_ok=True)
     save_port(mgmt_port)
 
@@ -123,7 +125,8 @@ def cmd_start(args):
         log = open(os.path.join(logdir, "ubdcc-mgmt.log"), "a")
         proc = subprocess.Popen(
             [sys.executable, "-c",
-             f"import os; from ubdcc_mgmt.Mgmt import Mgmt; Mgmt(cwd='{cwd}', mgmt_port={mgmt_port})"],
+             f"import os; from ubdcc_mgmt.Mgmt import Mgmt; "
+             f"Mgmt(cwd='{cwd}', mgmt_port={mgmt_port}{log_level_kwarg})"],
             stdout=log, stderr=subprocess.STDOUT
         )
         # Remove old mgmt from processes list
@@ -138,7 +141,8 @@ def cmd_start(args):
         log = open(os.path.join(logdir, "ubdcc-restapi.log"), "a")
         proc = subprocess.Popen(
             [sys.executable, "-c",
-             f"import os; from ubdcc_restapi.RestApi import RestApi; RestApi(cwd='{cwd}', mgmt_port={mgmt_port})"],
+             f"import os; from ubdcc_restapi.RestApi import RestApi; "
+             f"RestApi(cwd='{cwd}', mgmt_port={mgmt_port}{log_level_kwarg})"],
             stdout=log, stderr=subprocess.STDOUT
         )
         # Remove old restapi from processes list
@@ -156,7 +160,7 @@ def cmd_start(args):
         proc = subprocess.Popen(
             [sys.executable, "-c",
              f"import os; from ubdcc_dcn.DepthCacheNode import DepthCacheNode; "
-             f"DepthCacheNode(cwd='{cwd}', mgmt_port={mgmt_port})"],
+             f"DepthCacheNode(cwd='{cwd}', mgmt_port={mgmt_port}{log_level_kwarg})"],
             stdout=log, stderr=subprocess.STDOUT
         )
         processes.append((f"dcn-{nr}", proc, log))
@@ -639,6 +643,9 @@ def build_parser():
     start_parser.add_argument('--dcn', type=int, default=1, help='Number of DCN processes (default: 1)')
     start_parser.add_argument('--port', type=int, default=None, help='Mgmt port (default: 42080 or next free)')
     start_parser.add_argument('--logdir', type=str, default=None, help='Log directory (default: current directory)')
+    start_parser.add_argument('--log-level', type=str, default=None,
+                              choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
+                              help='Log level for spawned services (default: ERROR)')
 
     # status
     status_parser = subparsers.add_parser('status', help='Show cluster status')

@@ -47,7 +47,7 @@ VERSION: str = "0.7.0"
 
 class App:
     def __init__(self, app_name=None, cwd=None, mgmt_port=None, logger=None, service=None, service_call=None,
-                 stop_call=None):
+                 stop_call=None, log_level=None):
         self.app_name = app_name
         self.app_version = VERSION
         self.api_port_rest: int = 0
@@ -58,6 +58,7 @@ class App:
         self.info: dict = {}
         self.k8s_client = None
         self.k8s_metrics_client = None
+        self.log_level = log_level
         self.logger = logger
         self.pod_info = None
         self.node_info = None
@@ -355,7 +356,10 @@ class App:
             self.logger = logging.getLogger("unicorn_binance_depthcache_cluster")
             ubs_logs = os.path.join(str(Path.home()), ".unicorn-binance-suite", "logs")
             os.makedirs(ubs_logs, exist_ok=True)
-            logging.basicConfig(level=logging.DEBUG,
+            level = self.log_level if self.log_level is not None else logging.ERROR
+            if isinstance(level, str):
+                level = getattr(logging, level.upper(), logging.ERROR)
+            logging.basicConfig(level=level,
                                 filename=os.path.join(ubs_logs, f"ubdcc-{socket.gethostname()}.log"),
                                 format="{asctime} [{levelname:8}] {process} {thread} {module}: {message}",
                                 style="{")

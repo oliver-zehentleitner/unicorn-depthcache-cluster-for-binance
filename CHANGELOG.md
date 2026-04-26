@@ -12,12 +12,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 0.7.1.dev (development stage/unreleased/unstable)
 
 ## 0.7.1
+### Changed
+- **Default service log level lowered from `DEBUG` to `ERROR`** in
+  `packages/ubdcc-shared-modules/ubdcc_shared_modules/App.py`. Cuts
+  disk usage in production drastically — `~/.unicorn-binance-suite/logs/ubdcc-*.log`
+  no longer fills up with per-tick DEBUG noise. Affects every service
+  (mgmt, restapi, dcn) regardless of how it's launched (`ubdcc start`,
+  K8s, manual).
 ### Added
 - `packages/ubdcc`: ships `ubdcc-dashboard >= 0.2.0` as a runtime
   dependency (`setup.py`, `requirements.txt`, `pyproject.toml`).
   `pip install ubdcc` now also installs the browser-based UBDCC
   Dashboard — launch it with `ubdcc-dashboard start`. README updated
   accordingly.
+- `ubdcc start --log-level DEBUG|INFO|WARNING|ERROR|CRITICAL` to pick
+  a log level for the spawned mgmt / restapi / dcn services without
+  having to edit code. Propagated as a `log_level` constructor kwarg
+  through `Mgmt`, `RestApi`, `DepthCacheNode` → `ServiceBase` → `App`.
 
 ## 0.7.0
 ### Changed
