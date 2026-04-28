@@ -4,7 +4,7 @@
 [![GitHub Release](https://img.shields.io/github/release/oliver-zehentleitner/unicorn-binance-depth-cache-cluster.svg?label=github&color=blue&label=github)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/releases)
 [![GitHub Downloads](https://img.shields.io/github/downloads/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/total?color=blue)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/releases)
 [![PyPi Release](https://img.shields.io/pypi/v/ubdcc?color=blue)](https://pypi.org/project/ubdcc/)
-[![PyPi Downloads](https://pepy.tech/badge/ubdcc-mgmt)](https://pepy.tech/project/ubdcc)
+[![PyPi Downloads](https://pepy.tech/badge/ubdcc-mgmt)](https://pepy.tech/project/ubdcc-mgmt)
 [![License](https://img.shields.io/badge/license-MIT-blue)](https://oliver-zehentleitner.github.io/unicorn-binance-depth-cache-cluster/license.html)
 [![codecov](https://codecov.io/gh/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/branch/master/graph/badge.svg?token=5I03AZ3F5S)](https://codecov.io/gh/oliver-zehentleitner/unicorn-binance-depth-cache-cluster)
 [![CodeQL](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/actions/workflows/codeql.yml/badge.svg)](https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster/actions/workflows/codeql.yml)
