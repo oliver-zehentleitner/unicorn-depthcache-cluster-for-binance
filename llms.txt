@@ -95,6 +95,11 @@ Runs as processes on a single machine or as pods on Kubernetes.
 - [UBRA](https://github.com/oliver-zehentleitner/unicorn-binance-rest-api) — REST API client used for depth snapshots.
 - [UBDCC Dashboard](https://github.com/oliver-zehentleitner/ubdcc-dashboard) — optional browser UI for live monitoring and management of a running UBDCC cluster: view status, spot desync, add/remove caches on the fly (`pip install ubdcc-dashboard` → `ubdcc-dashboard start`).
 
+## Related Articles
+
+- [Your Binance DepthCache Is Rotting — Here's the Proof in 25 Hours](https://blog.technopathy.club/your-binance-depthcache-is-rotting-here-s-the-proof-in-25-hours) — 25-hour experiment showing how a naive depth cache accumulates orphaned/stale levels without lifecycle pruning; motivates UBDCC's freshness/trust model.
+- [UBDCC Deep Dive: Building a Trust Layer for Binance Order Books](https://blog.technopathy.club/ubdcc-deep-dive-building-a-trust-layer-for-binance-order-books) — architecture write-up of the trust-layer UBDCC implements (multi-node consensus, freshness guarantees, replica management).
+
 ## Docs
 
 - Repo: https://github.com/oliver-zehentleitner/unicorn-binance-depth-cache-cluster
