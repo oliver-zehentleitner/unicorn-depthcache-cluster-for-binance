@@ -34,7 +34,9 @@
 **Stop dealing with broken Binance order books.**
 
 Install one package, run one command — and every script, bot, or service on your machine gets reliable, 
-synchronized order book data via REST API. Any programming language. Any number of clients.
+synchronized order book data via REST API. Use it from Python, JavaScript, TypeScript, Node.js, Go, Rust, 
+Java, Kotlin, C#, C++, C, Ruby, PHP, Swift, Scala, R, Julia, MATLAB, Dart, Elixir, Perl, Bash/curl — or 
+any other language with an HTTP client. Any number of clients.
 
 ```bash
 pip install ubdcc
