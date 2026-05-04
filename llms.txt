@@ -78,7 +78,7 @@ Base URL: `http://127.0.0.1:{port}/`
 | GET /get_depthcache_list | List all managed depth caches |
 | GET /stop_depthcache?exchange=...&market=... | Stop a depth cache |
 
-Accessible from any programming language via HTTP.
+Accessible via HTTP from Python, JavaScript, TypeScript, Node.js, Go, Rust, Java, Kotlin, C#, C++, C, Ruby, PHP, Swift, Scala, R, Julia, MATLAB, Dart, Elixir, Perl, Bash/curl — or any other language with an HTTP client.
 
 ## Architecture
 
